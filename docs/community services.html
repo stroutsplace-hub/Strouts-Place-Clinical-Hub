@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Services Crib Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --blue: #1d6fa4;
+    --blue-mid: #2d87c8;
+    --blue-light: #e8f4fb;
+    --blue-pale: #f2f9fd;
+    --teal: #0d8a7a;
+    --teal-light: #e6f5f3;
+    --amber: #c97b1a;
+    --amber-light: #fef6e8;
+    --rule: #cde4f0;
+    --muted: #5a6a7e;
+    --white: #ffffff;
+    --surface: #f7fbfe;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 0;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  .page-header {
+    background: var(--blue);
+    color: white;
+    padding: 2.5rem 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d8a7a 0%, #2d87c8 40%, #c97b1a 100%);
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .page-header .subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0.35rem;
+    font-weight: 500;
+    position: relative;
+  }
+
+  /* ── LAYOUT ──────────────────────────────────────────── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* ── SECTION CARD ─────────────────────────────────────── */
+  .section-card {
+    background: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(29,111,164,0.06);
+    transition: box-shadow 0.2s ease;
+  }
+  .section-card:hover {
+    box-shadow: 0 4px 24px rgba(29,111,164,0.1);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-header.blue  { background: var(--blue-light); }
+  .section-header.teal  { background: var(--teal-light); }
+  .section-header.amber { background: var(--amber-light); }
+
+  .section-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .section-icon.blue  { background: var(--blue);  color: white; }
+  .section-icon.teal  { background: var(--teal);  color: white; }
+  .section-icon.amber { background: var(--amber); color: white; }
+
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .section-header .section-meta {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* ── TABLE ─────────────────────────────────────────────── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .data-table thead tr {
+    background: var(--blue-pale);
+  }
+  .data-table thead th {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+  .data-table tbody tr {
+    border-bottom: 1px solid #edf4f9;
+    transition: background 0.15s;
+  }
+  .data-table tbody tr:last-child { border-bottom: none; }
+  .data-table tbody tr:hover { background: var(--blue-pale); }
+  .data-table td {
+    padding: 0.7rem 1.1rem;
+    vertical-align: top;
+    font-size: 0.85rem;
+  }
+  .data-table td:first-child {
+    font-weight: 500;
+    color: var(--ink);
+    width: 36%;
+  }
+  .data-table td .note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ── PHARMACY FIRST PILLS ─────────────────────────────── */
+  .pill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 0.6rem;
+    padding: 1.2rem 1.4rem;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--blue-pale);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .pill:hover { background: var(--blue-light); border-color: var(--blue-mid); }
+  .pill-dot {
+    width: 8px; height: 8px;
+    background: var(--blue-mid);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .pharmacy-intro {
+    padding: 1rem 1.4rem 0;
+    font-size: 0.84rem;
+    color: var(--muted);
+    border-top: none;
+  }
+  .pharmacy-intro strong { color: var(--ink); }
+
+  /* ── LINK BUTTON ─────────────────────────────────────── */
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--blue);
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    margin: 0.3rem 0;
+    transition: background 0.15s, transform 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .link-btn:hover { background: var(--blue-mid); transform: translateY(-1px); }
+  .link-btn.teal { background: var(--teal); }
+  .link-btn.teal:hover { background: #0fa390; }
+  .link-btn.amber { background: var(--amber); }
+  .link-btn.amber:hover { background: #e0901f; }
+  .link-btn svg { width: 10px; height: 10px; }
+
+  /* ── LINK CLUSTERS ───────────────────────────────────── */
+  .link-cluster {
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .link-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ── CRITERIA GRID ───────────────────────────────────── */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .criteria-col {
+    padding: 1.1rem 1.4rem;
+  }
+  .criteria-col:first-child {
+    border-right: 1px solid var(--rule);
+  }
+  .criteria-col-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .criteria-col-title.include { color: var(--teal); }
+  .criteria-col-title.exclude { color: #c0392b; }
+  .criteria-col-title::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: block;
+  }
+  .criteria-col-title.include::before { background: var(--teal); }
+  .criteria-col-title.exclude::before { background: #c0392b; }
+
+  .criteria-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .criteria-list li {
+    font-size: 0.82rem;
+    padding-left: 1rem;
+    position: relative;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .criteria-list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+
+  .source-line {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    background: var(--blue-pale);
+  }
+  .source-line a { color: var(--blue); text-decoration: none; }
+  .source-line a:hover { text-decoration: underline; }
+
+  /* ── HUB TABLE SPECIAL ───────────────────────────────── */
+  .hub-badge {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin: 0.15rem 0.15rem 0.15rem 0;
+  }
+  .hub-badge.alt { background: var(--teal); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .page-header { padding: 2rem 1.5rem 1.5rem; }
+    .page-header h1 { font-size: 1.5rem; }
+    .container { padding: 1.5rem 1rem 3rem; gap: 1.5rem; }
+    .criteria-grid { grid-template-columns: 1fr; }
+    .criteria-col:first-child { border-right: none; border-bottom: 1px solid var(--rule); }
+    .pill-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    .data-table td:first-child { width: auto; }
+  }
+
+  @media print {
+    body { background: white; }
+    .section-card { box-shadow: none; }
+    .link-btn { background: var(--blue) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Community Services Crib Sheet</h1>
+  <p class="subtitle">Quick reference · NHS clinical pathways &amp; referrals</p>
+</div>
+
+<div class="container">
+
+  <!-- ── PHARMACY FIRST ──────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header blue">
+      <div class="section-icon blue">💊</div>
+      <h2>Pharmacy First — Community Pharmacy (NHS England)</h2>
+      <span class="section-meta">7 Conditions</span>
+    </div>
+    <p class="pharmacy-intro">Assessment and treatment of <strong>7 common conditions</strong> in participating community pharmacies, following NHS clinical pathways. Patients can self-present or GPs may refer via Pharmacy First / CPCS digital referral.</p>
+    <div style="padding: 0.7rem 1.4rem 0.5rem;">
+      <a class="link-btn" href="https://www.shropshiretelfordandwrekin.nhs.uk/wp-content/uploads/Inclusion-exclusion-poster.pdf" target="_blank">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+        Inclusion / Exclusion Poster (NHS England)
+      </a>
+    </div>
+    <div class="pill-grid">
+      <div class="pill"><span class="pill-dot"></span>Acute otitis media (earache)</div>
+      <div class="pill"><span class="pill-dot"></span>Acute sore throat</div>
+      <div class="pill"><span class="pill-dot"></span>Acute sinusitis</div>
+      <div class="pill"><span class="pill-dot"></span>Impetigo (non-bullous)</div>
+      <div class="pill"><span class="pill-dot"></span>Infected insect bite</div>
+      <div class="pill"><span class="pill-dot"></span>Shingles</div>
+      <div class="pill"><span class="pill-dot"></span>Uncomplicated UTI (women)</div>
+    </div>
+  </div>
+
+  <!-- ── LOCAL SERVICES via EMIS ─────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header blue">
+      <div class="section-icon blue">🖥</div>
+      <h2>Local Services — via EMIS</h2>
+      <span class="section-meta">EMIS Template</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>How to Refer</th>
+          <th>Notes / Criteria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BP Check</td>
+          <td>EMIS → Local Services Template</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>ABPM (Ambulatory BP Monitoring)</td>
+          <td>EMIS → Local Services Template</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Contraception Service</td>
+          <td>EMIS → Local Services Template</td>
+          <td>Routine oral contraception only</td>
+        </tr>
+        <tr>
+          <td>Smoking Cessation</td>
+          <td>EMIS → Local Services Template</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Weight Management</td>
+          <td>EMIS → Local Services Template</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── COMMUNITY HEALTH REFERRALS ─────────────────────── -->
+  <div class="section-card">
+    <div class="section-header teal">
+      <div class="section-icon teal">🏥</div>
+      <h2>Community Health Services Referrals</h2>
+      <span class="section-meta">Community Health Template</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Referral Method</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EPCT (Community Team)</td>
+          <td>Community Health Services Template → EPCT</td>
+          <td>Nurse, physio, OT, MH link worker. For housebound / complex needs.</td>
+        </tr>
+        <tr>
+          <td>Rapid Response Team</td>
+          <td>Community Health Services Template → Rapid Response</td>
+          <td>Acute support (≤48h) to avoid admission.</td>
+        </tr>
+        <tr>
+          <td>Foot Health / Podiatry</td>
+          <td>Community Health Services Template → Foot Health</td>
+          <td>Use for housebound or those unable to self-refer. See self-referral links below.</td>
+        </tr>
+        <tr>
+          <td>Continence Service</td>
+          <td>Community Health Services Template → Continence</td>
+          <td>Adult continence assessments.</td>
+        </tr>
+        <tr>
+          <td>Diabetes Community Service</td>
+          <td>Community Health Services Template → Diabetes</td>
+          <td>Specialist nursing and education support.</td>
+        </tr>
+        <tr>
+          <td>Heart Failure Community Team</td>
+          <td>Community Health Services Template → Heart Failure</td>
+          <td>Community follow-up for confirmed HF.</td>
+        </tr>
+        <tr>
+          <td>ARCaRe (Respiratory Service)</td>
+          <td>Community Health Services Template → ARCaRe</td>
+          <td>COPD/asthma mgmt, PR, oxygen assessment.</td>
+        </tr>
+        <tr>
+          <td>Dietetics Service</td>
+          <td>Community Health Services Template → Dietetics</td>
+          <td>Nutrition support, malnutrition.</td>
+        </tr>
+        <tr>
+          <td>Community Neuro Team</td>
+          <td>Community Health Services Template → Neuro Team</td>
+          <td>Neuro physio, OT, psychology, SALT.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── EYE & FOOT SELF-REFERRAL ───────────────────────── -->
+  <div class="section-card">
+    <div class="section-header blue">
+      <div class="section-icon blue">👁</div>
+      <h2>Eye &amp; Foot Health — Self-Referral</h2>
+    </div>
+    <div class="link-cluster">
+      <div class="link-group">
+        <div class="link-group-title">MECS — Minor Eye Conditions Service</div>
+        <div class="link-row">
+          <a class="link-btn" href="https://nel-eyecare.com/patient-information-tower-hamlets/" target="_blank">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            NEL Eye Care — Tower Hamlets
+          </a>
+          <a class="link-btn" href="https://nel-eyecare.com/patient-information-city-hackney-mecs/" target="_blank">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            NEL Eye Care — City &amp; Hackney
+          </a>
+        </div>
+      </div>
+      <div class="link-group">
+        <div class="link-group-title">Foot Health / Podiatry</div>
+        <div class="link-row">
+          <a class="link-btn teal" href="https://www.homerton.nhs.uk/podiatry-self-referral-form/" target="_blank">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            Homerton Podiatry (City &amp; Hackney)
+          </a>
+          <a class="link-btn teal" href="https://www.elft.nhs.uk/services/foot-health-tower-hamlets" target="_blank">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            ELFT — Foot Health (Tower Hamlets)
+          </a>
+          <a class="link-btn teal" href="https://northeastlondon.icb.nhs.uk/service/foot-health-services/" target="_blank">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+            NEL ICB — Foot Health (TH)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NETWORK 1 EXTENDED HOURS HUB ──────────────────── -->
+  <div class="section-card">
+    <div class="section-header amber">
+      <div class="section-icon amber">🕐</div>
+      <h2>Network 1 Extended Hours Hub</h2>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Where</th>
+          <th>Who</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Wednesdays</strong><div class="note">6:30 – 10 pm</div></td>
+          <td>Strouts Place</td>
+          <td>
+            <span class="hub-badge">GPs</span>
+            <span class="hub-badge">ANPs</span>
+            <span class="hub-badge alt">HCA / Phlebotomy</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Saturdays</strong><div class="note">9 am – 5 pm</div></td>
+          <td>Alternating — Strouts Place / Sutton Wharf</td>
+          <td>
+            <span class="hub-badge">GPs</span>
+            <span class="hub-badge">ANPs</span>
+            <span class="hub-badge alt">HCA / Phlebotomy</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── SEXUAL HEALTH ──────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header blue">
+      <div class="section-icon blue">🔗</div>
+      <h2>Sexual Health Services — Self-Referral</h2>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SHL — Online Sexual Health Services</td>
+          <td><a class="link-btn" href="https://www.shl.uk/" target="_blank">Open Link →</a></td>
+        </tr>
+        <tr>
+          <td>Homerton Sexual Health (Clifden Centre)</td>
+          <td><a class="link-btn" href="https://www.homerton.nhs.uk/sexual-health/" target="_blank">Open Link →</a></td>
+        </tr>
+        <tr>
+          <td>All East Sexual Health Services</td>
+          <td><a class="link-btn" href="https://www.alleast.nhs.uk/" target="_blank">Open Link →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── ANTENATAL / MATERNITY ─────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header teal">
+      <div class="section-icon teal">🤱</div>
+      <h2>Antenatal / Maternity — Self-Referral</h2>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Service</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tower Hamlets / Newham</td>
+          <td>Barts Health</td>
+          <td><a class="link-btn teal" href="https://www.bartshealth.nhs.uk/self-refer-to-our-maternity-services" target="_blank">Open Link →</a></td>
+        </tr>
+        <tr>
+          <td>Islington / Camden</td>
+          <td>UCLH</td>
+          <td><a class="link-btn teal" href="https://www.uclh.nhs.uk/our-services/find-service/womens-health-1/maternity-services/maternity-services-uclh-self-referral-form" target="_blank">Open Link →</a></td>
+        </tr>
+        <tr>
+          <td>City &amp; Hackney</td>
+          <td>Homerton Hospital</td>
+          <td><a class="link-btn teal" href="https://www.homerton.nhs.uk/antenatal-self-referral-form/" target="_blank">Open Link →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── LYMPHOEDEMA CRITERIA ──────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header teal">
+      <div class="section-icon teal">📋</div>
+      <h2>Tower Hamlets — Lymphoedema Service</h2>
+      <span class="section-meta">Referral Criteria</span>
+    </div>
+    <div class="criteria-grid">
+      <div class="criteria-col">
+        <div class="criteria-col-title include">✔ Inclusion Criteria</div>
+        <ul class="criteria-list">
+          <li>Chronic oedema / lymphoedema</li>
+          <li>History of repeated cellulitis related to oedema</li>
+          <li>Primary lymphoedema</li>
+          <li>Secondary lymphoedema to cancer</li>
+          <li>Systemic causes ruled out</li>
+          <li>Housebound patients: refer via Single Point of Access for first-line assessment before joint visit</li>
+        </ul>
+      </div>
+      <div class="criteria-col">
+        <div class="criteria-col-title exclude">✗ Exclusion Criteria</div>
+        <ul class="criteria-list">
+          <li>Known ischaemia of the affected limb</li>
+          <li>Varicose veins</li>
+          <li>Routine Doppler in absence of swelling</li>
+          <li>Venous or other ulceration</li>
+          <li>Unstable cardiac / renal failure</li>
+          <li>Absence of swelling</li>
+        </ul>
+      </div>
+    </div>
+    <div class="source-line">Source: <a href="https://www.acceleratecic.com/tower-hamlets/tower-hamlets-referrals/tower-hamlets-lymphoedema-referral/" target="_blank">Tower Hamlets Lymphoedema Referral — Accelerate CIC ↗</a></div>
+  </div>
+
+  <!-- ── WOUND CARE CRITERIA ───────────────────────────── -->
+  <div class="section-card">
+    <div class="section-header teal">
+      <div class="section-icon teal">🩹</div>
+      <h2>Tower Hamlets — Wound Care Service</h2>
+      <span class="section-meta">Referral Criteria</span>
+    </div>
+    <div class="criteria-grid">
+      <div class="criteria-col">
+        <div class="criteria-col-title include">✔ Inclusion Criteria</div>
+        <ul class="criteria-list">
+          <li>Complex wounds</li>
+          <li>Mobile leg ulceration</li>
+          <li>Pressure ulcer patients (grades 2–4) from Nursing Homes only</li>
+          <li>Housebound patients: refer via Single Point of Access for first-line assessment before joint visit</li>
+        </ul>
+      </div>
+      <div class="criteria-col">
+        <div class="criteria-col-title exclude">✗ Exclusion Criteria</div>
+        <ul class="criteria-list">
+          <li>Routine Doppler</li>
+          <li>Varicose veins</li>
+          <li>Housebound pressure ulcers (refer to Single Point of Access)</li>
+          <li>Chronic swelling / lymphoedema — refer via lymphoedema form</li>
+          <li>Foot ulceration / diabetic foot — to be seen by Foot Health</li>
+        </ul>
+      </div>
+    </div>
+    <div class="source-line">Source: <a href="https://www.acceleratecic.com/tower-hamlets/tower-hamlets-referrals/tower-hamlets-wound-care-referral/" target="_blank">Tower Hamlets Wound Care Referral — Accelerate CIC ↗</a></div>
+  </div>
+
+</div><!-- /container -->
+
+</body>
+</html>
