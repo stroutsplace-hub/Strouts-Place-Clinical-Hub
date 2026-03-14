@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strouts Place Clinical Hub</title>
+<style>
+  :root {
+    --navy: #0f2942;
+    --navy-mid: #1a3d5c;
+    --navy-light: #2a5a82;
+    --teal: #0ea472;
+    --teal-dark: #0b7a56;
+    --teal-light: #d4f5e9;
+    --purple: #6d28d9;
+    --purple-light: #ede9fe;
+    --purple-text: #4c1d95;
+    --rose: #be185d;
+    --rose-light: #fce7f3;
+    --rose-text: #831843;
+    --blue: #1d4ed8;
+    --blue-light: #dbeafe;
+    --blue-text: #1e3a8a;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --amber-text: #78350f;
+    --red: #dc2626;
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --border: #dde3ea;
+    --text: #1a2733;
+    --muted: #5a6a78;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* PIN */
+  #pin-screen { position: fixed; inset: 0; background: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+  .pin-box { background: #fff; border-radius: 18px; padding: 2.5rem 2rem; width: 320px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .pin-logo { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .pin-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .pin-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 1.5rem; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); background: transparent; transition: background .15s, border-color .15s; }
+  .pin-dot.filled { background: var(--navy); border-color: var(--navy); }
+  .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
+  .pin-key { padding: 0.9rem; border-radius: 10px; border: 1.5px solid var(--border); font-size: 1.2rem; font-weight: 600; color: var(--navy); background: var(--bg); cursor: pointer; transition: background .1s; -webkit-tap-highlight-color: transparent; }
+  .pin-key:active { background: var(--border); }
+  .pin-key.clear { font-size: 0.85rem; color: var(--muted); }
+  .pin-error { font-size: 0.8rem; color: var(--red); min-height: 1.2rem; margin-top: -0.5rem; }
+
+  /* HEADER */
+  .header { background: var(--navy); color: #fff; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  .header-brand { display: flex; align-items: center; gap: 10px; }
+  .header-logo { width: 32px; height: 32px; background: var(--teal); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .header-title { font-size: 1rem; font-weight: 600; }
+  .header-sub { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+  .header-badge { background: rgba(255,255,255,0.12); border-radius: 20px; padding: 4px 12px; font-size: 0.72rem; color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.2); }
+
+  /* BREADCRUMB */
+  .breadcrumb { display: flex; align-items: center; gap: 6px; padding: 0.9rem 2rem; font-size: 0.82rem; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--surface); flex-wrap: wrap; }
+  .breadcrumb .crumb { cursor: pointer; color: var(--navy-light); font-weight: 600; }
+  .breadcrumb .crumb:hover { text-decoration: underline; }
+  .breadcrumb .sep { color: var(--border); }
+  .breadcrumb .current { color: var(--muted); font-weight: 400; cursor: default; }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+  #doc-view { display: none; flex-direction: column; height: calc(100vh - 60px); }
+  #doc-view.active { display: flex; }
+
+  /* HOME */
+  #home-view .inner { padding: 2.5rem 2rem; max-width: 960px; margin: 0 auto; }
+  .home-welcome h1 { font-size: 1.5rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+  .home-welcome p { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .home-sections { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .section-tile { background: var(--surface); border-radius: 16px; border: 1.5px solid var(--border); padding: 1.75rem; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; display: flex; align-items: flex-start; gap: 1rem; }
+  .section-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); border-color: var(--navy-light); }
+  .tile-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .tile-body { flex: 1; }
+  .tile-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+  .tile-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.6rem; }
+  .tile-count { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; }
+  .tile-arrow { color: var(--muted); font-size: 1.3rem; align-self: center; padding-left: 0.5rem; }
+
+  /* SECTION VIEW */
+  .section-view .breadcrumb-wrap { position: sticky; top: 60px; z-index: 90; }
+  .section-view .inner { padding: 1.5rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-header { margin-bottom: 1.25rem; }
+  .section-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .section-header p { color: var(--muted); font-size: 0.85rem; }
+
+  /* SEARCH */
+  .search-wrap { margin-bottom: 1.25rem; position: relative; }
+  .search-wrap input { width: 100%; padding: 0.7rem 1rem 0.7rem 2.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.95rem; background: var(--surface); outline: none; transition: border-color .2s; }
+  .search-wrap input:focus { border-color: var(--navy-light); }
+  .search-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+
+  /* QOF CARDS */
+  .qof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1rem; }
+  .qof-card { background: var(--surface); border-radius: 14px; border: 1.5px solid var(--border); overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  .qof-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: var(--navy-light); }
+  .qof-card-top { padding: 1rem 1.25rem 0.75rem; display: flex; align-items: flex-start; gap: 12px; }
+  .qof-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .qof-info .code { font-size: 0.65rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .qof-info .name { font-size: 0.98rem; font-weight: 600; color: var(--navy); }
+  .qof-card-footer { padding: 0.5rem 1.25rem 0.85rem; display: flex; gap: 8px; }
+  .pill { font-size: 0.72rem; font-weight: 600; padding: 4px 11px; border-radius: 20px; cursor: pointer; border: none; outline: none; transition: opacity .15s; }
+  .pill:hover { opacity: 0.8; }
+  .pill-quick { background: #e0f2fe; color: #0369a1; }
+  .pill-sop { background: #fef3c7; color: #92400e; }
+
+  /* SOP / SINGLE DOC CARDS */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .doc-card { background: var(--surface); border-radius: 14px; border: 1.5px solid var(--border); padding: 1.25rem; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; display: flex; align-items: center; gap: 14px; }
+  .doc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .doc-card-icon { width: 46px; height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .doc-card-body { flex: 1; }
+  .doc-card-title { font-size: 0.98rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .doc-card-meta { font-size: 0.75rem; color: var(--muted); }
+  .doc-card-arrow { color: var(--muted); font-size: 1.1rem; }
+
+  /* DOC VIEW */
+  .doc-topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 52px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .back-btn { background: var(--navy); color: #fff; border: none; padding: 6px 14px; border-radius: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background .15s; white-space: nowrap; }
+  .back-btn:hover { background: var(--navy-mid); }
+  .doc-label { font-size: 0.95rem; font-weight: 600; color: var(--navy); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .toggle-wrap { display: flex; background: var(--bg); border-radius: 8px; padding: 3px; gap: 2px; flex-shrink: 0; }
+  .toggle-btn { padding: 5px 14px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; background: transparent; color: var(--muted); white-space: nowrap; }
+  .toggle-btn.active { background: var(--surface); color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+  .doc-frame { flex: 1; border: none; width: 100%; display: block; }
+
+  .empty { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.9rem; }
+
+  /* COLOR THEMES */
+  .color-teal .tile-icon { background: var(--teal-light); }
+  .color-teal .tile-count { background: var(--teal-light); color: var(--teal-dark); }
+  .color-teal .section-tile:hover { border-color: var(--teal); }
+  .color-purple .tile-icon { background: var(--purple-light); }
+  .color-purple .tile-count { background: var(--purple-light); color: var(--purple-text); }
+  .color-purple .section-tile:hover { border-color: var(--purple); }
+  .color-purple .doc-card:hover { border-color: var(--purple); }
+  .color-purple .doc-card-icon { background: var(--purple-light); }
+  .color-rose .tile-icon { background: var(--rose-light); }
+  .color-rose .tile-count { background: var(--rose-light); color: var(--rose-text); }
+  .color-rose .section-tile:hover { border-color: var(--rose); }
+  .color-rose .doc-card:hover { border-color: var(--rose); }
+  .color-rose .doc-card-icon { background: var(--rose-light); }
+  .color-blue .tile-icon { background: var(--blue-light); }
+  .color-blue .tile-count { background: var(--blue-light); color: var(--blue-text); }
+  .color-blue .section-tile:hover { border-color: var(--blue); }
+  .color-blue .doc-card:hover { border-color: var(--blue); }
+  .color-blue .doc-card-icon { background: var(--blue-light); }
+  .color-amber .tile-icon { background: var(--amber-light); }
+  .color-amber .tile-count { background: var(--amber-light); color: var(--amber-text); }
+  .color-amber .section-tile:hover { border-color: var(--amber); }
+  .color-amber .doc-card:hover { border-color: var(--amber); }
+  .color-amber .doc-card-icon { background: var(--amber-light); }
+
+  /* LOADING */
+  #loading { position: fixed; inset: 0; background: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 2000; flex-direction: column; gap: 1rem; color: #fff; }
+  #loading .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--teal); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading p { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Loading Clinical Hub…</p>
+</div>
+
+<!-- PIN -->
+<div id="pin-screen" style="display:none;">
+  <div class="pin-box">
+    <div class="pin-logo">🏥</div>
+    <div class="pin-title" id="pin-title">Strouts Place Clinical Hub</div>
+    <div class="pin-sub">Enter PIN to continue</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-keypad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key clear" onclick="pinClear()">Clear</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key clear" onclick="pinBack()">&#9003;</button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="app-header" style="display:none;">
+  <div class="header-brand">
+    <div class="header-logo">🏥</div>
+    <div>
+      <div class="header-title" id="header-title">Strouts Place Clinical Hub</div>
+      <div class="header-sub" id="header-sub">Strouts Place Medical Centre</div>
+    </div>
+  </div>
+  <div class="header-badge" id="header-badge">2025/26 · Internal Use Only</div>
+</header>
+
+<!-- HOME VIEW -->
+<div id="home-view" class="view">
+  <div class="inner">
+    <div class="home-welcome">
+      <h1>Welcome</h1>
+      <p>Select a section below to access clinical references and SOPs.</p>
+    </div>
+    <div class="home-sections" id="home-sections"></div>
+  </div>
+</div>
+
+<!-- SECTION VIEW -->
+<div id="section-view" class="view section-view">
+  <div class="breadcrumb-wrap">
+    <div class="breadcrumb">
+      <span class="crumb" onclick="showHome()">Home</span>
+      <span class="sep">›</span>
+      <span class="current" id="section-breadcrumb"></span>
+    </div>
+  </div>
+  <div class="inner">
+    <div class="section-header">
+      <h2 id="section-title"></h2>
+      <p id="section-desc"></p>
+    </div>
+    <div class="search-wrap" id="search-wrap" style="display:none;">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search…" oninput="filterDocs(this.value)">
+    </div>
+    <div id="section-content"></div>
+    <div class="empty" id="no-results" style="display:none;">No documents match your search.</div>
+  </div>
+</div>
+
+<!-- DOC VIEW -->
+<div id="doc-view">
+  <div class="doc-topbar">
+    <button class="back-btn" onclick="closeDoc()">&#8592; Back</button>
+    <span class="doc-label" id="doc-label"></span>
+    <div class="toggle-wrap" id="toggle-wrap" style="display:none;">
+      <button class="toggle-btn active" id="btn-quick" onclick="switchMode('quick')">Quick Ref</button>
+      <button class="toggle-btn" id="btn-sop" onclick="switchMode('sop')">Full SOP</button>
+    </div>
+  </div>
+  <iframe class="doc-frame" id="doc-frame"></iframe>
+</div>
+
+<script>
+let CONFIG = null;
+let currentSection = null;
+let currentDoc = null;
+let currentMode = 'quick';
+let returnSection = null;
+
+async function init() {
+  try {
+    const res = await fetch('config.json');
+    CONFIG = await res.json();
+    document.getElementById('pin-title').textContent = CONFIG.app.name;
+    document.getElementById('header-title').textContent = CONFIG.app.name;
+    document.getElementById('header-sub').textContent = CONFIG.app.subtitle;
+    document.getElementById('header-badge').textContent = CONFIG.app.year + ' · Internal Use Only';
+    document.getElementById('loading').style.display = 'none';
+    if (localStorage.getItem('spmc_auth') === CONFIG.app.pin) {
+      launchApp();
+    } else {
+      document.getElementById('pin-screen').style.display = 'flex';
+    }
+  } catch(e) {
+    document.getElementById('loading').innerHTML = '<p style="color:#fff;padding:2rem;text-align:center;">Could not load config.json.<br>Make sure it is in the same folder as index.html.</p>';
+  }
+}
+
+function launchApp() {
+  document.getElementById('pin-screen').style.display = 'none';
+  document.getElementById('app-header').style.display = 'flex';
+  buildHome();
+  showHome();
+}
+
+// PIN
+let pinEntry = '';
+function pinPress(d) { if(pinEntry.length>=4) return; pinEntry+=d; updateDots(); if(pinEntry.length===4) setTimeout(checkPin,150); }
+function pinBack() { pinEntry=pinEntry.slice(0,-1); updateDots(); document.getElementById('pin-error').textContent=''; }
+function pinClear() { pinEntry=''; updateDots(); document.getElementById('pin-error').textContent=''; }
+function updateDots() { for(let i=0;i<4;i++) document.getElementById('d'+i).classList.toggle('filled',i<pinEntry.length); }
+function checkPin() {
+  if(pinEntry===CONFIG.app.pin) { localStorage.setItem('spmc_auth',CONFIG.app.pin); launchApp(); }
+  else { document.getElementById('pin-error').textContent='Incorrect PIN — please try again'; pinEntry=''; updateDots(); }
+}
+
+// HOME
+function buildHome() {
+  const container = document.getElementById('home-sections');
+  CONFIG.sections.forEach(sec => {
+    const docs = CONFIG.documents.filter(d => d.section === sec.id);
+    const countLabel = sec.id === 'qof'
+      ? docs.length + ' condition' + (docs.length!==1?'s':'')
+      : docs.length + ' document' + (docs.length!==1?'s':'');
+    const tile = document.createElement('div');
+    tile.className = `section-tile color-${sec.color}`;
+    tile.innerHTML = `
+      <div class="tile-icon">${sec.icon}</div>
+      <div class="tile-body">
+        <div class="tile-title">${sec.title}</div>
+        <div class="tile-desc">${sec.description}</div>
+        <span class="tile-count">${countLabel}</span>
+      </div>
+      <div class="tile-arrow">›</div>`;
+    tile.addEventListener('click', () => showSection(sec.id));
+    container.appendChild(tile);
+  });
+}
+
+function showHome() {
+  setView('home-view');
+  currentSection = null;
+}
+
+// SECTION
+function showSection(sectionId) {
+  const sec = CONFIG.sections.find(s => s.id === sectionId);
+  const docs = CONFIG.documents.filter(d => d.section === sectionId);
+  currentSection = sectionId;
+
+  document.getElementById('section-breadcrumb').textContent = sec.title;
+  document.getElementById('section-title').textContent = sec.title;
+  document.getElementById('section-desc').textContent = sec.description;
+
+  const isQof = sectionId === 'qof';
+  const searchWrap = document.getElementById('search-wrap');
+  searchWrap.style.display = isQof ? 'block' : 'none';
+  document.getElementById('search-input').value = '';
+
+  const content = document.getElementById('section-content');
+  content.innerHTML = '';
+
+  if (isQof) {
+    const grid = document.createElement('div');
+    grid.className = 'qof-grid';
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'qof-card';
+      card.dataset.title = doc.title.toLowerCase();
+      card.dataset.code = (doc.code||'').toLowerCase();
+      card.innerHTML = `
+        <div class="qof-card-top">
+          <div class="qof-icon">${doc.icon}</div>
+          <div class="qof-info">
+            <div class="code">${doc.code||''}</div>
+            <div class="name">${doc.title}</div>
+          </div>
+        </div>
+        <div class="qof-card-footer">
+          <button class="pill pill-quick" onclick="openQof(event,'${encodeURIComponent(JSON.stringify(doc))}','quick')">Quick Ref</button>
+          <button class="pill pill-sop" onclick="openQof(event,'${encodeURIComponent(JSON.stringify(doc))}','sop')">Full SOP</button>
+        </div>`;
+      card.addEventListener('click', e => { if(!e.target.classList.contains('pill')) openQof(e, encodeURIComponent(JSON.stringify(doc)), 'quick'); });
+      grid.appendChild(card);
+    });
+    content.appendChild(grid);
+  } else {
+    const grid = document.createElement('div');
+    grid.className = `doc-grid color-${sec.color}`;
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'doc-card';
+      const ext = (doc.file||'').split('.').pop().toLowerCase();
+      const badge = ext === 'pdf' ? '📄 PDF' : (ext === 'docx' || ext === 'doc') ? '📥 Word' : '';
+      const badgeHtml = badge ? '<span style="font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--bg);color:var(--muted);border:1px solid var(--border);margin-left:6px;">'+badge+'</span>' : '';
+      const arrow = ext === 'pdf' ? '↗' : (ext === 'docx' || ext === 'doc') ? '↓' : '›';
+      card.innerHTML = `
+        <div class="doc-card-icon">${doc.icon}</div>
+        <div class="doc-card-body">
+          <div class="doc-card-title">${doc.title}${badgeHtml}</div>
+          <div class="doc-card-meta">${doc.meta||''}</div>
+        </div>
+        <div class="doc-card-arrow">${arrow}</div>`;
+      card.addEventListener('click', () => openSingleDoc(doc));
+      grid.appendChild(card);
+    });
+    content.appendChild(grid);
+  }
+
+  setView('section-view');
+}
+
+// OPEN QOF DOC
+function openQof(e, encoded, mode) {
+  if(e) e.stopPropagation();
+  const doc = JSON.parse(decodeURIComponent(encoded));
+  currentDoc = doc;
+  currentMode = mode;
+  returnSection = currentSection || 'qof';
+  document.getElementById('doc-label').textContent = doc.icon + '  ' + doc.title;
+  document.getElementById('toggle-wrap').style.display = 'flex';
+  loadFrame(mode === 'quick' ? doc.quickref : doc.fullsop);
+  updateToggle(mode);
+  setView('doc-view');
+}
+
+function switchMode(mode) {
+  if(mode === currentMode) return;
+  currentMode = mode;
+  loadFrame(mode === 'quick' ? currentDoc.quickref : currentDoc.fullsop);
+  updateToggle(mode);
+}
+
+function updateToggle(mode) {
+  document.getElementById('btn-quick').className = 'toggle-btn' + (mode==='quick'?' active':'');
+  document.getElementById('btn-sop').className = 'toggle-btn' + (mode==='sop'?' active':'');
+}
+
+// OPEN SINGLE DOC
+function openSingleDoc(doc) {
+  const ext = (doc.file || '').split('.').pop().toLowerCase();
+  // Word docs — download directly, don't enter doc view
+  if (ext === 'docx' || ext === 'doc') {
+    const a = document.createElement('a');
+    a.href = doc.file;
+    a.download = doc.file.split('/').pop();
+    a.click();
+    return;
+  }
+  // PDFs — open in new tab
+  if (ext === 'pdf') {
+    window.open(doc.file, '_blank');
+    return;
+  }
+  // HTML — open inside app as normal
+  currentDoc = doc;
+  returnSection = currentSection;
+  document.getElementById('doc-label').textContent = doc.icon + '  ' + doc.title;
+  document.getElementById('toggle-wrap').style.display = 'none';
+  loadFrame(doc.file);
+  setView('doc-view');
+}
+
+// LOAD FRAME
+function loadFrame(url) {
+  const frame = document.getElementById('doc-frame');
+  frame.src = url;
+}
+
+function closeDoc() {
+  document.getElementById('doc-frame').src = '';
+  if(returnSection) showSection(returnSection);
+  else showHome();
+}
+
+// FILTER (QOF only)
+function filterDocs(val) {
+  const q = val.toLowerCase().trim();
+  let visible = 0;
+  document.querySelectorAll('.qof-card').forEach(card => {
+    const match = !q || card.dataset.title.includes(q) || card.dataset.code.includes(q);
+    card.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  document.getElementById('no-results').style.display = visible===0 ? 'block' : 'none';
+}
+
+// VIEW SWITCHER
+function setView(id) {
+  document.getElementById('home-view').classList.toggle('active', id==='home-view');
+  document.getElementById('section-view').classList.toggle('active', id==='section-view');
+  document.getElementById('doc-view').classList.toggle('active', id==='doc-view');
+}
+
+init();
+</script>
+</body>
+</html>
