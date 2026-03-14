@@ -26,6 +26,13 @@
       "icon": "🌸",
       "color": "rose",
       "description": "Clinical resources and questionnaires for women's health consultations."
+    },
+    {
+      "id": "community",
+      "title": "Community Services",
+      "icon": "🏘️",
+      "color": "blue",
+      "description": "Community service referral pathways and resources."
     }
   ],
   "documents": [
@@ -130,6 +137,13 @@
       "icon": "💊",
       "meta": "Women's Health · 2025/26",
       "file": "docs/COCP_Review_Questionnaire_GP.html"
+    },
+    {
+      "section": "community",
+      "title": "Community Services",
+      "icon": "🏘️",
+      "meta": "Community Services · 2025/26",
+      "file": "docs/community_services.html"
     }
   ]
 }
