@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DM QOF 2025/26 — Clinical Quick Reference</title>
+<style>
+:root {
+  --g:       #059669;
+  --g-dark:  #047857;
+  --g-deep:  #064e3b;
+  --g-light: #a7f3d0;
+  --g-pale:  #ecfdf5;
+  --slate:   #0f172a;
+  --mid:     #475569;
+  --light:   #94a3b8;
+  --amber:   #f59e0b;
+  --amb-l:   #fef3c7;
+  --amb-d:   #78350f;
+  --blue:    #0ea5e9;
+  --blue-l:  #f0f9ff;
+  --purple:  #7c3aed;
+  --purp-l:  #f5f3ff;
+  --red:     #dc2626;
+  --red-l:   #fef2f2;
+  --white:   #ffffff;
+  --surf:    #f8fafc;
+  --border:  #e2e8f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--surf);
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #022c22 0%, #065f46 55%, #047857 100%);
+  padding: 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 10%, rgba(167,243,208,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-left {}
+.header-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6ee7b7;
+  margin-bottom: .3rem;
+}
+.header-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: white;
+  line-height: 1.1;
+}
+.header-title em { font-style: italic; color: #6ee7b7; }
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .3rem;
+}
+.hbadge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #cbd5e1;
+  font-size: .68rem;
+  padding: .2rem .6rem;
+  border-radius: 5px;
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 3rem;
+}
+
+/* ── SECTION TITLE ── */
+.sec {
+  margin-bottom: 1.2rem;
+}
+.sec-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  color: var(--g-dark);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .6rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--g-light);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+/* ── INDICATOR TABLE ── */
+.ind-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.ind-table thead tr { background: var(--g-dark); }
+.ind-table thead th {
+  color: white;
+  padding: .55rem .75rem;
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+.ind-table tbody tr:nth-child(even) { background: var(--g-pale); }
+.ind-table tbody tr:last-child td { border-bottom: none; }
+.ind-table td {
+  padding: .55rem .75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.code { font-weight: 700; color: var(--g-dark); white-space: nowrap; }
+.pts  { font-weight: 700; color: white; background: var(--amber); padding: .15rem .4rem; border-radius: 4px; font-size: .75rem; white-space: nowrap; display: inline-block; }
+.tgt  { font-weight: 600; color: var(--g-dark); background: #d1fae5; padding: .15rem .45rem; border-radius: 999px; font-size: .75rem; white-space: nowrap; display: inline-block; }
+
+/* ── 2-COL GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+}
+
+/* Statin table scrolls horizontally on small screens */
+.statin-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
+
+/* Larger tap-friendly text on mobile */
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .clist li { padding: .35rem 0 .35rem 1.1rem; }
+  .rc-item  { padding: .35rem 0 .35rem 1.1rem; }
+  .ind-table td, .ind-table th { padding: .5rem .6rem; font-size: .78rem; }
+  .header-title { font-size: 1.4rem; }
+  .card { padding: 1rem 1rem; }
+  .frailty-box { padding: .9rem 1rem; }
+  .foot-box { padding: .75rem .8rem; }
+  .sec-title { font-size: .85rem; }
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .9rem 1rem;
+}
+.card-title {
+  font-weight: 700;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.card.green  { border-left: 3px solid var(--g);      }
+.card.amber  { border-left: 3px solid var(--amber);   background: var(--amb-l); }
+.card.blue   { border-left: 3px solid var(--blue);    background: var(--blue-l); }
+.card.purple { border-left: 3px solid var(--purple);  background: var(--purp-l); }
+.card.red    { border-left: 3px solid var(--red);     background: var(--red-l); }
+.card.green  .card-title { color: var(--g-dark); }
+.card.amber  .card-title { color: var(--amb-d); }
+.card.blue   .card-title { color: #0369a1; }
+.card.purple .card-title { color: var(--purple); }
+.card.red    .card-title { color: var(--red); }
+
+.clist { list-style: none; }
+.clist li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .22rem 0 .22rem 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.clist li:last-child { border-bottom: none; }
+.clist li::before { content: '→'; position: absolute; left: 0; color: var(--g); font-weight: 700; font-size: .75rem; top: .28rem; }
+.clist.amber li::before { color: var(--amber); }
+.clist.blue  li::before { color: var(--blue); }
+.clist.purp  li::before { color: var(--purple); }
+.clist.red   li::before { color: var(--red); }
+
+/* ── FRAILTY SPLIT ── */
+.frailty-split { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+@media (max-width: 480px) { .frailty-split { grid-template-columns: 1fr; } }
+
+.frailty-box {
+  border-radius: 10px;
+  padding: .8rem .9rem;
+  border: 1px solid;
+}
+.frailty-box.none { background: var(--g-pale);  border-color: var(--g-light); }
+.frailty-box.mod  { background: var(--amb-l);   border-color: #fcd34d; }
+.frailty-title {
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .4rem;
+}
+.frailty-box.none .frailty-title { color: var(--g-dark); }
+.frailty-box.mod  .frailty-title { color: var(--amb-d); }
+.frailty-box ul { list-style: none; }
+.frailty-box ul li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .18rem 0 .18rem 1rem;
+  position: relative;
+}
+.frailty-box ul li::before { content: '•'; position: absolute; left: 0; font-weight: 700; }
+.frailty-box.none ul li::before { color: var(--g); }
+.frailty-box.mod  ul li::before { color: var(--amber); }
+
+/* ── FOOT RISK ── */
+.foot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+@media (max-width: 580px) { .foot-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.foot-box {
+  border-radius: 8px;
+  padding: .65rem .75rem;
+  border: 1px solid var(--border);
+  background: var(--white);
+}
+.foot-level {
+  font-weight: 700;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .25rem;
+}
+.foot-desc { font-size: .78rem; color: var(--mid); }
+.foot-box.low    { border-top: 3px solid #22c55e; }
+.foot-box.inc    { border-top: 3px solid var(--amber); }
+.foot-box.high   { border-top: 3px solid #f97316; }
+.foot-box.ulc    { border-top: 3px solid var(--red); }
+.foot-box.low    .foot-level { color: #16a34a; }
+.foot-box.inc    .foot-level { color: var(--amb-d); }
+.foot-box.high   .foot-level { color: #c2410c; }
+.foot-box.ulc    .foot-level { color: var(--red); }
+
+/* ── STATIN TABLE ── */
+.statin-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.statin-table th { background: var(--slate); color: white; padding: .5rem .75rem; text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
+.statin-table td { padding: .5rem .75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.statin-table tr:last-child td { border-bottom: none; }
+.statin-table tr:nth-child(even) td { background: var(--surf); }
+
+/* ── ALERT BAR ── */
+.alert {
+  border-radius: 8px;
+  padding: .65rem .9rem;
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  font-size: .82rem;
+  margin-top: .6rem;
+}
+.alert.amber { background: var(--amb-l); border: 1px solid #fcd34d; color: var(--amb-d); }
+.alert.green { background: var(--g-pale); border: 1px solid var(--g-light); color: var(--g-deep); }
+.alert-icon  { flex-shrink: 0; font-size: .95rem; }
+
+/* ── REVIEW CHECKLIST ── */
+.review-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .25rem .75rem;
+}
+@media (max-width: 480px) { .review-checks { grid-template-columns: 1fr; } }
+.rc-item {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .2rem 0 .2rem 1.1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.rc-item::before { content: '✓'; position: absolute; left: 0; color: var(--g); font-weight: 700; font-size: .75rem; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--light);
+  font-size: .72rem;
+  border-top: 1px solid var(--border);
+  max-width: 960px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-tag">Strouts Place · Clinical Quick Reference</div>
+      <div class="header-title">Diabetes <em>QOF</em> 2025/26</div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge">For: GP / Pharmacist / HCA / Nurse</span>
+      <span class="hbadge">Version 1.0 · April 2025</span>
+      <span class="hbadge">Owner: GP Lead</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── INDICATORS ── -->
+  <div class="sec">
+    <div class="sec-title">📊 QOF Indicators at a Glance</div>
+    <div class="statin-scroll" style="box-shadow:0 1px 4px rgba(0,0,0,.06);">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>What to achieve</th>
+            <th>Pts</th>
+            <th>Target</th>
+            <th>Key condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code">DM006</span></td>
+            <td>Patient with nephropathy on ACE-I or ARB</td>
+            <td><span class="pts">3</span></td>
+            <td><span class="tgt">57–97%</span></td>
+            <td>ACR ≥3 mg/mmol</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM012</span></td>
+            <td>Foot examination + risk classification in last 12 months</td>
+            <td><span class="pts">4</span></td>
+            <td><span class="tgt">50–90%</span></td>
+            <td>All diabetic patients</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM014</span></td>
+            <td>Newly diagnosed referred to structured education within 279 days</td>
+            <td><span class="pts">11</span></td>
+            <td><span class="tgt">40–90%</span></td>
+            <td>New diagnoses only</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM036</span></td>
+            <td>Last BP ≤140/90 mmHg in last 12 months</td>
+            <td><span class="pts">27</span></td>
+            <td><span class="tgt">38–90%</span></td>
+            <td>Age ≤79, no mod/severe frailty</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM020</span></td>
+            <td>Last HbA1c ≤58 mmol/mol in last 12 months</td>
+            <td><span class="pts">17</span></td>
+            <td><span class="tgt">35–75%</span></td>
+            <td>No mod/severe frailty</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM021</span></td>
+            <td>Last HbA1c ≤75 mmol/mol in last 12 months</td>
+            <td><span class="pts">10</span></td>
+            <td><span class="tgt">52–92%</span></td>
+            <td>Moderate or severe frailty</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM034</span></td>
+            <td>On statin (or alternative if declined/unsuitable)</td>
+            <td><span class="pts">4</span></td>
+            <td><span class="tgt">50–90%</span></td>
+            <td>Age ≥40, no CVD, no mod/severe frailty</td>
+          </tr>
+          <tr>
+            <td><span class="code">DM035</span></td>
+            <td>On statin (or alternative if declined/unsuitable)</td>
+            <td><span class="pts">2</span></td>
+            <td><span class="tgt">50–90%</span></td>
+            <td>History of CVD (excl. haemorrhagic stroke)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── FRAILTY & TARGETS ── -->
+  <div class="sec">
+    <div class="sec-title">🧓 Frailty-Adjusted Targets</div>
+    <div class="frailty-split">
+      <div class="frailty-box none">
+        <div class="frailty-title">No / Mild Frailty</div>
+        <ul>
+          <li><strong>HbA1c:</strong> ≤58 mmol/mol (DM020)</li>
+          <li><strong>BP (clinic):</strong> ≤140/90 mmHg (DM036)</li>
+          <li><strong>BP (HBPM):</strong> ≤135/85 mmHg (DM036)</li>
+          <li>DM036 applies to patients aged ≤79 only</li>
+          <li>DM034 statin indicator applies</li>
+        </ul>
+      </div>
+      <div class="frailty-box mod">
+        <div class="frailty-title">Moderate / Severe Frailty</div>
+        <ul>
+          <li><strong>HbA1c:</strong> ≤75 mmol/mol (DM021)</li>
+          <li><strong>BP:</strong> No QOF target — DM036 excluded</li>
+          <li>DM034 statin indicator excluded</li>
+          <li>Individualise targets — avoid overtreatment</li>
+          <li>Ensure frailty coded (eFI) in patient record</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── ANNUAL REVIEW CHECKLIST ── -->
+  <div class="sec">
+    <div class="sec-title">🩺 Annual Review — What to Complete</div>
+    <div class="grid2">
+      <div class="card green">
+        <div class="card-title">🔄 All Patients — Annual Review</div>
+        <div class="review-checks">
+          <div class="rc-item">Blood pressure (DM036)</div>
+          <div class="rc-item">HbA1c (DM020/021)</div>
+          <div class="rc-item">Lipid profile (DM034/035)</div>
+          <div class="rc-item">Urine ACR (DM006)</div>
+          <div class="rc-item">Foot exam + risk class. (DM012)</div>
+          <div class="rc-item">Weight &amp; BMI</div>
+          <div class="rc-item">Smoking status</div>
+          <div class="rc-item">Alcohol status (AUDIT-C)</div>
+          <div class="rc-item">Retinal screening — check status</div>
+          <div class="rc-item">QRISK3 calculated &amp; coded</div>
+        </div>
+        <div class="alert green" style="margin-top:.7rem;">
+          <span class="alert-icon">📋</span>
+          <div>Use the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template. Code all results same day.</div>
+        </div>
+      </div>
+      <div class="card amber">
+        <div class="card-title">🆕 New Diagnosis — Additional Items</div>
+        <ul class="clist amber">
+          <li>All annual review items above</li>
+          <li>Structured education referral (DM014) — code same day; 279-day window applies</li>
+          <li>Retinal screening referral — make and code same day</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert amber" style="margin-top:.7rem;">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Abnormal findings</strong> — Flag to pharmacist or GP for action as per surgery policy.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── NEPHROPATHY ── -->
+  <div class="sec">
+    <div class="sec-title">🫘 Nephropathy — DM006</div>
+    <div class="grid2">
+      <div class="card green">
+        <div class="card-title">When to act</div>
+        <ul class="clist">
+          <li>ACR ≥3 mg/mmol (micro-albuminuria or proteinuria)</li>
+          <li>Patient not currently on ACE-I or ARB → initiate</li>
+          <li>Aim for maximum tolerated dose (per BNF)</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">Also consider</div>
+        <ul class="clist blue">
+          <li>SGLT2 inhibitor for type 2 diabetes with renal disease — offer or consider depending on ACR level (per NICE NG28)</li>
+          <li>Review BP control alongside nephropathy management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── FOOT RISK ── -->
+  <div class="sec">
+    <div class="sec-title">🦶 Foot Risk Classification — DM012</div>
+    <div class="foot-grid">
+      <div class="foot-box low">
+        <div class="foot-level">Low Risk</div>
+        <div class="foot-desc">Normal sensation, palpable pulses</div>
+      </div>
+      <div class="foot-box inc">
+        <div class="foot-level">Increased Risk</div>
+        <div class="foot-desc">Neuropathy <em>or</em> absent pulses<br><span style="font-size:.72rem;color:var(--light);">Code as 'moderate risk' in EMIS</span></div>
+      </div>
+      <div class="foot-box high">
+        <div class="foot-level">High Risk</div>
+        <div class="foot-desc">Neuropathy or absent pulses <em>plus</em> deformity, skin changes or previous ulcer</div>
+      </div>
+      <div class="foot-box ulc">
+        <div class="foot-level">Ulcerated</div>
+        <div class="foot-desc">Active foot ulcer present</div>
+      </div>
+    </div>
+    <div class="alert amber" style="margin-top:.7rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>'Increased risk' is coded as <strong>'moderate risk'</strong> in EMIS — this is correct for QOF purposes.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── STATINS ── -->
+  <div class="sec">
+    <div class="sec-title">💊 Statin Prescribing — DM034 &amp; DM035</div>
+    <div class="statin-scroll" style="box-shadow:0 1px 4px rgba(0,0,0,.05);">
+      <table class="statin-table">
+        <thead>
+          <tr>
+            <th>Indicator</th>
+            <th>Population</th>
+            <th>First-line</th>
+            <th>If statin declined / unsuitable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DM034</strong><br><span style="font-size:.73rem;color:var(--light);">Primary prevention</span></td>
+            <td>Age ≥40, no CVD history, no mod/severe frailty<br><span style="font-size:.73rem;color:var(--light);">Exclude if QRISK3 &lt;10% recorded in last 3 years</span></td>
+            <td><strong>Atorvastatin 20 mg</strong></td>
+            <td>Alternative lipid-lowering therapy — document clinical reason</td>
+          </tr>
+          <tr>
+            <td><strong>DM035</strong><br><span style="font-size:.73rem;color:var(--light);">Secondary prevention</span></td>
+            <td>History of CVD (excluding haemorrhagic stroke)</td>
+            <td><strong>Atorvastatin 80 mg</strong></td>
+            <td>Alternative lipid-lowering therapy — document clinical reason</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert green" style="margin-top:.7rem;">
+      <span class="alert-icon">💡</span>
+      <div><strong>DM034 QRISK3:</strong> Patients with T2DM and a QRISK3 score of &lt;10% recorded in the preceding 3 years are <strong>excluded from the denominator</strong>. Ensure a current score is documented.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── BP ── -->
+  <div class="sec">
+    <div class="sec-title">🩺 Blood Pressure — DM036</div>
+    <div class="grid3">
+      <div class="card green">
+        <div class="card-title">Clinic target</div>
+        <div style="font-size:1.5rem;font-family:Georgia,serif;color:var(--g-dark);margin:.3rem 0;">≤140/90</div>
+        <div style="font-size:.78rem;color:var(--mid);">mmHg — in clinic setting</div>
+      </div>
+      <div class="card blue">
+        <div class="card-title">HBPM target</div>
+        <div style="font-size:1.5rem;font-family:Georgia,serif;color:#0369a1;margin:.3rem 0;">≤135/85</div>
+        <div style="font-size:.78rem;color:var(--mid);">mmHg — home monitoring</div>
+      </div>
+      <div class="card amber">
+        <div class="card-title">Exclusions</div>
+        <ul class="clist amber" style="margin-top:.2rem;">
+          <li>Age &gt;79</li>
+          <li>Moderate or severe frailty</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert amber" style="margin-top:.7rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>T1DM patients aged ≤79 with ACR ≥70 mg/mmol should be aiming for &lt;130/80 mmHg (NICE NG17) — use clinical judgement; the QOF target of 140/90 is a minimum standard, not an individual target.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── QUICK DECISION AID ── -->
+  <div class="sec">
+    <div class="sec-title">⚡ At-a-Glance Decision Aid</div>
+    <div class="grid2">
+      <div class="card green">
+        <div class="card-title">Patient has ACR ≥3 mg/mmol?</div>
+        <ul class="clist">
+          <li>Not on ACE-I/ARB → <strong>start one</strong></li>
+          <li>T2DM + renal disease → <strong>consider SGLT2i</strong></li>
+          <li>Codes for DM006 ✓</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">HbA1c above target?</div>
+        <ul class="clist">
+          <li>No/mild frailty: target ≤58 (DM020) → <strong>intensify treatment</strong></li>
+          <li>Mod/severe frailty: target ≤75 (DM021) → <strong>avoid overtreatment</strong></li>
+          <li>Pharmacist to optimise and arrange follow-up</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">BP above target?</div>
+        <ul class="clist">
+          <li>No/mild frailty, age ≤79: target ≤140/90 clinic</li>
+          <li>Check HBPM readings — target ≤135/85</li>
+          <li>Pharmacist to optimise and arrange follow-up</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">Not on statin?</div>
+        <ul class="clist">
+          <li>Age ≥40, no CVD, no mod/severe frailty → check QRISK3</li>
+          <li>QRISK3 ≥10% → <strong>start atorvastatin 20 mg</strong></li>
+          <li>CVD history → <strong>start atorvastatin 80 mg</strong></li>
+          <li>If declined/unsuitable → alternative + document reason</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; DM QOF Clinical Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+</body>
+</html>

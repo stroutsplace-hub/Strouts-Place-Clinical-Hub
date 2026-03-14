@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duty Doctor SOP – Strouts Place Medical Centre</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1B3A6B;
+      --blue:       #2E6DAD;
+      --mid-blue:   #5B9BD5;
+      --light-blue: #D6E8F7;
+      --very-light: #EEF5FB;
+      --white:      #FFFFFF;
+      --off-white:  #F7F9FC;
+      --dark:       #1e2a3a;
+      --mid-grey:   #556070;
+      --border:     #C9D9EC;
+      --teal:       #16a085;
+      --teal-light: #d1f5ee;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(91,155,213,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(46,109,173,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 44px 40px 36px;
+      position: relative; z-index: 1;
+    }
+    .header-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid-blue);
+      border: 1px solid rgba(91,155,213,0.45);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 18px;
+    }
+    header h1 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1rem;
+      color: var(--light-blue);
+      font-weight: 300;
+      max-width: 560px;
+    }
+    .header-meta {
+      display: flex;
+      gap: 28px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-item .meta-key {
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid-blue);
+      font-weight: 600;
+    }
+    .meta-item .meta-val {
+      font-size: 0.85rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+    .header-rule {
+      height: 4px;
+      background: linear-gradient(90deg, var(--mid-blue) 0%, var(--blue) 60%, transparent 100%);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 44px 40px 60px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid-blue);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CARD (generic) ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--navy);
+      border-radius: 3px;
+      box-shadow: 0 2px 12px rgba(27,58,107,0.07);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .card-head {
+      padding: 22px 28px 18px;
+      background: var(--very-light);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .card-num {
+      width: 36px; height: 36px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-head-text h2 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .card-head-text .card-sub {
+      font-size: 0.8rem;
+      color: var(--mid-grey);
+      font-weight: 300;
+    }
+    .card-body {
+      padding: 22px 28px;
+    }
+
+    /* ── BULLET LIST ── */
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .bullet-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--very-light);
+      font-size: 0.9rem;
+      color: var(--dark);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .bullet-list li:last-child { border-bottom: none; }
+    .bullet-list li svg {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── INLINE NOTE (blockquote style) ── */
+    .inline-note {
+      border-left: 3px solid var(--mid-blue);
+      background: var(--off-white);
+      padding: 12px 16px;
+      border-radius: 0 3px 3px 0;
+      font-size: 0.85rem;
+      color: var(--mid-grey);
+      font-style: italic;
+      margin: 14px 0;
+    }
+
+    /* ── TWO-COL GRID ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 4px;
+    }
+
+    /* ── KLINIK TILES TABLE ── */
+    .tiles-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+    .tiles-table thead tr { background: var(--navy); }
+    .tiles-table thead th {
+      padding: 11px 16px;
+      color: var(--white);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-align: left;
+    }
+    .tiles-table thead th:first-child { border-radius: 3px 0 0 0; }
+    .tiles-table thead th:last-child  { border-radius: 0 3px 0 0; }
+    .tiles-table tbody tr:nth-child(odd)  { background: var(--white); }
+    .tiles-table tbody tr:nth-child(even) { background: var(--very-light); }
+    .tiles-table tbody td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      vertical-align: top;
+    }
+    .tiles-table tbody tr:last-child td { border-bottom: none; }
+    .pill {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .pill-blue { background: var(--light-blue); color: var(--navy); }
+    .pill-teal { background: var(--teal-light); color: #0d6b52; }
+
+    /* ── STAFF TABLE ── */
+    .staff-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+    .staff-table thead tr { background: var(--navy); }
+    .staff-table thead th {
+      padding: 11px 16px;
+      color: var(--white);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-align: left;
+    }
+    .staff-table thead th:first-child { border-radius: 3px 0 0 0; }
+    .staff-table thead th:last-child  { border-radius: 0 3px 0 0; }
+    .staff-table tbody tr:nth-child(odd)  { background: var(--white); }
+    .staff-table tbody tr:nth-child(even) { background: var(--very-light); }
+    .staff-table tbody td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .staff-table tbody tr:last-child td { border-bottom: none; }
+    .staff-name {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.9rem;
+    }
+    .staff-role {
+      font-size: 0.76rem;
+      color: var(--mid-grey);
+      font-style: italic;
+    }
+
+    /* ── DISCLAIMER BOX ── */
+    .disclaimer {
+      background: var(--very-light);
+      border: 1px solid var(--light-blue);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 3px 3px 0;
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      color: var(--mid-grey);
+      font-style: italic;
+      margin: 14px 0;
+      line-height: 1.6;
+    }
+
+    /* ── HOURS BADGE ── */
+    .hours-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--light-blue);
+      color: var(--navy);
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+
+    /* ── REVIEW FOOTER ── */
+    .review-box {
+      background: var(--navy);
+      border-radius: 3px;
+      padding: 32px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .review-box::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(91,155,213,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .review-box h2 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .review-rule {
+      width: 50px; height: 2px;
+      background: var(--mid-blue);
+      margin: 0 auto 14px;
+    }
+    .review-box p {
+      color: var(--light-blue);
+      font-size: 0.9rem;
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 720px) {
+      main { padding: 28px 18px 48px; }
+      .header-inner { padding: 30px 18px 24px; }
+      header h1 { font-size: 1.9rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .card-body { padding: 18px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <div class="header-label">Strouts Place Medical Centre</div>
+    <h1>Standard Operating<br>Procedure</h1>
+    <p>Duty Doctor Role — responsibilities and processes for safe, efficient management of urgent clinical work.</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-key">Scope</span>
+        <span class="meta-val">All GPs on Duty</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Review</span>
+        <span class="meta-val">Annual</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Version</span>
+        <span class="meta-val">November 2025</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-rule"></div>
+</header>
+
+<main>
+
+  <!-- ── 1. OVERVIEW ── -->
+  <div class="section-label">Overview</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">1</div>
+      <div class="card-head-text">
+        <h2>Overview of the Role</h2>
+        <div class="card-sub">Purpose and scope</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p style="font-size:0.9rem; color:var(--dark); margin-bottom:12px;">The Duty Doctor is responsible for managing all same-day and urgent clinical matters that arise during their duty session. This includes triage, reviewing urgent clinical information, and providing timely clinical support to the wider team.</p>
+      <p style="font-size:0.9rem; color:var(--mid-grey);">This SOP applies to all GPs undertaking the Duty Doctor role within the practice.</p>
+    </div>
+  </div>
+
+  <!-- ── 2. KLINIK TRIAGE ── -->
+  <div class="section-label">Klinik Triage</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">2</div>
+      <div class="card-head-text">
+        <h2>Klinik Triage</h2>
+        <div class="card-sub">Online request management</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <!-- 2.1 Disclaimer -->
+      <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:8px;">2.1 &nbsp;Disclaimer</p>
+      <p style="font-size:0.9rem; margin-bottom:10px;">The GP surgery is not an emergency service. Despite this, we will always do our best to support and assist our patients in whatever situation they may be in.</p>
+      <div class="disclaimer">
+        "This service is only available to patients registered with Strouts Place Medical Centre. Our opening hours are 8 a.m. to 6:30 p.m., Monday to Friday. You can contact us online anytime during our opening hours. If you have already been invited for an appointment, either via phone or letter, you can call the Practice to book this and do not need to raise an online request. Please note after 4:30 p.m. your query may not be reviewed until the next working day. The online consultation tool should be used for routine queries only after this time. If you have any urgent queries after this time, it is important you contact the surgery directly to avoid any delays in care. In a life threatening emergency, contact 999."
+      </div>
+      <div class="inline-note">Duty Doctors should be mindful of this message when reviewing Klinik submissions after 4:30 p.m. Routine queries submitted after this time may not be reviewed until the next working day. Patients with urgent queries after 4:30 p.m. should be directed to contact the surgery directly. In a life-threatening emergency, patients should call 999.</div>
+
+      <div style="margin-top:22px;">
+        <!-- 2.2 Hours -->
+        <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:10px;">2.2 &nbsp;Klinik Operating Hours</p>
+        <div class="hours-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Monday to Friday &nbsp;·&nbsp; 8:00 a.m. – 6:30 p.m.
+        </div>
+      </div>
+
+      <div style="margin-top:22px;">
+        <!-- 2.3 Tiles -->
+        <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:10px;">2.3 &nbsp;Available Klinik Tiles</p>
+        <table class="tiles-table">
+          <thead>
+            <tr>
+              <th>Tile</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Medication-related</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Referrals</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Smear tests</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Sick / Fit notes</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Insurance and other reports / private letters</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Cancelling an appointment</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Long-term condition</td><td><span class="pill pill-blue">All day &nbsp;8:00 a.m. – 6:30 p.m.</span></td></tr>
+            <tr><td>Ongoing health problem</td><td><span class="pill pill-teal">Morning &nbsp;8:00 a.m. – 4:30 p.m.</span></td></tr>
+            <tr><td>New health problem</td><td><span class="pill pill-teal">Morning &nbsp;8:00 a.m. – 4:30 p.m.</span></td></tr>
+            <tr><td>Test results</td><td><span class="pill pill-teal">Morning &nbsp;8:00 a.m. – 4:30 p.m.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:22px;">
+        <!-- 2.4 Responsibilities -->
+        <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:10px;">2.4 &nbsp;Duty Doctor Responsibilities</p>
+        <ul class="bullet-list">
+          <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Manage Klinik triage throughout the session, reviewing all patient submissions promptly.</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Prioritise cases according to clinical urgency.</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Allocate cases appropriately to other clinicians, allied health professionals, or admin staff when suitable.</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact patients directly for further assessment or advice as required.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 3–9 REMAINING SECTIONS ── -->
+  <div class="section-label">Clinical Responsibilities</div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">3</div>
+      <div class="card-head-text">
+        <h2>Clinician Queries</h2>
+        <div class="card-sub">Supporting the wider clinical team</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Provide clinical support to other members of the team, including nurses, HCAs, pharmacists, and administrative staff.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Offer advice on prescribing, patient management, and urgent care queries.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Review and sign off tasks referred by other clinicians where appropriate.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">4</div>
+      <div class="card-head-text">
+        <h2>Review of Lab Reports</h2>
+        <div class="card-sub">Results management and delegation</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list" style="margin-bottom:20px;">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Regularly review and action lab reports.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ensure urgent or abnormal results are communicated to patients or managed appropriately.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Allocate appropriate lab results to other clinicians.</li>
+      </ul>
+      <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:10px;">Staff Delegation for Lab Results</p>
+      <table class="staff-table">
+        <thead>
+          <tr><th>Staff Member</th><th>Responsible For</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="staff-name">Ziniea</div><div class="staff-role">Pharmacist</div></td>
+            <td style="font-size:0.88rem; color:var(--dark);">CT/GC test results, folate, vitamin D, ferritin, new mild/moderately raised ALT, HbA1c, TFTs, helicobacter pylori, urine ACR.</td>
+          </tr>
+          <tr>
+            <td><div class="staff-name">Daymie</div><div class="staff-role">PA</div></td>
+            <td style="font-size:0.88rem; color:var(--dark);">Normal US/XR reports, lab errors (e.g. not tested, no results received).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">5</div>
+      <div class="card-head-text">
+        <h2>Urgent Documents</h2>
+        <div class="card-sub">Hospital letters, discharge summaries, urgent correspondence</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Review and action urgent clinical documents, including hospital letters, discharge summaries, and correspondence marked as urgent.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ensure necessary follow-up actions are documented and communicated clearly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">6</div>
+      <div class="card-head-text">
+        <h2>Urgent Queries</h2>
+        <div class="card-sub">Tasks, phone calls, and internal messages</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Respond promptly to urgent administrative or clinical queries received via tasks, phone calls, or internal messages.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Liaise with reception and admin staff to ensure timely patient communication and safety netting.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">7</div>
+      <div class="card-head-text">
+        <h2>Medicines Management</h2>
+        <div class="card-sub">Prescriptions and medication queries</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list" style="margin-bottom:20px;">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Review and approve prescription requests where clinically appropriate.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Address medication queries from pharmacies or patients that require same-day action.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Support safe prescribing practices within the team.</li>
+      </ul>
+      <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); margin-bottom:10px;">Prescribing Support</p>
+      <table class="staff-table">
+        <thead>
+          <tr><th>Staff Member</th><th>Role</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="staff-name">Aysha</div><div class="staff-role">Prescribing Pharmacist</div></td>
+            <td style="font-size:0.88rem; color:var(--dark);">Reviews and approves prescription requests on her working days.</td>
+          </tr>
+          <tr>
+            <td><div class="staff-name">Ziniea</div><div class="staff-role">Pharmacist</div></td>
+            <td style="font-size:0.88rem; color:var(--dark);">Reviews prescriptions on her working days when Aysha is not working. These are then sent to the Duty Doctor for approval.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">8</div>
+      <div class="card-head-text">
+        <h2>Communication &amp; Escalation</h2>
+        <div class="card-sub">Workload management and handover</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Maintain clear communication with the reception and admin teams regarding workload and prioritisation.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Escalate any significant concerns or safety issues to the leadership team (managers or partners).</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ensure handover of any ongoing urgent matters at the end of the session.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">9</div>
+      <div class="card-head-text">
+        <h2>Documentation</h2>
+        <div class="card-sub">Clinical record keeping</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Record all patient interactions, decisions, and actions clearly in the clinical record.</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#D6E8F7"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#2E6DAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ensure tasks are completed or delegated appropriately with clear documentation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── REVIEW FOOTER ── -->
+  <div class="review-box">
+    <h2>Review</h2>
+    <div class="review-rule"></div>
+    <p>This SOP will be reviewed annually, or earlier if there are changes to practice workflow, clinical systems, or patient access arrangements.</p>
+  </div>
+
+</main>
+</body>
+</html>

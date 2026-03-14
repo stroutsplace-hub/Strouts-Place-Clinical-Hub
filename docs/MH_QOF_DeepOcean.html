@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health QOF SOP 2025/26 — Deep Ocean</title>
+<style>
+  :root {
+    --teal:       #0369a1;
+    --teal-dark:  #075985;
+    --teal-deep:  #0c2d48;
+    --teal-light: #bae6fd;
+    --teal-pale:  #f0f9ff;
+    --slate:      #082032;
+    --slate-mid:  #334155;
+    --slate-light:#94a3b8;
+    --amber:      #f59e0b;
+    --amber-light:#fef3c7;
+    --amber-dark: #92400e;
+    --red-light:  #fef2f2;
+    --red:        #dc2626;
+    --white:      #ffffff;
+    --surface:    #f8fafc;
+    --border:     #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(3,105,161,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(3,105,161,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--teal-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--teal-light); color: var(--teal-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #061826 0%, #0c3a5c 60%, #0a2a45 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(186,230,253,.25) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(3,105,161,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(186,230,253,.2);
+    border: 1px solid rgba(186,230,253,.5);
+    color: #7dd3fc;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: #7dd3fc;
+  }
+
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  /* ── SECTION ── */
+  section {
+    margin-bottom: 3rem;
+  }
+  section.animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  section.animate.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--teal);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    color: var(--slate);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(3,105,161,.12); transform: translateY(-2px); }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-teal  { background: var(--teal-pale);  border: 1px solid #7dd3fc; }
+  .alert-amber { background: var(--amber-light); border: 1px solid #fcd34d; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-teal  strong { color: var(--teal-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: #075985; }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--teal-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--teal-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge { font-weight: 700; color: var(--teal-dark); font-size: .85rem; background: var(--teal-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill { display: inline-block; background: #e0f2fe; color: #075985; font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; }
+
+  /* ── ROLES GRID ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--teal);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(3,105,161,.14); transform: translateY(-3px); }
+  .role-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--teal-dark); margin-bottom: .6rem; }
+  .role-list { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  /* ── PROCESS STEPS ── */
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--teal), var(--teal-light));
+    border-radius: 2px;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--teal-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--teal-light); }
+
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(3,105,161,.12); }
+
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc { font-size: .88rem; color: var(--slate-mid); }
+  .step-list { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--teal); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── CLINIC FLOW ── */
+  .clinic-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin: 1.2rem 0;
+  }
+  .clinic-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .clinic-box .icon { font-size: 2rem; margin-bottom: .4rem; }
+  .clinic-box .role { font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; color: var(--teal-dark); margin-bottom: .3rem; }
+  .clinic-box .time-badge { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-size: .75rem; font-weight: 600; padding: .2rem .6rem; border-radius: 999px; margin-bottom: .5rem; }
+  .clinic-box ul { list-style: none; text-align: left; }
+  .clinic-box ul li { font-size: .82rem; color: var(--slate-mid); padding: .2rem 0; padding-left: 1rem; position: relative; }
+  .clinic-box ul li::before { content: '•'; color: var(--teal); position: absolute; left: 0; font-weight: 700; }
+  .clinic-arrow { font-size: 1.8rem; color: var(--teal); text-align: center; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: .5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
+
+  /* ── MONITORING TABLE ── */
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--teal-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly  { background: #dbeafe; color: #1e40af; }
+  .freq-quarterly{ background: #fce7f3; color: #9d174d; }
+  .freq-annually { background: #dcfce7; color: #166534; }
+  .freq-asneeded { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--teal-pale); border-color: #7dd3fc; }
+  .checklist li.checked { background: var(--teal-pale); border-color: var(--teal); color: var(--slate); text-decoration: line-through; opacity: .65; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+    font-size: .75rem;
+    color: transparent;
+    margin-top: .1rem;
+  }
+  .checklist li.checked .check-box { background: var(--teal); border-color: var(--teal); color: white; }
+
+  /* ── RESOURCES ── */
+  .resource-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .resource-list li {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .resource-list li:hover { background: var(--teal-pale); border-color: #7dd3fc; }
+  .resource-list li::before { content: '📎'; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* stagger for cards */
+  .role-card:nth-child(1) { animation-delay: .05s; }
+  .role-card:nth-child(2) { animation-delay: .1s; }
+  .role-card:nth-child(3) { animation-delay: .15s; }
+  .role-card:nth-child(4) { animation-delay: .2s; }
+  .role-card:nth-child(5) { animation-delay: .25s; }
+
+  /* progress bar for QOF targets */
+  .progress-wrap { margin-top: .4rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: .75rem; color: var(--slate-light); margin-bottom: .3rem; }
+  .progress-track { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, #0369a1, #7dd3fc); border-radius: 999px; width: 0; transition: width 1.2s cubic-bezier(.22,1,.36,1); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    /* Nav */
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-brand { font-size: .85rem; }
+    .nav-links a { padding: .3rem .5rem; font-size: .72rem; }
+
+    /* Layout */
+    main { padding: 68px 1rem 3rem; }
+
+    /* Hero */
+    .hero { padding: 2rem 1.25rem 1.75rem; border-radius: 14px; }
+    .hero h1 { font-size: 2rem; }
+    .hero-sub { font-size: .88rem; }
+    .hero-badge { font-size: .7rem; padding: .25rem .6rem; }
+
+    /* Roles grid — single column */
+    .roles-grid { grid-template-columns: 1fr; }
+
+    /* Steps — tighten */
+    .steps::before { left: 19px; }
+    .step { gap: 1rem; }
+    .step-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .step-body { padding: 1rem 1.1rem; }
+
+    /* Tables — allow horizontal scroll */
+    .card { padding: 0; overflow-x: auto; }
+    .ind-table, .mon-table { min-width: 520px; }
+    .ind-table td, .ind-table th,
+    .mon-table td, .mon-table th { padding: .6rem .75rem; font-size: .82rem; }
+
+    /* Inline two-column checklist grid → single column on mobile */
+    ul[style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Checklist */
+    .checklist li { font-size: .84rem; padding: .65rem .85rem; }
+
+    /* Alert boxes */
+    .alert { font-size: .85rem; padding: .85rem 1rem; }
+
+    /* Section title */
+    .section-title { font-size: 1.25rem; }
+
+    /* Resource list */
+    .resource-list li { font-size: .84rem; }
+
+    /* Clinic flow */
+    .clinic-flow { grid-template-columns: 1fr; }
+    .clinic-arrow { transform: rotate(90deg); }
+
+    /* Code/points badges */
+    .code-badge { font-size: .78rem; }
+    .points-badge { font-size: .78rem; }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.7rem; }
+    .nav-brand { display: none; }
+    main { padding: 64px .75rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; MH QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Mental Health<br><em>QOF</em> 2025/26</h1>
+    <p class="hero-sub">Achieving targets for MH002, MH003, MH006, MH007, MH011 &amp; MH012 — a guide for administrative and clinical staff at <strong style="color:#7dd3fc;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>A Major Health Inequality</strong>
+        Patients with severe mental illness (SMI) have a life expectancy <strong>15–20 years shorter</strong> than the general population, largely due to preventable physical illness. Our QOF work directly saves lives — it is not just about points.
+      </div>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        All indicators apply to patients on the SMI register: <strong>schizophrenia, bipolar affective disorder, and other psychoses</strong>. This SOP covers the full patient pathway — from register identification through to clinical review, coding, and QOF monitoring.
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicators at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">MH002</span></td>
+            <td>Comprehensive care plan documented &amp; agreed with patient/carer</td>
+            <td><span class="points-badge">5</span></td>
+            <td><span class="target-pill">40–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">MH003</span></td>
+            <td>Blood pressure recorded in preceding 12 months</td>
+            <td><span class="points-badge">3</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">MH006</span></td>
+            <td>BMI recorded in preceding 12 months</td>
+            <td><span class="points-badge">3</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">MH007</span></td>
+            <td>Alcohol consumption recorded in preceding 12 months</td>
+            <td><span class="points-badge">3</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">MH011</span></td>
+            <td>Lipid profile recorded (12 months high-risk / 24 months all others)</td>
+            <td><span class="points-badge">7</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">MH012</span></td>
+            <td>Blood glucose or HbA1c recorded in preceding 12 months</td>
+            <td><span class="points-badge">7</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>MH011 — Who is high risk? (12-month window)</strong>
+        Patients currently prescribed antipsychotics, AND/OR pre-existing CVD conditions (CHD, diabetes, stroke, PAD, CKD), AND/OR a current smoker, AND/OR BMI ≥23 (or ≥25 if White ethnicity recorded). All other patients: 24-month window.
+      </div>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>MH012 exclusion</strong>
+        Patients with a confirmed diabetes diagnosis are automatically excluded — they are captured in the diabetes QOF domain.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance</li>
+          <li>Attends monthly QOF meeting to review dashboard and agree action plans</li>
+          <li>Coordinates recall campaign with admin lead</li>
+          <li>Escalates persistent non-responders to GP lead</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Generates SMI register reports monthly</li>
+          <li>Sends invitation letters and SMS recall messages</li>
+          <li>Books One-Stop Clinic with HCA (30 minutes)</li>
+          <li>Books follow-up TC with Pharmacist for care plan</li>
+          <li>Scans and codes results received from secondary care</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">Healthcare Assistant (HCA)</div>
+        <ul class="role-list">
+          <li>Runs the One-Stop Clinic: all physical checks and bloods in one visit</li>
+          <li>Documents all readings with correct SNOMED codes same day using the (RP) LTC Review Tower Hamlets CEG v1.4 template</li>
+          <li>Completes AUDIT-C alcohol screening and codes result</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with GP lead, PM and admin lead</li>
+          <li>Conducts TC appointment to complete care plan (MH002)</li>
+          <li>Reviews results and actions abnormals as per lab workflow policy</li>
+          <li>Completes antipsychotic physical health check and medication review as part of the Locally Enhanced Service (LES) — carried out during the follow-up TC appointment once One-Stop Clinic results are available</li>
+        </ul>
+        <div class="alert alert-teal" style="margin-top:.8rem; margin-bottom:0;">
+          <span class="alert-icon">💊</span>
+          <div>
+            <strong>LES — Antipsychotic Review (at follow-up TC)</strong>
+            The pharmacist reviews the following at the follow-up TC appointment as part of the LES requirement:
+            <ul style="list-style:none; margin-top:.5rem;">
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>HbA1c (annual)</li>
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>HDL cholesterol (annual)</li>
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>Blood pressure (annual)</li>
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>BMI (annual)</li>
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>Medication review — antipsychotic efficacy, side effects, adherence and optimisation</li>
+              <li style="padding:.2rem 0; padding-left:1rem; position:relative; font-size:.86rem;"><span style="position:absolute;left:0;font-weight:700;">✓</span>Ensure all LES components are coded using the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template</li>
+            </ul>
+            <div style="margin-top:.6rem; padding:.5rem .75rem; background:var(--amber-light); border:1px solid #fcd34d; border-radius:8px; font-size:.82rem; color:var(--amber-dark);">
+              <strong>ECG:</strong> Not required routinely. Only indicated if a patient's cardiac risk changes (e.g. new IHD or arrhythmia). ELFT are responsible for the initial ECG prior to antipsychotic initiation — this is not a primary care responsibility.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with pharmacist, PM and admin lead</li>
+          <li>Actions abnormal results as per lab workflow policy</li>
+          <li>Approves clinical exception reporting</li>
+          <li>Reviews patients with repeated DNAs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Identify Patients Due a Review</div>
+          <ul class="step-list">
+            <li>Run SMI register report monthly — patients with schizophrenia, bipolar or other psychoses diagnosis codes</li>
+            <li>Filter for any missing or overdue QOF indicators (MH002–MH012)</li>
+            <li>Prioritise patients with the most overdue items first</li>
+            <li>For MH011: determine high-risk status to confirm whether the 12- or 24-month window applies</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book</div>
+          <ul class="step-list">
+            <li>Send a personalised invitation letter or SMS within 5 working days of the report being run</li>
+            <li>Book a <strong>One-Stop Clinic appointment with HCA — 30 minutes</strong></li>
+            <li>Advise patient to fast if possible (required for accurate lipid / glucose results)</li>
+            <li>Book a <strong>follow-up telephone appointment with the Pharmacist</strong> to review results and complete the care plan (MH002) — schedule this for after blood results are expected back from the lab</li>
+            <li>If no response after 2 weeks: send a second invitation. After a further 2 weeks: telephone outreach.</li>
+            <li>If still no response after 3 attempts: add to the monthly QOF meeting agenda for review by the team</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">One-Stop Clinic — HCA (30 minutes)</div>
+          <p class="step-desc">The HCA completes all physical checks and bloods in a single appointment, documented using the <strong>(RP) LTC Review Tower Hamlets CEG v1.4 template</strong>. Everything must be coded on the same day.</p>
+          <div style="background:var(--teal-pale); border:1px solid #bae6fd; border-radius:12px; padding:1.2rem; margin:1rem 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--teal-dark); margin-bottom:.7rem; text-align:center;">🩺🧪 &nbsp;All checks &amp; bloods — single visit</div>
+            <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.3rem .5rem;">
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>Blood pressure (MH003)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>Lipid profile (MH011)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>Weight &amp; BMI (MH006)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>Blood glucose / HbA1c (MH012)*</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>Waist circumference if BMI ≥25</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>All results coded same day in EMIS</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--teal);font-weight:700;">✓</span>AUDIT-C alcohol screen (MH007)</li>
+            </ul>
+            <p style="font-size:.78rem; color:var(--slate-light); margin-top:.6rem;">* Exclude if patient has a confirmed diabetes diagnosis</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Telephone Appointment — Pharmacist</div>
+          <p class="step-desc">Once the One-Stop Clinic is complete and blood results have been returned by the lab, the Pharmacist conducts a follow-up telephone consultation to:</p>
+          <ul class="step-list">
+            <li>Discuss results with the patient</li>
+            <li>Review, update and agree the care plan with patient and/or carer (MH002)</li>
+            <li>Ensure care plan is dated <em>after</em> any recent relapse — pre-relapse plans are not acceptable for QOF</li>
+            <li>Action any abnormal results as per the <strong>lab workflow policy</strong></li>
+            <li>Signpost to weight management, smoking cessation or alcohol services as appropriate</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Care plan (MH002) requirements</strong> — Must be: documented in the last 12 months, agreed with the patient and/or carer, updated following any relapse. If managed in community mental health services, a documented CMHS care plan is acceptable provided the practice holds evidence of a review.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Coding &amp; Documentation</div>
+          <ul class="step-list">
+            <li>All results coded in the patient record on the day of the appointment</li>
+            <li>Use correct SNOMED/Read codes as required by EMIS</li>
+            <li>Blood results received from secondary care: scan and code on receipt</li>
+            <li>If the patient is on antipsychotics, verify lipid profile window (12 months) is applied correctly</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Exception Reporting</div>
+          <p class="step-desc">Exceptions may be entered by any appropriate member of staff but must be <strong>approved by the GP</strong>, and only where clinically justified.</p>
+          <ul class="step-list">
+            <li>Patient has been informed of the recommendation but declines (patient declined)</li>
+            <li>Clinical contraindication documented and approved by the GP</li>
+            <li>Patient recently registered (within 3 months) — new patient exception</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong> Commissioners may audit a random sample of exceptions — incorrect coding can result in financial claw-back.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against targets, problem-solve barriers and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden; margin-top: 1rem;"><div style="overflow-x:auto;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Activity</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Run SMI register exception report; review outstanding patients</td>
+            <td>Practice Manager / Admin Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting — GP Lead, Pharmacist, PM and Admin Lead review dashboard, performance and agree action plans</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Check QOF dashboard for current achievement against thresholds</td>
+            <td>Practice Manager</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full register accuracy review — add new diagnoses, remove incorrect entries</td>
+            <td>GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-asneeded">As needed</span></td>
+            <td>Patients with 3+ failed contacts or DNAs raised at monthly QOF meeting for team review</td>
+            <td>Admin Lead → QOF Meeting</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Admin Checklist — Per Patient</h2>
+    </div>
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:1rem;">Click each item to mark it complete. Use this when processing a patient through the SMI recall cycle.</p>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified on SMI register report</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter / SMS sent (date logged)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>One-Stop Clinic booked with HCA — 30 minutes. Patient advised to fast if possible.</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>TC appointment booked with Pharmacist — to be scheduled once blood results are back from the lab</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>One-Stop Clinic attended — all physical checks and bloods completed by HCA</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>All results coded same day using the (RP) LTC Review Tower Hamlets CEG v1.4 template in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>TC appointment completed — care plan reviewed and agreed (MH002) and any abnormal results discussed and actioned as per lab workflow policy</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA (Did Not Attend): second invite sent within 5 working days</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If 3× DNA or failed contacts: added to monthly QOF meeting agenda for team review</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE CG178 — Psychosis and schizophrenia in adults: <strong>nice.org.uk/guidance/cg178</strong></li>
+      <li>NICE CG185 — Bipolar disorder: assessment and management: <strong>nice.org.uk/guidance/cg185</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+      <li>Public Health England (2018) SMI and physical health inequalities briefing: <strong><a href="https://www.gov.uk/government/publications/severe-mental-illness-smi-physical-health-inequalities/severe-mental-illness-and-physical-health-inequalities-briefing" target="_blank" style="color:var(--teal-dark);">gov.uk/severe-mental-illness-and-physical-health-inequalities-briefing</a></strong></li>
+      <li>Office for Health Improvement &amp; Disparities (2023) Premature mortality in adults with SMI: <strong><a href="https://www.gov.uk/government/publications/premature-mortality-in-adults-with-severe-mental-illness/premature-mortality-in-adults-with-severe-mental-illness-smi" target="_blank" style="color:var(--teal-dark);">gov.uk/premature-mortality-in-adults-with-severe-mental-illness-smi</a></strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--teal-pale); border-color: #bae6fd;">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--teal-dark);">Version</strong></td>
+          <td>1.0</td>
+          <td><strong style="color:var(--teal-dark);">Effective</strong></td>
+          <td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--teal-dark);">Review due</strong></td>
+          <td>March 2026</td>
+          <td><strong style="color:var(--teal-dark);">Owner</strong></td>
+          <td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates. All staff are expected to have read and understood this SOP before undertaking SMI health reviews.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Mental Health QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  // Scroll reveal
+  // Only animate sections that are NOT already in the viewport on load
+  const allSections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  allSections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.classList.add('animate');
+      observer.observe(s);
+    }
+  });
+
+  // Animate progress bars when visible
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.progress-fill').forEach(bar => {
+          const t = bar.dataset.target;
+          setTimeout(() => bar.style.width = t + '%', 200);
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('#indicators').forEach(s => barObserver.observe(s));
+
+  // Checklist toggle
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+
+  // Stagger role cards on load
+  const rolesObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.role-card').forEach((card, i) => {
+          card.style.transition = `opacity .5s ease ${i * .08}s, transform .5s ease ${i * .08}s, box-shadow .2s, border-color .2s`;
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        });
+        rolesObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.roles-grid').forEach(g => {
+    const rect = g.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      g.querySelectorAll('.role-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+      });
+    }
+    rolesObserver.observe(g);
+  });
+</script>
+</body>
+</html>

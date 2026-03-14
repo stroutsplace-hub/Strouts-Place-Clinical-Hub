@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Non-Diabetic Hyperglycaemia QOF SOP 2025/26 — Deep Ocean</title>
+
+<style>
+  :root {
+    --green2:      #16a34a;
+    --green2-dark:  #15803d;
+    --green2-deep:  #14532d;
+    --green2-light: #bbf7d0;
+    --green2-pale:  #f0fdf4;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --red-light:   #fef2f2;
+    --red:         #dc2626;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(22,163,74,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(22,163,74,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--green2-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--green2-light); color: var(--green2-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #052e16 0%, #15803d 60%, #14532d 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(165,243,252,.2) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(22,163,74,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(165,243,252,.2);
+    border: 1px solid rgba(165,243,252,.5);
+    color: #86efac;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+  .hero h1 em { font-style: italic; color: #86efac; }
+
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  /* ── SECTION ── */
+  section { margin-bottom: 3rem; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--green2);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    color: var(--slate);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(22,163,74,.12); transform: translateY(-2px); }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-green2  { background: var(--green2-pale);   border: 1px solid #86efac; }
+  .alert-amber { background: var(--amber-light);  border: 1px solid #fcd34d; }
+  .alert-red   { background: var(--red-light);    border: 1px solid #fca5a5; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-green2 strong  { color: var(--green2-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+  .alert-red strong   { color: var(--red); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: #15803d; }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--green2-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--green2-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge { font-weight: 700; color: var(--green2-dark); font-size: .85rem; background: var(--green2-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill { display: inline-block; background: #dcfce7; color: #14532d; font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; }
+
+  /* ── ROLES GRID ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--green2);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(22,163,74,.14); transform: translateY(-3px); }
+  .role-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--green2-dark); margin-bottom: .6rem; }
+  .role-list { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--green2); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  /* ── PROCESS STEPS ── */
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green2), var(--green2-light));
+    border-radius: 2px;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--green2);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--green2-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--green2-light); }
+
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(22,163,74,.12); }
+
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc { font-size: .88rem; color: var(--slate-mid); }
+  .step-list { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--green2); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── MONITORING TABLE ── */
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--green2-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly   { background: #dbeafe; color: #1e40af; }
+  .freq-quarterly { background: #fce7f3; color: #9d174d; }
+  .freq-annually  { background: #dcfce7; color: #14532d; }
+  .freq-asneeded  { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--green2-pale); border-color: #86efac; }
+  .checklist li.checked { background: var(--green2-pale); border-color: var(--green2); color: var(--slate); text-decoration: line-through; opacity: .65; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+    font-size: .75rem;
+    color: transparent;
+    margin-top: .1rem;
+  }
+  .checklist li.checked .check-box { background: var(--green2); border-color: var(--green2); color: white; }
+
+  /* ── RESOURCES ── */
+  .resource-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .resource-list li {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .resource-list li:hover { background: var(--green2-pale); border-color: #86efac; }
+  .resource-list li::before { content: '📎'; flex-shrink: 0; }
+
+  /* ── ELIGIBILITY SPLIT BOX ── */
+  .elig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .elig-box {
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    border: 1px solid;
+  }
+  .elig-box.include { background: var(--green2-pale); border-color: #86efac; }
+  .elig-box.exclude { background: var(--amber-light); border-color: #fcd34d; }
+  .elig-box .eb-title { font-family: Georgia, 'Times New Roman', serif; font-size: .95rem; margin-bottom: .4rem; }
+  .elig-box.include .eb-title { color: var(--green2-dark); }
+  .elig-box.exclude .eb-title { color: var(--amber-dark); }
+  .elig-box ul { list-style: none; }
+  .elig-box ul li { font-size: .82rem; color: var(--slate-mid); padding: .2rem 0; padding-left: 1rem; position: relative; }
+  .elig-box ul li::before { content: '•'; position: absolute; left: 0; font-weight: 700; }
+  .elig-box.include ul li::before { color: var(--green2); }
+  .elig-box.exclude ul li::before { color: var(--amber); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 2rem 1.5rem; }
+    .elig-grid { grid-template-columns: 1fr; }
+    nav { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; NDH QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Non-Diabetic Hyperglycaemia<br><em>QOF</em> 2025/26</h1>
+    <p class="hero-sub">Achieving targets for NDH002 — a guide for administrative and clinical staff at <strong style="color:#86efac;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Scale &amp; Urgency</strong>
+        There were more than <strong>3.7 million people</strong> with non-diabetic hyperglycaemia (NDH) in England in 2023/24 — an increase of 530,000 compared with the previous year. NDH (prediabetes) is defined as an HbA1c of <strong>42–47 mmol/mol</strong> or a fasting plasma glucose (FPG) of <strong>5.5–6.9 mmol/l</strong>. Without intervention, a substantial proportion will progress to type 2 diabetes. Annual monitoring enables early detection of progression so that timely treatment can begin.
+      </div>
+    </div>
+    <div class="alert alert-green2">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        NDH002 applies to all patients on the <strong>NDH register</strong>: adults aged 18 or over with a coded record of non-diabetic hyperglycaemia or pre-diabetes, where that record has not been superseded by a diagnosis of diabetes prior to the start of the financial year. This SOP covers the full annual monitoring pathway — from register identification through blood test completion, coding, NHS DPP referral and QOF monitoring.
+      </div>
+    </div>
+    <div class="alert alert-green2">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>NHS Diabetes Prevention Programme (NHS DPP)</strong>
+        The NHS DPP is available across England. GP practices can refer patients aged 18 or over with a blood test result demonstrating NDH in the preceding 12 months. Programme completion (attending &gt;60% of sessions) is associated with a <strong>37% relative risk reduction</strong> in developing type 2 diabetes. Eligibility, exclusions and referral pathway are detailed in the Process section below.
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicator at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">NDH002</span></td>
+            <td>The percentage of patients with non-diabetic hyperglycaemia who have had an HbA1c or fasting blood glucose performed in the preceding 12 months</td>
+            <td><span class="points-badge">18</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>NDH002 — Acceptable tests</strong>
+        Either an <strong>HbA1c</strong> or a <strong>fasting blood glucose</strong> result in the preceding 12 months satisfies this indicator. Both are acceptable; document whichever test is performed using the correct SNOMED code. Where results indicate progression to diabetes, the patient must be removed from the NDH register and added to the diabetes register.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance for the NDH indicator</li>
+          <li>Chairs monthly QOF meeting; reviews dashboard and agrees action plans</li>
+          <li>Coordinates annual blood test recall campaign with admin team</li>
+          <li>Escalates persistent non-responders at the monthly QOF meeting</li>
+          <li>Ensures register accuracy is reviewed at least annually with the GP Lead</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Runs the NDH register report monthly to identify patients with tests overdue or due within 6 weeks</li>
+          <li>Sends invitation letters and SMS for annual blood test</li>
+          <li>Books phlebotomy or nurse appointments for HbA1c / FBG</li>
+          <li>Files and codes results received from external labs on the same day</li>
+          <li>Logs DNA attempts; escalates patients with 3+ failed contacts to the monthly QOF meeting</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">HCA / Practice Nurse</div>
+        <ul class="role-list">
+          <li>Performs or requests the annual HbA1c or fasting blood glucose test</li>
+          <li>Provides brief lifestyle advice at the point of blood test — diet, physical activity, weight</li>
+          <li>Reviews result when available and codes it using the correct SNOMED code on the same day</li>
+          <li>If result indicates diabetes: flags to GP or pharmacist immediately — same day — for formal diagnosis, register change and initiation of management pathway</li>
+          <li>Offers or reinforces NHS DPP referral where the patient is eligible and not yet enrolled</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting</li>
+          <li>Acts on results indicating progression to diabetes when flagged by HCA — confirms with GP, supports initiation of management pathway and register change</li>
+          <li>Reviews medication lists for patients with NDH — flags drugs associated with hyperglycaemia (e.g. steroids, antipsychotics) to the GP</li>
+          <li>Supports lifestyle counselling and weight management discussions at medicines reviews</li>
+          <li>Assists with structured medication reviews for patients with comorbidities that may affect glycaemia</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting; chairs review</li>
+          <li>Acts on results indicating progression to diabetes — diagnoses formally, moves patient to diabetes register, initiates management</li>
+          <li>Approves clinical exception reporting</li>
+          <li>Annual register accuracy review — add new diagnoses, remove incorrect entries</li>
+          <li>Reviews patients with persistent elevated results or comorbidities affecting glycaemia</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Register Identification &amp; Accuracy Check</div>
+          <p class="step-desc">The admin team runs the NDH register report at the start of each month. The GP Lead reviews register accuracy at least annually.</p>
+          <ul class="step-list">
+            <li>Run the NDH register report from the QOF dashboard</li>
+            <li>Identify patients with no HbA1c or FBG result in the past 12 months</li>
+            <li>Identify patients due a test within the next 6 weeks (proactive recall)</li>
+            <li>Flag any patients newly diagnosed with type 2 diabetes — remove from NDH register and add to diabetes register with correct SNOMED code</li>
+            <li>Flag any patients who should be on the register but are not (e.g. result of HbA1c 42–47 or FPG 5.5–6.9 coded without a register entry)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Patient Invitation</div>
+          <p class="step-desc">The admin team contacts patients due a blood test, using a structured recall process.</p>
+          <ul class="step-list">
+            <li>Send invitation letter and / or SMS to all patients with overdue or upcoming blood tests</li>
+            <li>Book a phlebotomy or nurse appointment for HbA1c or fasting blood glucose</li>
+            <li>Log the date of invitation in the patient record</li>
+            <li>If no response within 4 weeks: send a second invitation</li>
+            <li>If 3 contacts made without response: add to the monthly QOF meeting agenda for team review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Blood Test Completion</div>
+          <p class="step-desc">Either an HbA1c or a fasting blood glucose satisfies NDH002. Document the test using the correct SNOMED code on the day of the appointment.</p>
+          <ul class="step-list">
+            <li>Confirm which test is being used: HbA1c (non-fasting, preferred for most patients) or fasting blood glucose (if HbA1c is unreliable, e.g. haemoglobinopathy)</li>
+            <li>Take blood sample or issue request for external phlebotomy</li>
+            <li>Code the test using the correct SNOMED code on the same day</li>
+            <li>Provide brief lifestyle advice at the appointment — weight management, physical activity, dietary changes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Results Review &amp; Action</div>
+          <p class="step-desc">The HCA or nurse reviews results and takes action based on outcome. Abnormal or concerning results are escalated to the GP on the same day.</p>
+          <ul class="step-list">
+            <li><strong>HbA1c 42–47 mmol/mol or FPG 5.5–6.9 mmol/l (NDH range):</strong> code result, reinforce lifestyle advice, offer NHS DPP referral if not already enrolled, book next annual recall</li>
+            <li><strong>HbA1c ≥48 mmol/mol or FPG ≥7.0 mmol/l (diabetes range):</strong> flag to GP or pharmacist immediately (same day) — formal diabetes diagnosis, register change, initiate management pathway</li>
+            <li><strong>HbA1c &lt;42 mmol/mol or FPG &lt;5.5 mmol/l (normal range):</strong> code result, review with GP whether patient should remain on NDH register or be removed</li>
+            <li>All results coded in EMIS using correct SNOMED code on the day they are reviewed</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">NHS Diabetes Prevention Programme (NHS DPP) Referral</div>
+          <p class="step-desc">All eligible patients should be offered a referral to the NHS DPP. This is a behaviour-change programme shown to reduce the risk of developing type 2 diabetes.</p>
+          <div class="elig-grid">
+            <div class="elig-box include">
+              <div class="eb-title">✅ Eligible</div>
+              <ul>
+                <li>Aged 18 or over</li>
+                <li>Blood test result demonstrating NDH in the preceding 12 months</li>
+                <li>History of Gestational Diabetes Mellitus (GDM) — also eligible for self-referral</li>
+              </ul>
+            </div>
+            <div class="elig-box exclude">
+              <div class="eb-title">🚫 Not Eligible</div>
+              <ul>
+                <li>Pregnant</li>
+                <li>Ever diagnosed with type 2 diabetes</li>
+                <li>Recorded as living with moderate or severe frailty</li>
+                <li>Active eating disorder</li>
+                <li>Bariatric surgery within the previous 2 years</li>
+              </ul>
+            </div>
+          </div>
+          <ul class="step-list" style="margin-top:.6rem;">
+            <li>Code the NHS DPP referral in EMIS on the day it is made</li>
+            <li>Digital programme options are available for patients who prefer remote participation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Coding &amp; Register Maintenance</div>
+          <p class="step-desc">Accurate coding is essential for QOF reporting. All results and clinical actions must be coded using the correct SNOMED codes on the day they occur.</p>
+          <ul class="step-list">
+            <li>HbA1c result: code using standard HbA1c SNOMED code with numeric value</li>
+            <li>Fasting blood glucose result: code using fasting plasma glucose SNOMED code with numeric value</li>
+            <li>NHS DPP referral: code referral to diabetes prevention programme</li>
+            <li>Progression to diabetes: add to diabetes register (correct diabetes type code), remove NDH record if superseded</li>
+            <li>Return to normal range: discuss with GP whether to maintain or remove from NDH register; document decision in notes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">7</div>
+        <div class="step-body">
+          <div class="step-title">Exception Reporting</div>
+          <p class="step-desc">Exceptions may be entered by any appropriate member of staff but must be <strong>approved by the GP</strong>, and only where clinically justified.</p>
+          <ul class="step-list">
+            <li>Patient has been informed of the recommendation but declines (patient declined)</li>
+            <li>Clinical contraindication documented and approved by the GP</li>
+            <li>Patient recently registered (within 3 months) — new patient exception</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong> Commissioners may audit a random sample of exceptions — incorrect coding can result in financial claw-back.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-green2">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against targets, problem-solve barriers and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden; margin-top: 1rem;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Activity</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Run NDH register report; identify patients with overdue or upcoming HbA1c / FBG</td>
+            <td>Admin Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting — GP Lead, Pharmacist, PM and Admin Lead review dashboard, performance against 50–90% target, agree recall actions</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full NDH register accuracy review — add new NDH diagnoses, confirm diabetes progressions are correctly coded, review patients with normalised results</td>
+            <td>GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting agenda to include patients with 3+ failed contacts — discuss and agree approach as a team</td>
+            <td>Admin Lead + QOF Meeting</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Admin Checklist — Per Patient</h2>
+    </div>
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:1rem;">Click each item to mark it complete. Use this when processing a patient through the NDH annual blood test cycle.</p>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified on NDH register report as overdue or due within 6 weeks</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter / SMS sent (date logged in patient record)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Phlebotomy or nurse appointment booked for HbA1c or fasting blood glucose</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Blood test performed — HbA1c or fasting blood glucose completed</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Brief lifestyle advice given at appointment (diet, physical activity, weight)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Result reviewed and coded in EMIS with correct SNOMED code on the same day</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If result in NDH range: NHS DPP referral offered / reinforced and coded</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If result indicates diabetes: GP and pharmacist flagged same day for formal diagnosis, register change and initiation of management pathway</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If result normal: GP consulted regarding continued inclusion on NDH register; outcome documented</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Next annual recall date logged in patient record or recall system</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA (Did Not Attend): second invite sent within 5 working days</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If 3× DNA or failed contacts: added to monthly QOF meeting agenda for team review</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE PH38 — Type 2 diabetes: prevention in people at high risk (2012, updated 2017): <strong>nice.org.uk/guidance/ph38</strong></li>
+      <li>NICE IND172 — NDH002 basis: <strong>nice.org.uk/guidance/ind172</strong></li>
+      <li>NHS Diabetes Prevention Programme — referral information: <strong><a href="https://www.england.nhs.uk/diabetes/diabetes-prevention/" target="_blank" style="color:var(--green2-dark);">england.nhs.uk/diabetes/diabetes-prevention</a></strong></li>
+      <li>NHS DPP Healthier You patient information: <strong><a href="https://preventing-diabetes.co.uk" target="_blank" style="color:var(--green2-dark);">preventing-diabetes.co.uk</a></strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--green2-pale); border-color: #bbf7d0;">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--green2-dark);">Version</strong></td>
+          <td>1.0</td>
+          <td><strong style="color:var(--green2-dark);">Effective</strong></td>
+          <td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green2-dark);">Review due</strong></td>
+          <td>March 2026</td>
+          <td><strong style="color:var(--green2-dark);">Owner</strong></td>
+          <td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates. All staff are expected to have read and understood this SOP before undertaking NDH annual reviews.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Non-Diabetic Hyperglycaemia QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dementia QOF — Clinician Quick Reference 2025/26</title>
+<style>
+  :root {
+    --purple:        #7c3aed;
+    --purple-dark:   #5b21b6;
+    --purple-deep:   #2e1065;
+    --purple-light:  #ddd6fe;
+    --purple-pale:   #f5f3ff;
+    --slate:         #082032;
+    --slate-mid:     #334155;
+    --slate-light:   #94a3b8;
+    --amber:         #f59e0b;
+    --amber-light:   #fef3c7;
+    --amber-dark:    #92400e;
+    --red:           #dc2626;
+    --red-light:     #fef2f2;
+    --green:         #059669;
+    --green-light:   #d1fae5;
+    --white:         #ffffff;
+    --surface:       #f8fafc;
+    --border:        #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(124,58,237,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(124,58,237,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a0533 0%, #3b0764 60%, #2e1065 100%);
+    padding: 2.2rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(221,214,254,.25) 0%, transparent 50%),
+      radial-gradient(circle at 10% 85%, rgba(124,58,237,.3) 0%, transparent 40%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(221,214,254,.15);
+    border: 1px solid rgba(221,214,254,.4);
+    color: #c4b5fd;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .25rem .75rem;
+    border-radius: 999px;
+    margin-bottom: .9rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--white);
+    line-height: 1.15;
+    position: relative;
+    margin-bottom: .5rem;
+  }
+  .hero h1 em { font-style: italic; color: #c4b5fd; }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .88rem;
+    position: relative;
+    margin-bottom: 1.2rem;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    position: relative;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    color: #cbd5e1;
+    font-size: .72rem;
+    padding: .25rem .7rem;
+    border-radius: 6px;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── GRID LAYOUT ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    border-top: 4px solid var(--purple);
+  }
+  .card.amber-top { border-top-color: var(--amber); }
+  .card.red-top   { border-top-color: var(--red); }
+  .card.green-top { border-top-color: var(--green); }
+
+  .card-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--purple-dark);
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .card.amber-top .card-title { color: var(--amber-dark); }
+  .card.red-top   .card-title { color: var(--red); }
+  .card.green-top .card-title { color: var(--green); }
+
+  /* ── INDICATORS TABLE ── */
+  .ind-wrap { overflow-x: auto; border-radius: 10px; }
+  .ind-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 400px;
+  }
+  .ind-table thead tr { background: var(--purple-dark); }
+  .ind-table thead th {
+    color: white;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: .6rem .9rem;
+    text-align: left;
+  }
+  .ind-table tbody tr:nth-child(even) { background: var(--purple-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table td { padding: .6rem .9rem; font-size: .84rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge {
+    font-weight: 700; color: var(--purple-dark); font-size: .8rem;
+    background: var(--purple-light); padding: .15rem .45rem;
+    border-radius: 5px; white-space: nowrap;
+  }
+  .pts { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .8rem; padding: .15rem .45rem; border-radius: 5px; min-width: 24px; text-align: center; }
+  .target { display: inline-block; background: var(--green-light); color: #065f46; font-weight: 600; font-size: .78rem; padding: .15rem .5rem; border-radius: 999px; }
+
+  /* ── CHECKLIST ── */
+  .check-list { list-style: none; }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .55rem .75rem;
+    border-radius: 8px;
+    margin-bottom: .35rem;
+    font-size: .86rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    border: 1px solid var(--border);
+    background: var(--white);
+    user-select: none;
+  }
+  .check-list li:hover { background: var(--purple-pale); border-color: var(--purple-light); }
+  .check-list li.checked { background: var(--purple-pale); border-color: var(--purple); text-decoration: line-through; opacity: .6; }
+  .check-box {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; color: transparent;
+    margin-top: .1rem;
+    transition: background .15s, border-color .15s;
+  }
+  .check-list li.checked .check-box { background: var(--purple); border-color: var(--purple); color: white; }
+
+  /* ── RULE LIST ── */
+  .rule-list { list-style: none; }
+  .rule-list li {
+    font-size: .86rem;
+    color: var(--slate-mid);
+    padding: .35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .rule-list li:last-child { border-bottom: none; }
+  .rule-list li::before { content: '✓'; color: var(--purple); font-weight: 700; position: absolute; left: 0; }
+  .rule-list.amber li::before { content: '→'; color: var(--amber); }
+  .rule-list.red   li::before { content: '!'; color: var(--red); font-weight: 900; }
+
+  /* ── ALERT ── */
+  .alert {
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    margin-top: .75rem;
+    display: flex;
+    gap: .65rem;
+    align-items: flex-start;
+    font-size: .84rem;
+  }
+  .alert-amber  { background: var(--amber-light); border: 1px solid #fcd34d; }
+  .alert-purple { background: var(--purple-pale);  border: 1px solid var(--purple-light); }
+  .alert-red    { background: var(--red-light);    border: 1px solid #fca5a5; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-amber  strong { color: var(--amber-dark); }
+  .alert-purple strong { color: var(--purple-dark); }
+  .alert-red    strong { color: var(--red); }
+
+  /* ── DOMAIN MINI-CARDS ── */
+  .domain-mini {
+    background: var(--purple-pale);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+  }
+  .domain-mini-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: .88rem;
+    color: var(--purple-dark);
+    margin-bottom: .45rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--slate-light);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { padding: 1.75rem 1.25rem 1.5rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .span-2, .span-3 { grid-column: span 1; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Clinician Quick Reference</div>
+  <h1>Dementia <em>QOF</em> 2025/26</h1>
+  <p class="hero-sub">Strouts Place Medical Centre &nbsp;·&nbsp; Dementia Register — Annual Care Plan Review</p>
+  <div class="hero-badges">
+    <span class="hero-badge">Version 1.0</span>
+    <span class="hero-badge">Effective: April 2025</span>
+    <span class="hero-badge">Review: March 2026</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ROW 1: Indicator -->
+  <div style="margin-bottom:1.25rem;">
+    <div class="card" style="padding: 0; overflow:hidden; border-top: 4px solid var(--purple);">
+      <div style="padding:.9rem 1.2rem .6rem; font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--purple-dark);">📋 QOF Indicator &amp; Target</div>
+      <div class="ind-wrap">
+        <table class="ind-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Indicator</th>
+              <th>Pts</th>
+              <th>Target</th>
+              <th>Window</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-badge">DEM004</span></td>
+              <td>Care plan reviewed in preceding 12 months</td>
+              <td><span class="pts">14</span></td>
+              <td><span class="target">35–70%</span></td>
+              <td>12 months</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-purple" style="margin:.75rem 1.2rem 1rem;">
+        <span>💡</span>
+        <div>Use the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS. Code the review on the day. Where no care plan exists, create one at this appointment. First review after new diagnosis should be within 6 months.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Four mandatory domains -->
+  <div style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="card-title">🗂️ Four Mandatory Review Domains</div>
+      <div class="grid-2" style="margin-bottom:0;">
+
+        <div class="domain-mini">
+          <div class="domain-mini-title">🫁 Physical &amp; Mental Health</div>
+          <ul class="rule-list">
+            <li>Physical health assessment — consider behavioural change as symptom of pain or infection</li>
+            <li>Screen for new dementia symptoms: wandering, delusions, hallucinations</li>
+            <li>Screen for depression and anxiety</li>
+            <li>Social care needs and referrals</li>
+            <li>Review cognitive stimulation therapy (CST) — offered / ongoing</li>
+          </ul>
+        </div>
+
+        <div class="domain-mini">
+          <div class="domain-mini-title">💊 Medication Review</div>
+          <ul class="rule-list">
+            <li>Cholinesterase inhibitors (donepezil, galantamine, rivastigmine) — Alzheimer's, DLB, PDD</li>
+            <li>Memantine — consider for moderate/severe Alzheimer's</li>
+            <li>Antipsychotics — justify continued use, document side effect discussion (CVD, diabetes, falls)</li>
+            <li>Anticholinergic burden — review all relevant medications (use ACB calculator)</li>
+          </ul>
+        </div>
+
+        <div class="domain-mini">
+          <div class="domain-mini-title">⚖️ Legal, Welfare &amp; End of Life</div>
+          <ul class="rule-list">
+            <li>Lasting Power of Attorney (LPA) — confirm or document if not in place</li>
+            <li>End of life preferences — record and ensure patient/carer know how to access palliative care</li>
+            <li>Consider adding to palliative care register</li>
+            <li>Named coordinator / key worker — record name and contact details</li>
+            <li>Confirm access to all appropriate benefits</li>
+          </ul>
+        </div>
+
+        <div class="domain-mini">
+          <div class="domain-mini-title">🤝 Carer Assessment &amp; Support</div>
+          <ul class="rule-list">
+            <li>Identify carer(s) and record in EMIS</li>
+            <li>Confirm consent to communicate with carer — document</li>
+            <li>Assess impact of caring — note male carers less likely to volunteer distress</li>
+            <li>Offer carer health check (if at another practice, advise to contact own GP)</li>
+            <li>Offer carer psychoeducation — document if offered and accepted</li>
+            <li>Provide details of support services appropriate to illness stage</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Medication alerts + coding -->
+  <div class="grid-2">
+
+    <div class="card red-top">
+      <div class="card-title">⚠️ Antipsychotic Prescribing Alert</div>
+      <ul class="rule-list red">
+        <li>Explicitly justify continued use at every review</li>
+        <li>Document plan to reduce or stop where possible</li>
+        <li>Record discussion of side effects with patient/carer — CVD risk, accelerated cognitive decline, falls</li>
+        <li>Do not continue without clear clinical rationale</li>
+      </ul>
+    </div>
+
+    <div class="card amber-top">
+      <div class="card-title">📝 Coding &amp; Documentation</div>
+      <ul class="rule-list amber">
+        <li>Apply SNOMED dementia annual review code same day</li>
+        <li>Use <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS</li>
+        <li>Update or create care plan / advance care plan in record</li>
+        <li>Document all four domains addressed, actions and referrals made</li>
+        <li>Record LPA status and named coordinator</li>
+        <li>Record EOL preferences if discussed</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Dementia QOF Clinician Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+</script>
+</body>
+</html>

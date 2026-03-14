@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPD QOF SOP 2025/26 — Deep Ocean</title>
+<style>
+  :root {
+    --indigo:        #4f46e5;
+    --indigo-dark:   #3730a3;
+    --indigo-mid:    #818cf8;
+    --indigo-light:  #c7d2fe;
+    --indigo-pale:   #eef2ff;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --info-light:  #eff6ff;
+    --green-pale:  #f0fdf4;
+    --green-border:#86efac;
+    --green-dark:  #166534;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+    --red:         #b91c1c;
+    --red-pale:    #fff1f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(79,70,229,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(79,70,229,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--indigo-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--indigo-light); color: var(--indigo-dark); }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 60%, #4f46e5 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(199,210,254,.15) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(55,48,163,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(199,210,254,.2);
+    border: 1px solid rgba(199,210,254,.5);
+    color: #c7d2fe;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+  .hero h1 em { font-style: italic; color: #c7d2fe; }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: .6rem; position: relative; }
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  section { margin-bottom: 3rem; }
+  section.animate { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  section.animate.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.2rem; }
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--indigo);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5rem; color: var(--slate); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(79,70,229,.1); transform: translateY(-2px); }
+
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-teal  { background: var(--indigo-pale);   border: 1px solid var(--indigo-light); }
+  .alert-amber { background: var(--amber-light);  border: 1px solid #fcd34d; }
+  .alert-blue  { background: var(--info-light);   border: 1px solid #93c5fd; }
+  .alert-red   { background: var(--red-pale);     border: 1px solid #fca5a5; }
+  .alert-green { background: var(--green-pale);   border: 1px solid var(--green-border); }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-teal  strong { color: var(--indigo-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+  .alert-blue  strong { color: #1d4ed8; }
+  .alert-red   strong { color: var(--red); }
+  .alert-green strong { color: var(--green-dark); }
+
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: var(--indigo-dark); }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--indigo-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--indigo-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--indigo-dark); font-size: .85rem; background: var(--indigo-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill  { display: inline-block; background: var(--indigo-pale); color: var(--indigo-dark); font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; border: 1px solid var(--indigo-light); }
+
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--indigo);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(79,70,229,.14); transform: translateY(-3px); }
+  .role-icon  { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--indigo-dark); margin-bottom: .6rem; }
+  .role-list  { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--indigo); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--indigo), var(--indigo-light));
+    border-radius: 2px;
+  }
+  .step { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--indigo);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--indigo-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--indigo-light); }
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(79,70,229,.1); }
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc  { font-size: .88rem; color: var(--slate-mid); margin-bottom: .4rem; }
+  .step-list  { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--indigo); font-weight: 700; position: absolute; left: 0; }
+
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--indigo-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill      { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly   { background: #dbeafe; color: #1e40af; }
+  .freq-quarterly { background: #fce7f3; color: #9d174d; }
+  .freq-annually  { background: #dcfce7; color: #166534; }
+  .freq-asneeded  { background: var(--amber-light); color: var(--amber-dark); }
+
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--indigo-pale); border-color: var(--indigo-light); }
+  .checklist li.checked { background: var(--indigo-pale); border-color: var(--indigo-mid); color: var(--indigo-dark); text-decoration: line-through; opacity: .7; }
+  .check-box {
+    width: 20px; height: 20px; min-width: 20px;
+    border: 2px solid var(--indigo);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem;
+    color: var(--white);
+    background: var(--white);
+    transition: background .15s;
+  }
+  .checklist li.checked .check-box { background: var(--indigo); }
+
+  .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .review-item {
+    background: var(--indigo-pale);
+    border: 1px solid var(--indigo-light);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+    display: flex;
+    gap: .65rem;
+    align-items: flex-start;
+  }
+  .review-item-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .review-item-text { font-size: .84rem; color: var(--slate-mid); }
+  .review-item-text strong { color: var(--indigo-dark); display: block; margin-bottom: .2rem; font-size: .88rem; }
+
+  .mrc-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin: 1rem 0; }
+  .mrc-table thead tr { background: var(--indigo-dark); }
+  .mrc-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mrc-table tbody tr:nth-child(even) { background: var(--indigo-pale); }
+  .mrc-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mrc-table tbody tr:hover           { background: var(--indigo-light); }
+  .mrc-table td { padding: .7rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .mrc-table tr:last-child td { border-bottom: none; }
+  .mrc-grade { display: inline-block; background: var(--indigo); color: white; font-weight: 700; border-radius: 6px; padding: .15rem .5rem; font-size: .85rem; min-width: 28px; text-align: center; }
+  .mrc-grade.g4 { background: #d97706; }
+  .mrc-grade.g5 { background: var(--red); }
+
+  .resource-list { list-style: none; }
+  .resource-list li {
+    padding: .65rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: .4rem;
+    font-size: .86rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .5rem;
+    align-items: flex-start;
+  }
+  .resource-list li::before { content: '🔗'; flex-shrink: 0; }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem 2.5rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-brand { font-size: .85rem; }
+    .nav-links a { padding: .3rem .5rem; font-size: .72rem; }
+    main { padding: 68px 1rem 3rem; }
+    .hero { padding: 2rem 1.25rem 1.75rem; border-radius: 14px; }
+    .hero h1 { font-size: 2rem; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .review-grid { grid-template-columns: 1fr; }
+    .steps::before { left: 19px; }
+    .step { gap: 1rem; }
+    .step-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .step-body { padding: 1rem 1.1rem; }
+    .card { overflow-x: auto; }
+    .ind-table, .mon-table, .mrc-table { min-width: 520px; }
+    div[style*="grid-template-columns:1fr 1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.7rem; }
+    .nav-brand { display: none; }
+    main { padding: 64px .75rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; COPD QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#annual-review">Annual Review</a></li>
+    <li><a href="#mrc">MRC Scale</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#exceptions">Exceptions</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>COPD <em>QOF</em><br>2025/26</h1>
+    <p class="hero-sub">Achieving targets for COPD010 — a guide for administrative and clinical staff at <strong style="color:#c7d2fe;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>COPD Is a Major Cause of Preventable Morbidity and Mortality</strong>
+        COPD is a common, progressive and disabling condition responsible for significant unscheduled healthcare use — including emergency admissions and prolonged inpatient stays. The most impactful interventions — annual flu vaccination and tobacco dependence treatment — are delivered in primary care. Structured annual reviews with MRC dyspnoea grading and exacerbation recording are the foundation of personalised management plans and help prevent avoidable deterioration.
+      </div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        This SOP covers one QOF indicator: <strong>COPD010</strong> — the annual review for all patients on the COPD register. It covers the full pathway from register management through to clinical review, coding, exception reporting, and QOF monitoring. This SOP is aligned to <strong>NICE NG115</strong> (Chronic obstructive pulmonary disease in over 16s: diagnosis and management) and <strong>NICE IND191</strong> (the basis for COPD010).
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicator at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">COPD010</span></td>
+            <td>Patients with COPD who have had a review in the preceding 12 months including: a <strong>record of the number of exacerbations</strong> and an <strong>assessment of breathlessness using the MRC dyspnoea scale</strong></td>
+            <td><span class="points-badge">9</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+            <td>Preceding 12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>COPD010 — Both Components Must Be Recorded at the Same Review</strong>
+        The number of exacerbations <em>and</em> the MRC dyspnoea scale score must both be recorded as part of the annual review. Either component recorded in isolation, or on a different date, will not satisfy the indicator. Build both into a single review template/workflow and code everything on the same day.
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>Based on NICE IND191</strong>
+        COPD010 is based on NICE IND191. The MRC dyspnoea scale is available in the NICE guideline NG115, section 1.1 (diagnosing COPD), Table 1. The CAT (COPD Assessment Test) is required as part of the <strong>Locally Enhanced Service (LES)</strong> and must be completed and coded at every annual review alongside the MRC scale.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance for COPD010</li>
+          <li>Attends monthly QOF meeting; reviews dashboard and agrees action plans</li>
+          <li>Coordinates recall campaign with admin team following each QOF meeting</li>
+          <li>Chairs escalation of persistent non-responders at the monthly QOF meeting</li>
+          <li>Ensures EMIS templates are configured to capture all required COPD010 components</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin Team</div>
+        <ul class="role-list">
+          <li>Identifies patients due a COPD annual review using the QOF dashboard</li>
+          <li>Sends invitation letters and SMS to patients due a review</li>
+          <li>Books annual COPD review with Respiratory Nurse/HCA — advises patient to bring inhalers</li>
+          <li>Books follow-up Pharmacist appointment for medication review where required</li>
+          <li>Logs DNA attempts; adds persistent non-responders to the monthly QOF meeting agenda</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">Respiratory Nurse / HCA</div>
+        <ul class="role-list">
+          <li>Conducts annual COPD review using <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS</li>
+          <li>Records MRC dyspnoea scale score and number of exacerbations — <strong>on the same day as the review</strong></li>
+          <li>Assesses inhaler technique face to face</li>
+          <li>Checks smoking status; refers to Stop Smoking service if applicable</li>
+          <li>Checks influenza and pneumococcal vaccination status; offers/arranges if due</li>
+          <li>Escalates clinical concerns, MRC grade ≥3 or significant deterioration to GP or Pharmacist same day</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with GP Lead, PM and Admin Lead</li>
+          <li>Reviews inhaled therapy regimen against NICE NG115 treatment pathways</li>
+          <li>Assesses inhaler device for patient preference, technique, and environmental impact (low-carbon options)</li>
+          <li>Identifies patients on inappropriate or stepped-up regimens without documented review</li>
+          <li>Refers patients to secondary/tertiary care where criteria are met, or escalates to GP same day where GP input is required</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting; reviews performance and chairs escalation of complex cases</li>
+          <li>Annual register accuracy review — add new diagnoses, remove incorrect entries</li>
+          <li>Acts on clinical concerns escalated by any clinician during or after review</li>
+          <li>Approves all exception (PCA) codes — clinical and administrative</li>
+          <li>Reviews persistent non-attenders raised at the monthly QOF meeting</li>
+          <li>Refers patients to secondary/tertiary care where COPD management criteria are met (e.g. MRC 4–5, diagnostic uncertainty, frequent exacerbators)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ANNUAL REVIEW -->
+  <section id="annual-review">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Annual COPD Review — COPD010</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1.2rem;">Use the <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS. All QOF-required components must be coded on the same day as the review appointment.</p>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>COPD010 — Code Both Components on the Same Day</strong>
+        QOF business rules require the number of exacerbations and the MRC dyspnoea scale score to be recorded on the same date as the review. Coding either component on a different day risks the indicator not being met for that patient. Both must be built into the review template and completed in a single appointment.
+      </div>
+    </div>
+
+    <div class="review-grid">
+      <div class="review-item">
+        <div class="review-item-icon">🌬️</div>
+        <div class="review-item-text">
+          <strong>1. MRC Dyspnoea Scale (Required — QOF)</strong>
+          Score and record the patient's current MRC dyspnoea grade (1–5) using the standard scale. Code the MRC grade on the day of the review. See the MRC Scale section below for full grade descriptors.
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-item-icon">🗓️</div>
+        <div class="review-item-text">
+          <strong>2. Number of Exacerbations (Required — QOF)</strong>
+          Record the number of exacerbations the patient has experienced since the last annual review (or in the preceding 12 months for new attendees). Code on the same day as the review — not retrospectively.
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-item-icon">💨</div>
+        <div class="review-item-text">
+          <strong>3. Inhaler Technique Assessment (Best Practice)</strong>
+          Assess inhaler technique face to face. Document whether technique is satisfactory and record any corrective advice given. Required for any patient prescribed an inhaled therapy — NICE NG115 requirement.
+        </div>
+      </div>
+      <div class="review-item" style="border-color: #6366f1; background: #f5f3ff;">
+        <div class="review-item-icon">📊</div>
+        <div class="review-item-text">
+          <strong style="color:#3730a3;">4. CAT Score (Required — LES)</strong>
+          The COPD Assessment Test (CAT) is required as part of the Locally Enhanced Service (LES). Complete and code the CAT score at every annual review. It provides a validated measure of current health status and complements the MRC scale.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--indigo); margin-top:1rem;">
+      <div style="font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; color:var(--indigo-dark); margin-bottom:.9rem;">📋 &nbsp;Additional Review Components (Best Practice, NICE NG115)</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem;">
+        <div style="background:var(--indigo-pale); border:1px solid var(--indigo-light); border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--indigo-dark); margin-bottom:.4rem;">Smoking Status &amp; Cessation</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">The single most effective intervention in COPD. Record smoking status at every review. Refer to the Stop Smoking service for all current smokers — document referral or patient's decision to decline.</p>
+        </div>
+        <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9a3412; margin-bottom:.4rem;">Vaccination Status</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Annual flu vaccination is the most effective clinical intervention in COPD. Check and offer/arrange flu and pneumococcal vaccinations at every review. Code vaccination or declined status.</p>
+        </div>
+        <div style="background:var(--info-light); border:1px solid #93c5fd; border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#3730a3; margin-bottom:.4rem;">Pulmonary Rehabilitation — LES Required (MRC ≥3)</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Pulmonary rehabilitation referral for patients with MRC grade ≥3 is <strong>required as part of the LES</strong>. PR improves quality of life and reduces exacerbation frequency. Document referral or, if the patient declines, record their informed refusal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-green">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>Exacerbation Frequency — Management Implications</strong>
+        Recording the number of exacerbations is not just a QOF requirement — it directly informs personalised management. Patients with <strong>2 or more exacerbations per year</strong> should be considered for stepped-up inhaled therapy and pulmonary rehabilitation referral. Patients with <strong>frequent or severe exacerbations</strong> should be considered for secondary care referral by the GP or Pharmacist.
+      </div>
+    </div>
+  </section>
+
+  <!-- MRC SCALE -->
+  <section id="mrc">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">MRC Dyspnoea Scale</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1rem;">The MRC dyspnoea scale gives a validated measure of breathlessness and is recommended as part of the COPD annual review (NICE NG115, section 1.1, Table 1). Record and code the grade at every review — it tracks disease progression and informs management decisions including pulmonary rehabilitation referral.</p>
+
+    <div class="card" style="padding:0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="mrc-table">
+        <thead>
+          <tr>
+            <th>Grade</th>
+            <th>Description</th>
+            <th>Clinical Implication</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mrc-grade">1</span></td>
+            <td>Not troubled by breathlessness except on strenuous exercise</td>
+            <td>Mild — optimise risk factor management; smoking cessation; annual flu vaccine</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade">2</span></td>
+            <td>Short of breath when hurrying on level ground or walking up a slight hill</td>
+            <td>Mild-moderate — review inhaler therapy; smoking cessation; consider PR if symptomatic</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade">3</span></td>
+            <td>Walks slower than most people of the same age on level ground, or stops after about 15 minutes walking at own pace</td>
+            <td>Moderate — <strong>offer pulmonary rehabilitation referral</strong>; review inhaled therapy; escalate if not improving</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade g4">4</span></td>
+            <td>Stops for breath after walking about 100 yards, or after a few minutes on level ground</td>
+            <td>Severe — PR referral; refer to secondary care (GP or Pharmacist); review full inhaled therapy; ensure rescue pack in place</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade g5">5</span></td>
+            <td>Too breathless to leave the house, or breathless when dressing or undressing</td>
+            <td>Very severe — refer to secondary/tertiary care (GP or Pharmacist); palliative care consideration; urgent rescue plan</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="alert alert-teal">
+      <span class="alert-icon">📋</span>
+      <div>
+        <strong>MRC Grade ≥3 — Pulmonary Rehabilitation Referral Required (LES)</strong>
+        Pulmonary rehabilitation referral is required as part of the LES for any patient with an MRC grade of 3 or above. Document the referral or the patient's informed refusal. MRC grade 4 or 5, new or worsening breathlessness, or concern about diagnostic accuracy warrants secondary care referral — this can be made by the GP or Pharmacist.
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Register Management</div>
+          <p class="step-desc">The GP Lead reviews the COPD register at a minimum annually and opportunistically throughout the year. An accurate register is the foundation of all QOF attainment.</p>
+          <ul class="step-list">
+            <li>Add patients with confirmed new COPD diagnoses (spirometry-confirmed airflow obstruction)</li>
+            <li>Remove patients where COPD diagnosis has been excluded or was incorrectly coded</li>
+            <li>Review patients with diagnostic uncertainty — ensure spirometry has been performed and is valid</li>
+            <li>Identify patients recently discharged after COPD admission — ensure coded and due a review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Identify Patients Due a Review</div>
+          <p class="step-desc">Admin identifies and recalls patients due a review using the QOF dashboard. The monthly meeting is used to review progress, problem-solve barriers, and manage complex cases such as persistent non-attenders.</p>
+          <ul class="step-list">
+            <li>Identify patients with no COPD review in the past 12 months</li>
+            <li>Identify patients with reviews where either MRC score or exacerbation count is missing (incomplete reviews do not satisfy COPD010)</li>
+            <li>Prioritise patients known to be high-risk: frequent exacerbators, MRC ≥3, recent hospital admission</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book</div>
+          <ul class="step-list">
+            <li>Admin sends personalised invitation letter or SMS to patients identified as due a review</li>
+            <li>Book annual COPD review with Respiratory Nurse/HCA — advise patient to bring inhalers</li>
+            <li>Notify patient that the appointment will include a breathing questionnaire and an inhaler technique check</li>
+            <li>Book follow-up Pharmacist appointment if medication review is required</li>
+            <li>No response after 2 weeks: send second invitation. After a further 2 weeks: telephone outreach.</li>
+            <li>Still no response: <strong>add to monthly QOF meeting agenda</strong> for team review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Conduct the Annual Review</div>
+          <p class="step-desc">Respiratory Nurse or HCA conducts the review using <strong>(RP) LTC Review Template CEG v1.4</strong>. <strong>Both QOF-required components (MRC grade and exacerbation count) must be coded on the same day.</strong></p>
+          <ul class="step-list">
+            <li>Record MRC dyspnoea scale grade — code on the day of the review</li>
+            <li>Record number of exacerbations since last review — code on the same day</li>
+            <li>Complete CAT (COPD Assessment Test) — <strong>required for LES</strong>; code score on the day</li>
+            <li>Assess inhaler technique face to face with patient's own inhaler(s) — document and code</li>
+            <li>Check smoking status — refer to Stop Smoking service for all current smokers</li>
+            <li>Check and offer flu and pneumococcal vaccinations — code vaccinations or declined status</li>
+            <li>If MRC grade ≥3: refer to pulmonary rehabilitation — <strong>required for LES</strong>; document referral or patient's informed refusal</li>
+            <li>Escalate clinical concerns (MRC 4–5, frequent exacerbations, diagnostic uncertainty) to GP or Pharmacist for secondary care referral on the day</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Medication Review (Pharmacist)</div>
+          <p class="step-desc">Arranged for patients with medication-related concerns identified at the annual review, or where a structured inhaled therapy review is required.</p>
+          <ul class="step-list">
+            <li>Review current inhaler regimen against NICE NG115 pharmacological pathways</li>
+            <li>Assess inhaler device for patient preference, technique, and environmental impact (low-carbon options)</li>
+            <li>Review appropriateness of ICS — consider stepping down if not indicated (low exacerbation rate, no asthmatic features)</li>
+            <li>Identify patients who may benefit from stepped-up therapy (e.g. two or more exacerbations per year)</li>
+            <li>Refers patients to secondary/tertiary care where criteria are met, or escalates to GP same day where GP input is required</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Did Not Attend (DNA) Management</div>
+          <ul class="step-list">
+            <li>First DNA: re-invite by letter or SMS within 5 working days; note attempt in EMIS</li>
+            <li>Second DNA: telephone contact attempt; document outcome</li>
+            <li>Third DNA / no response: <strong>add to monthly QOF meeting agenda</strong> for team review</li>
+            <li>GP reviews repeated non-attenders; considers clinical vulnerability and appropriate next steps</li>
+            <li>Where exception reporting is appropriate: GP approves PCA code with documented justification</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXCEPTIONS -->
+  <section id="exceptions">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Exception Reporting</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1rem;">Patient Consent Adjustments (PCAs) allow practices to exclude individual patients from QOF indicators where it would be clinically inappropriate or impossible to include them. All exception reporting must be <strong>approved by the GP</strong> and documented with a clear clinical or administrative reason.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <div class="card" style="border-top: 4px solid var(--indigo);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--indigo-dark); margin-bottom:.8rem;">🩺 &nbsp;Clinical Exceptions</div>
+        <ul class="role-list">
+          <li>Patient unable to complete annual review due to severe cognitive impairment or terminal illness</li>
+          <li>Patient in an extended care facility where review by practice is not feasible</li>
+          <li>Clinical contraindication to components of the review (documented by GP)</li>
+          <li>Recently joined the register — patient registered within 3 months</li>
+          <li>New diagnosis made within 3 months of the QOF year end</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--amber);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--amber-dark); margin-bottom:.8rem;">📋 &nbsp;Administrative Exceptions</div>
+        <ul class="role-list">
+          <li>Patient has been invited at least twice (letter/SMS + telephone) and has not responded</li>
+          <li>Patient has actively declined the review — documented informed refusal</li>
+          <li>Patient temporarily absent from the area for the full 12-month review window</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-red" style="margin-top:1rem;">
+      <span class="alert-icon">🚫</span>
+      <div>
+        <strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong>
+        Commissioners may audit a random sample of exceptions — incorrect coding can result in financial claw-back. Every PCA code must be approved by the GP with a documented clinical or administrative reason in the patient's record.
+      </div>
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">7</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against targets, problem-solve barriers, and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden; margin-top:1rem;"><div style="overflow-x:auto;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Action</th>
+            <th>Responsible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Monthly QOF meeting — review COPD010 dashboard; assess performance vs 50–90% target; agree recall actions; review DNA list; approve exception coding</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Admin identifies patients due a review from the QOF dashboard and sends invites on an ongoing basis</td>
+            <td>Admin Lead / PM</td>
+          </tr>
+
+
+          <tr>
+            <td><span class="freq-pill freq-asneeded">As needed</span></td>
+            <td>DNA or declining patients reviewed at monthly QOF meeting — team agrees approach; GP approves exception coding where appropriate</td>
+            <td>QOF Meeting</td>
+          </tr>
+
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full register accuracy review — add new diagnoses, remove incorrect entries, validate coding</td>
+            <td>GP Lead</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">8</div>
+      <h2 class="section-title">Admin &amp; Clinical Checklist</h2>
+    </div>
+
+    <p style="font-size:.88rem; margin-bottom:.75rem; font-weight:600; color:var(--indigo-dark);">COPD010 — Annual Review Checklist (per patient)</p>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified as due a COPD annual review from QOF dashboard — admin initiates recall</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter or SMS sent; date of contact attempt logged in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Annual COPD review booked with Respiratory Nurse/HCA; patient advised to bring inhalers</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Review attended and all components coded on the same day</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If Pharmacist medication review required: follow-up appointment booked</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA: second invite sent and further contact attempts logged in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If persistent DNA or declining: added to monthly QOF meeting agenda; GP approves PCA exception code if appropriate with documented justification</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">9</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE NG115 (2019, updated 2023) — Chronic obstructive pulmonary disease in over 16s: diagnosis and management: <strong>nice.org.uk/guidance/ng115</strong></li>
+      <li>NICE IND191 — COPD annual review with MRC dyspnoea scale and exacerbation count (basis for COPD010): <strong>nice.org.uk/indicator/ind191</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+      <li>MRC Dyspnoea Scale — NICE NG115, section 1.1, Table 1: <strong>nice.org.uk/guidance/ng115</strong></li>
+      <li>COPD Assessment Test (CAT) — validated tool for current health status assessment: <strong>catestonline.org</strong></li>
+      <li>British Thoracic Society — COPD resources: <strong>brit-thoracic.org.uk</strong></li>
+      <li>Primary Care Respiratory Society — COPD: <strong>pcrs.org.uk/areas-of-care/copd</strong></li>
+      <li>Asthma + Lung UK — COPD healthcare professionals: <strong>asthma.org.uk/healthcare-professionals/copd</strong></li>
+      <li>NICE Pathways — COPD: <strong>pathways.nice.org.uk/pathways/chronic-obstructive-pulmonary-disease</strong></li>
+      <li>NHS Stop Smoking Services: <strong>nhs.uk/better-health/quit-smoking</strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--indigo-pale); border-color: var(--indigo-light);">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--indigo-dark);">Version</strong></td><td>1.0</td>
+          <td><strong style="color:var(--indigo-dark);">Effective</strong></td><td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--indigo-dark);">Review due</strong></td><td>March 2026</td>
+          <td><strong style="color:var(--indigo-dark);">Owner</strong></td><td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates and any revisions to NICE NG115. All staff are expected to have read and understood this SOP before undertaking COPD annual reviews.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; COPD QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  const allSections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  allSections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.classList.add('animate');
+      observer.observe(s);
+    }
+  });
+
+  function toggle(el) { el.classList.toggle('checked'); }
+
+  const rolesObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.role-card').forEach((card, i) => {
+          card.style.transition = `opacity .5s ease ${i * .08}s, transform .5s ease ${i * .08}s, box-shadow .2s, border-color .2s`;
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        });
+        rolesObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.roles-grid').forEach(g => {
+    const rect = g.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      g.querySelectorAll('.role-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+      });
+    }
+    rolesObserver.observe(g);
+  });
+</script>
+</body>
+</html>

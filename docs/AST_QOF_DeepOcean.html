@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asthma QOF SOP 2025/26 — Deep Ocean</title>
+<style>
+  :root {
+    --teal:        #5ba4cf;
+    --teal-dark:   #2e6da4;
+    --teal-mid:    #89c4e1;
+    --teal-light:  #c5e3f7;
+    --teal-pale:   #eef7fd;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --info-light:  #eff6ff;
+    --green-pale:  #f0fdf4;
+    --green-border:#86efac;
+    --green-dark:  #166534;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+    --red:         #b91c1c;
+    --red-pale:    #fff1f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(91,164,207,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(91,164,207,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--teal-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--teal-light); color: var(--teal-dark); }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a2e40 0%, #2e6da4 60%, #5ba4cf 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(197,227,247,.15) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(46,109,164,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(197,227,247,.2);
+    border: 1px solid rgba(197,227,247,.5);
+    color: #c5e3f7;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+  .hero h1 em { font-style: italic; color: #c5e3f7; }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: .6rem; position: relative; }
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  section { margin-bottom: 3rem; }
+  section.animate { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  section.animate.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.2rem; }
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--teal);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5rem; color: var(--slate); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(91,164,207,.1); transform: translateY(-2px); }
+
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-teal  { background: var(--teal-pale);   border: 1px solid var(--teal-light); }
+  .alert-amber { background: var(--amber-light);  border: 1px solid #fcd34d; }
+  .alert-blue  { background: var(--info-light);   border: 1px solid #93c5fd; }
+  .alert-red   { background: var(--red-pale);     border: 1px solid #fca5a5; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-teal  strong { color: var(--teal-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+  .alert-blue  strong { color: #1d4ed8; }
+  .alert-red   strong { color: var(--red); }
+
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: var(--teal-dark); }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--teal-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--teal-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--teal-dark); font-size: .85rem; background: var(--teal-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill  { display: inline-block; background: var(--teal-pale); color: var(--teal-dark); font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; border: 1px solid var(--teal-light); }
+
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--teal);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(91,164,207,.14); transform: translateY(-3px); }
+  .role-icon  { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--teal-dark); margin-bottom: .6rem; }
+  .role-list  { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--teal), var(--teal-light));
+    border-radius: 2px;
+  }
+  .step { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--teal-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--teal-light); }
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(91,164,207,.1); }
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc  { font-size: .88rem; color: var(--slate-mid); }
+  .step-list  { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--teal); font-weight: 700; position: absolute; left: 0; }
+
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--teal-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill      { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly   { background: #dbeafe; color: #1e40af; }
+  .freq-quarterly { background: #fce7f3; color: #9d174d; }
+  .freq-annually  { background: #dcfce7; color: #166534; }
+  .freq-asneeded  { background: var(--amber-light); color: var(--amber-dark); }
+
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--teal-pale); border-color: var(--teal-light); }
+  .checklist li.checked { background: var(--teal-pale); border-color: var(--teal-mid); color: var(--teal-dark); text-decoration: line-through; opacity: .7; }
+  .check-box {
+    width: 20px; height: 20px; min-width: 20px;
+    border: 2px solid var(--teal);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem;
+    color: var(--white);
+    background: var(--white);
+    transition: background .15s;
+  }
+  .checklist li.checked .check-box { background: var(--teal); }
+
+  .dx-pathway { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .dx-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    border-top: 4px solid var(--teal);
+  }
+  .dx-panel.children { border-top-color: #6366f1; }
+  .dx-panel-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    margin-bottom: .9rem;
+    color: var(--teal-dark);
+  }
+  .dx-panel.children .dx-panel-title { color: #4f46e5; }
+  .dx-step-row {
+    display: flex;
+    gap: .65rem;
+    align-items: flex-start;
+    margin-bottom: .7rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px dashed var(--border);
+  }
+  .dx-step-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .dx-step-num {
+    width: 22px; height: 22px; min-width: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .72rem;
+    font-weight: 700;
+    color: white;
+    margin-top: .1rem;
+  }
+  .dx-step-num.teal   { background: var(--teal); }
+  .dx-step-num.indigo { background: #6366f1; }
+  .dx-step-text { font-size: .84rem; color: var(--slate-mid); }
+  .dx-step-text strong { color: var(--slate); }
+  .dx-threshold {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber-dark);
+    font-size: .72rem;
+    font-weight: 700;
+    padding: .1rem .45rem;
+    border-radius: 4px;
+    margin-left: .25rem;
+  }
+
+  .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .review-item {
+    background: var(--teal-pale);
+    border: 1px solid var(--teal-light);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+    display: flex;
+    gap: .65rem;
+    align-items: flex-start;
+  }
+  .review-item-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .review-item-text { font-size: .84rem; color: var(--slate-mid); }
+  .review-item-text strong { color: var(--teal-dark); display: block; margin-bottom: .2rem; font-size: .88rem; }
+
+  .resource-list { list-style: none; }
+  .resource-list li {
+    padding: .65rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: .4rem;
+    font-size: .86rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .5rem;
+    align-items: flex-start;
+  }
+  .resource-list li::before { content: '🔗'; flex-shrink: 0; }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem 2.5rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-brand { font-size: .85rem; }
+    .nav-links a { padding: .3rem .5rem; font-size: .72rem; }
+    main { padding: 68px 1rem 3rem; }
+    .hero { padding: 2rem 1.25rem 1.75rem; border-radius: 14px; }
+    .hero h1 { font-size: 2rem; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .dx-pathway { grid-template-columns: 1fr; }
+    .review-grid { grid-template-columns: 1fr; }
+    .steps::before { left: 19px; }
+    .step { gap: 1rem; }
+    .step-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .step-body { padding: 1rem 1.1rem; }
+    .card { overflow-x: auto; }
+    .ind-table, .mon-table { min-width: 520px; }
+    div[style*="grid-template-columns:1fr 1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.7rem; }
+    .nav-brand { display: none; }
+    main { padding: 64px .75rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; Asthma QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#diagnosis">Diagnosis (AST012)</a></li>
+    <li><a href="#annual-review">Annual Review (AST007)</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#exceptions">Exceptions</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Asthma <em>QOF</em><br>2025/26</h1>
+    <p class="hero-sub">Achieving targets for AST012 &amp; AST007 — a guide for administrative and clinical staff at <strong style="color:#c5e3f7;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Asthma is a Preventable Cause of Death</strong>
+        Asthma causes approximately 1,200 deaths in the UK each year — the majority of which are considered preventable. The National Review of Asthma Deaths (NRAD) found that most deaths were associated with suboptimal care, poor patient self-management, and failure to recognise deteriorating control. Robust diagnosis, regular annual reviews, and personalised action plans directly save lives.
+      </div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        This SOP covers two QOF indicators: <strong>AST012</strong> (objective testing at new diagnosis) and <strong>AST007</strong> (annual asthma review). Both apply to patients on the <strong>Asthma register</strong>. Children under 5 are excluded from AST007. This SOP is aligned to the new combined BTS/NICE/SIGN asthma guideline (NG245, November 2024).
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicators at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">AST012</span></td>
+            <td>Patients with a <strong>new diagnosis of asthma on or after 1 April 2025</strong> with a record of an objective test between <strong>3 months before or 3 months after</strong> diagnosis</td>
+            <td><span class="points-badge">15</span></td>
+            <td><span class="target-pill">45–80%</span></td>
+            <td>±3 months of diagnosis (93 days before)</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">AST007</span></td>
+            <td>Patients with asthma who have had an annual review including: asthma control assessment, number of exacerbations recorded, inhaler technique assessed, and written personalised action plan provided — <strong>all coded on the same day as the review</strong></td>
+            <td><span class="points-badge">20</span></td>
+            <td><span class="target-pill">45–70%</span></td>
+            <td>Preceding 12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>AST012 — Updated for 2025/26 (replaces AST011)</strong>
+        Reflects the new BTS/NICE/SIGN combined guideline (NG245, November 2024). The indicator aligns to the recommended objective testing sequence. The full range of possible objective tests counts as a success — it is not limited to a single test type.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance for AST012 and AST007</li>
+          <li>Attends monthly QOF meeting; reviews dashboard and agrees action plans</li>
+          <li>Coordinates recall campaign with admin team following each QOF meeting</li>
+          <li>Chairs escalation of persistent non-responders at the monthly QOF meeting</li>
+          <li>Ensures asthma review template is current and staff are trained</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Sends invitation letters and SMS to patients due an annual review</li>
+          <li>Books annual asthma review with Asthma Nurse/HCA — 20–30 minutes; advises patient to bring inhalers</li>
+          <li>Books follow-up Pharmacist appointment for medication review where required</li>
+          <li>Scans and codes objective test results received from external services on receipt</li>
+          <li>Diarises 3-month objective testing deadline for each new diagnosis coded by GP</li>
+          <li>Logs DNA attempts; adds persistent non-responders to the monthly QOF meeting agenda</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">Asthma Nurse / HCA</div>
+        <ul class="role-list">
+          <li>Conducts annual review using <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS</li>
+          <li>Checks adherence via prescription records; explores non-adherence</li>
+          <li>Flags uncontrolled asthma or referral criteria to GP</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with GP Lead, PM and Admin Lead</li>
+          <li>For new diagnoses: ensures objective test ordered and coded within the 3-month window</li>
+          <li>Conducts medication review — ICS/LABA/LTRA prescribing and adherence</li>
+          <li>Identifies patients prescribed SABA without concomitant ICS</li>
+          <li>Reviews inhaler device selection for technique, preference, and environmental considerations</li>
+          <li>Identifies patients meeting specialist referral criteria and escalates to GP</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting; chairs review</li>
+          <li>Makes new asthma diagnoses; ensures objective test ordered at time of diagnosis</li>
+          <li>Acts on clinical concerns escalated by any clinician</li>
+          <li>Approves clinical and administrative exception reporting</li>
+          <li>Annual register accuracy review — add new diagnoses, remove incorrect entries</li>
+          <li>Reviews persistent non-attenders raised at the monthly QOF meeting</li>
+          <li>Refers patients meeting escalation criteria to asthma or paediatric specialist</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIAGNOSIS -->
+  <section id="diagnosis">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Objective Testing at New Diagnosis (AST012)</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1.2rem;">A combination of a suggestive clinical history <em>and</em> a supporting objective test is required to diagnose asthma. NG245 recommends a specific sequence, with different pathways for adults/young people (over 16) and children aged 5–16. Any test in the sequence that is recorded within the window counts.</p>
+
+    <div class="dx-pathway">
+      <div class="dx-panel">
+        <div class="dx-panel-title">🧑 Adults &amp; Young People (aged &gt;16)</div>
+        <div class="dx-step-row">
+          <div class="dx-step-num teal">1</div>
+          <div class="dx-step-text">
+            <strong>Blood eosinophil count OR FeNO</strong><br>
+            Diagnose if eosinophil count above lab reference range, or FeNO <span class="dx-threshold">≥50 ppb</span>
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num teal">2</div>
+          <div class="dx-step-text">
+            <strong>Bronchodilator reversibility (BDR) with spirometry</strong><br>
+            If step 1 inconclusive. Diagnose if FEV1 increase <span class="dx-threshold">≥12% &amp; ≥200 ml</span> from pre-bronchodilator, or <span class="dx-threshold">≥10%</span> of predicted normal FEV1
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num teal">3</div>
+          <div class="dx-step-text">
+            <strong>Peak Expiratory Flow (PEF) variability</strong><br>
+            If spirometry unavailable or delayed: PEF twice daily for 2 weeks. Diagnose if variability (amplitude % mean) <span class="dx-threshold">≥20%</span>
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num teal">4</div>
+          <div class="dx-step-text">
+            <strong>Bronchial challenge test</strong><br>
+            If all above inconclusive but asthma still clinically suspected — refer for consideration. Diagnose if bronchial hyper-responsiveness present.
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-panel children">
+        <div class="dx-panel-title">🧒 Children &amp; Young People (aged 5–16)</div>
+        <div class="dx-step-row">
+          <div class="dx-step-num indigo">1</div>
+          <div class="dx-step-text">
+            <strong>FeNO</strong><br>
+            Diagnose if FeNO <span class="dx-threshold">≥35 ppb</span>
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num indigo">2</div>
+          <div class="dx-step-text">
+            <strong>Bronchodilator reversibility (BDR) with spirometry</strong><br>
+            If FeNO not raised or unavailable. Diagnose if FEV1 increase <span class="dx-threshold">≥12%</span> from baseline or <span class="dx-threshold">≥10%</span> of predicted normal FEV1
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num indigo">3</div>
+          <div class="dx-step-text">
+            <strong>Peak Expiratory Flow (PEF) variability</strong><br>
+            If spirometry unavailable or delayed: PEF twice daily for 2 weeks. Diagnose if variability <span class="dx-threshold">≥20%</span>
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num indigo">4</div>
+          <div class="dx-step-text">
+            <strong>Skin prick test / total IgE + eosinophil count</strong><br>
+            If above inconclusive: sensitisation to house dust mite or raised total IgE and eosinophil count <span class="dx-threshold">&gt;0.5×10⁹/L</span>
+          </div>
+        </div>
+        <div class="dx-step-row">
+          <div class="dx-step-num indigo">5</div>
+          <div class="dx-step-text">
+            <strong>Bronchial challenge test (paediatric specialist)</strong><br>
+            If still uncertain — refer to paediatric specialist for consideration.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-teal">
+      <span class="alert-icon">📋</span>
+      <div>
+        <strong>Cannot Perform Tests?</strong>
+        If a patient aged 5 or over cannot perform objective tests, treat empirically with ICS, review regularly, and retry tests every 6–12 months. PCA exception codes are available where the patient declines, does not attend, or objective testing is not appropriate or feasible. Asthma in children under 5 is not captured by AST012.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ANNUAL REVIEW -->
+  <section id="annual-review">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Annual Asthma Review — AST007</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1.2rem;">Use the <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS. Children under 5 are excluded from this indicator.</p>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>AST007 — All four components must be coded on the same day as the review</strong>
+        QOF business rules require the asthma review, the number of exacerbations, the inhaler technique assessment, and the written personalised asthma action plan to all be recorded on the same date. Coding any element on a different day means the indicator will not be met for that patient. Build all four into a single template/workflow.
+      </div>
+    </div>
+
+    <div class="review-grid">
+      <div class="review-item">
+        <div class="review-item-icon">📊</div>
+        <div class="review-item-text">
+          <strong>1. Assessment of Asthma Control</strong>
+          Use the <strong>Asthma Control Test (ACT)</strong>. Code the score and date on the day of the review.
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-item-icon">🗓️</div>
+        <div class="review-item-text">
+          <strong>2. Number of Exacerbations Recorded</strong>
+          Record the number of exacerbations in the month before the review. Must be coded on the same day as the review — not retrospectively or on a different date.
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-item-icon">💨</div>
+        <div class="review-item-text">
+          <strong>3. Inhaler Technique Assessment</strong>
+          Document whether technique is satisfactory and record any corrective advice given. Code on the day of the review appointment.
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-item-icon">📄</div>
+        <div class="review-item-text">
+          <strong>4. Written Personalised Asthma Action Plan</strong>
+          Provide a written personalised asthma action plan and code its provision on the same day as the review. Review and update existing plans — do not carry forward an out-of-date plan.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--teal); margin-top:1rem;">
+      <div style="font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; color:var(--teal-dark); margin-bottom:.9rem;">📋 &nbsp;Additional Review Components (Best Practice, NG245)</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem;">
+        <div style="background:var(--teal-pale); border:1px solid var(--teal-light); border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--teal-dark); margin-bottom:.4rem;">Medicines Adherence</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Check adherence using prescription records. Non-adherence is a common cause of apparent poor control — explore before stepping up treatment.</p>
+        </div>
+        <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9a3412; margin-bottom:.4rem;">Triggers &amp; Risk Factors</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Check smoking status, occupational exposures, psychosocial factors, and seasonal or environmental triggers.</p>
+        </div>
+        <div style="background:var(--info-light); border:1px solid #93c5fd; border-radius:10px; padding:.85rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#1e40af; margin-bottom:.4rem;">No SABA Without ICS</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">SABAs must <strong>not</strong> be prescribed without a concomitant ICS for any patient with asthma of any age (NG245 1.6.3). Flag to Pharmacist/GP if identified.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>When to Refer — Pharmacological Escalation</strong>
+        Aged ≥12: refer to an asthma specialist if not controlled on high-dose ICS treatment (NG245 1.7.11). Aged 5–11: refer if not controlled on paediatric moderate-dose MART or ICS/LABA ± LTRA (NG245 1.8.7). NG245 pharmacological management Algorithms C (≥12 years) and D (5–11 years) are published at nice.org.uk/guidance/ng245/resources.
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Register Management</div>
+          <p class="step-desc">The GP Lead reviews the asthma register at a minimum annually and opportunistically throughout the year. An accurate register is the foundation of all QOF attainment.</p>
+          <ul class="step-list">
+            <li>Add patients with confirmed new asthma diagnoses promptly</li>
+            <li>Remove patients where asthma diagnosis has been excluded or was incorrectly coded</li>
+            <li>Review patients with diagnostic uncertainty — confirm objective testing is complete or outstanding</li>
+            <li>Children under 5 may be on the register but are excluded from AST007</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">New Diagnosis — Objective Testing (AST012)</div>
+          <p class="step-desc">At the time of new asthma diagnosis (on or after 1 April 2025), an objective test must be ordered and the result coded within <strong>3 months before or 3 months after the date of diagnosis</strong> (93 days before).</p>
+          <ul class="step-list">
+            <li>GP makes clinical diagnosis and codes it in EMIS — this triggers the AST012 window</li>
+            <li>Order the appropriate first-line test: FeNO or blood eosinophils (adults/&gt;16); FeNO (children 5–16)</li>
+            <li>If spirometry needed and unavailable in-house: send referral to community spirometry service; document referral</li>
+            <li>Admin diarises the 3-month deadline from the date of diagnosis coding</li>
+            <li>When result received: code objective test result in EMIS on the date of receipt</li>
+            <li>If patient unable or declines: GP approves PCA exception code with documented justification</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Identify Patients Due an Annual Review (AST007)</div>
+          <p class="step-desc">Admin can identify and recall patients due a review at any time using the QOF dashboard — they do not need to wait for the monthly QOF meeting. The monthly meeting is used to review progress, problem-solve barriers, and manage complex cases such as persistent non-attenders.</p>
+          <ul class="step-list">
+            <li>Identify patients with no review in the past 12 months</li>
+            <li>Identify patients with incomplete reviews — missing any of the four required components</li>
+            <li>Identify patients with outstanding objective test results from new diagnoses (AST012)</li>
+            <li>Admin identifies patients due a review from the QOF dashboard and begins recall without waiting for the monthly QOF meeting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book</div>
+          <ul class="step-list">
+            <li>Admin sends personalised invitation letter or SMS to patients identified as due a review — on an ongoing basis, without waiting for the monthly QOF meeting</li>
+            <li>Book <strong>annual asthma review with Asthma Nurse/HCA — 20–30 minutes</strong>; advise patient to bring inhalers</li>
+            <li>Book follow-up Pharmacist appointment if medication review is required</li>
+            <li>No response after 2 weeks: send second invitation. After a further 2 weeks: telephone outreach.</li>
+            <li>Still no response: <strong>add to monthly QOF meeting agenda</strong> for team review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Conduct the Annual Review</div>
+          <p class="step-desc">Asthma Nurse or HCA conducts the review using <strong>(RP) LTC Review Template CEG v1.4</strong>. <strong>All four QOF components must be coded on the same day.</strong></p>
+          <ul class="step-list">
+            <li>Complete asthma control assessment (ACT/ACQ/C-ACT) and code score on the day</li>
+            <li>Record number of exacerbations in the preceding period — code on the same day</li>
+            <li>Observe inhaler technique with patient's own inhaler — document and code on the same day</li>
+            <li>Provide, review and update written personalised asthma action plan — code on the same day</li>
+            <li>Check adherence via prescription records; explore and address non-adherence before escalating</li>
+            <li>Check smoking status, occupational triggers, environmental and seasonal factors</li>
+            <li>Confirm no SABA is prescribed without concomitant ICS — flag to Pharmacist/GP if found</li>
+            <li>Flag patients with uncontrolled asthma or meeting referral criteria to GP</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Medication Review (Pharmacist)</div>
+          <p class="step-desc">Arranged for patients with medication-related concerns identified at the annual review, or where complex pharmacological management is in place.</p>
+          <ul class="step-list">
+            <li>Review current inhaler regimen against NG245 pharmacological algorithms (C &amp; D)</li>
+            <li>Identify SABA prescribed without ICS; correct with GP oversight</li>
+            <li>Review inhaler device for patient preference, technique, and environmental impact</li>
+            <li>Assess LABA, LTRA, MART regimens for appropriateness</li>
+            <li>Identify patients meeting specialist referral criteria and flag to GP same day</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">7</div>
+        <div class="step-body">
+          <div class="step-title">Did Not Attend (DNA) Management</div>
+          <ul class="step-list">
+            <li>First DNA: re-invite by letter or SMS within 5 working days; note attempt in EMIS</li>
+            <li>Second DNA: telephone contact attempt; document outcome</li>
+            <li>Third DNA / no response: <strong>add to monthly QOF meeting agenda</strong> for team review</li>
+            <li>GP reviews repeated non-attenders; considers clinical vulnerability and appropriate next steps</li>
+            <li>Where exception reporting is appropriate: GP approves PCA code with documented justification</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXCEPTIONS -->
+  <section id="exceptions">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Exception Reporting</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1rem;">Patient Consent Adjustments (PCAs) allow practices to exclude individual patients from QOF indicators where it would be clinically inappropriate or impossible to include them. All exception reporting must be <strong>approved by the GP</strong> and documented with a clear clinical or administrative reason.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <div class="card" style="border-top: 4px solid var(--teal);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--teal-dark); margin-bottom:.8rem;">🩺 &nbsp;Clinical Exceptions</div>
+        <ul class="role-list">
+          <li>Patient unable to perform objective tests (e.g. severe breathlessness) — treat empirically with ICS and retry every 6–12 months</li>
+          <li>Objective testing clinically contraindicated or not appropriate — must be documented with reasoning</li>
+          <li>Terminal illness or severe comorbidity making annual review clinically inappropriate</li>
+          <li>Patient registered within the preceding 3 months (new patient exception)</li>
+          <li>Asthma diagnosis in doubt / under review — objective testing pathway ongoing</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--amber);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--amber-dark); margin-bottom:.8rem;">📋 &nbsp;Administrative Exceptions</div>
+        <ul class="role-list">
+          <li>Patient declines the annual review or objective test despite invitation (patient declined)</li>
+          <li>Patient does not attend after a minimum of two invitation attempts (DNA)</li>
+          <li>AST012: objective testing not feasible within the 3-month window (e.g. patient acutely unwell, community service unavailable)</li>
+          <li>AST012: patient declines or does not attend for objective testing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong> Commissioners may audit a random sample of exceptions — incorrect or unjustified coding can result in financial claw-back. Always document the reason clearly in the patient record before applying a PCA.
+      </div>
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">7</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against AST007 and AST012 targets, problem-solve barriers (e.g. DNA patterns, coding errors, spirometry capacity), and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+
+    <div class="card" style="padding: 0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Action</th>
+            <th>Responsible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Monthly QOF meeting — review AST007 &amp; AST012 dashboard; agree recall actions; review DNA list; approve exception coding</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Admin identifies patients due a review from the QOF dashboard and sends invites on an ongoing basis — does not wait for the monthly QOF meeting</td>
+            <td>Admin Lead / PM</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>New diagnoses reviewed — confirm objective test ordered and coded within 3-month window; check any outstanding deadlines (AST012)</td>
+            <td>Asthma Nurse / Admin</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Pharmacist reviews patients with medication concerns identified at annual reviews — SABA monotherapy, step-up requirements, referral criteria</td>
+            <td>Pharmacist</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-asneeded">As needed</span></td>
+            <td>DNA or declining patients reviewed at monthly QOF meeting — team agrees approach; GP approves exception coding where appropriate</td>
+            <td>QOF Meeting</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-quarterly">Quarterly</span></td>
+            <td>Mid-year attainment review — assess trajectory against 45–80% (AST012) and 45–70% (AST007); adjust recall intensity if required</td>
+            <td>PM / GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full register accuracy review — add new diagnoses, remove incorrect entries, validate coding</td>
+            <td>GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>SOP review — update in line with any changes to NHS England QOF guidance or BTS/NICE/SIGN NG245</td>
+            <td>GP Lead / PM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">8</div>
+      <h2 class="section-title">Admin &amp; Clinical Checklist</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:.75rem; font-weight:600; color:var(--teal-dark);">NEW DIAGNOSIS — AST012 Checklist</p>
+    <ul class="checklist" style="margin-bottom:1.5rem;">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>New asthma diagnosis coded in EMIS by GP — date of diagnosis recorded (opens 3-month AST012 window)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Objective test ordered at time of diagnosis per age-specific pathway (FeNO/eosinophils for adults; FeNO for children 5–16)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If spirometry required and unavailable in-house: referral sent to community spirometry service; referral documented in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Admin diarises 3-month deadline (93 days from diagnosis) for objective test result to be coded</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Objective test result received and coded in EMIS on the date of receipt — within the 3-month window</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If patient unable or declines testing: PCA exception approved by GP and clearly documented in record</li>
+    </ul>
+
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:.75rem; font-weight:600; color:var(--teal-dark);">ANNUAL REVIEW — AST007 Checklist (per patient)</p>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified as due a review from QOF dashboard — admin initiates recall</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter/SMS sent within 5 working days (date logged in EMIS)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Annual asthma review booked with Asthma Nurse/HCA — 20–30 minutes; patient advised to bring inhalers</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Review attended — all four QOF components coded on the same day using (RP) LTC Review Template CEG v1.4</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Adherence checked via prescription records; non-adherence explored and documented</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>No SABA without concomitant ICS confirmed — flagged to Pharmacist/GP if found</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If Pharmacist medication review required: follow-up appointment booked</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If referral criteria met: GP informed same day</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA: second invite sent and further contact attempts logged</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If persistent DNA/declining: added to monthly QOF meeting agenda; GP approves exception code if appropriate</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">9</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE NG245 (2024) — Asthma: diagnosis, monitoring and chronic asthma management (BTS, NICE, SIGN): <strong>nice.org.uk/guidance/ng245</strong></li>
+      <li>NG245 Algorithm A — Objective tests for diagnosing asthma: <strong>nice.org.uk/guidance/ng245/resources</strong></li>
+      <li>NG245 Algorithm C — Pharmacological management ≥12 years: <strong>nice.org.uk/guidance/ng245/resources</strong></li>
+      <li>NG245 Algorithm D — Pharmacological management in children aged 5–11: <strong>nice.org.uk/guidance/ng245/resources</strong></li>
+      <li>NICE IND272 — Objective testing in new asthma diagnosis (basis for AST012): <strong>nice.org.uk/indicator/ind272</strong></li>
+      <li>NICE IND273 — Annual asthma review (basis for AST007): <strong>nice.org.uk/indicator/ind273</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+      <li>NHS England Commissioning Standards for Spirometry (2024): <strong>england.nhs.uk/long-read/commissioning-standards-for-spirometry</strong></li>
+      <li>Asthma + Lung UK — Healthcare professionals: <strong>asthma.org.uk/healthcare-professionals</strong></li>
+      <li>British Thoracic Society — Asthma resources: <strong>brit-thoracic.org.uk</strong></li>
+      <li>Primary Care Respiratory Society — Asthma: <strong>pcrs.org.uk/areas-of-care/asthma</strong></li>
+      <li>Beat Asthma (children and young people): <strong>beatasthma.co.uk</strong></li>
+      <li>National Review of Asthma Deaths (NRAD): <strong>rcplondon.ac.uk/projects/national-review-asthma-deaths</strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--teal-pale); border-color: var(--teal-light);">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--teal-dark);">Version</strong></td><td>1.0</td>
+          <td><strong style="color:var(--teal-dark);">Effective</strong></td><td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--teal-dark);">Review due</strong></td><td>March 2026</td>
+          <td><strong style="color:var(--teal-dark);">Owner</strong></td><td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates and any revisions to the BTS/NICE/SIGN asthma guideline (NG245). All staff are expected to have read and understood this SOP before undertaking asthma annual reviews or new diagnosis objective testing pathways.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Asthma QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  const allSections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  allSections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.classList.add('animate');
+      observer.observe(s);
+    }
+  });
+
+  function toggle(el) { el.classList.toggle('checked'); }
+
+  const rolesObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.role-card').forEach((card, i) => {
+          card.style.transition = `opacity .5s ease ${i * .08}s, transform .5s ease ${i * .08}s, box-shadow .2s, border-color .2s`;
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        });
+        rolesObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.roles-grid').forEach(g => {
+    const rect = g.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      g.querySelectorAll('.role-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+      });
+    }
+    rolesObserver.observe(g);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+{
+  "app": {
+    "name": "Strouts Place Clinical Hub",
+    "subtitle": "Strouts Place Medical Centre",
+    "pin": "1292",
+    "year": "2025/26"
+  },
+  "sections": [
+    {
+      "id": "qof",
+      "title": "QOF References",
+      "icon": "📋",
+      "color": "teal",
+      "description": "Quick reference guides and full SOPs for all QOF clinical domains."
+    },
+    {
+      "id": "sop",
+      "title": "Clinical SOPs",
+      "icon": "📄",
+      "color": "purple",
+      "description": "Standard operating procedures for clinical and administrative workflows."
+    },
+    {
+      "id": "womens",
+      "title": "Women's Health",
+      "icon": "🌸",
+      "color": "rose",
+      "description": "Clinical resources and questionnaires for women's health consultations."
+    }
+  ],
+  "documents": [
+    {
+      "section": "qof",
+      "title": "Asthma",
+      "code": "AST",
+      "icon": "🫁",
+      "quickref": "docs/AST_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/AST_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Coronary Heart Disease",
+      "code": "CHD",
+      "icon": "❤️",
+      "quickref": "docs/CHD_QOF_QuickRef.html",
+      "fullsop": "docs/CHD_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Cholesterol",
+      "code": "CHOL",
+      "icon": "🩸",
+      "quickref": "docs/CHOL_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/CHOL_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "COPD",
+      "code": "COPD",
+      "icon": "💨",
+      "quickref": "docs/COPD_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/COPD_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Dementia",
+      "code": "DEM",
+      "icon": "🧠",
+      "quickref": "docs/DEM_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/DEM_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Diabetes",
+      "code": "DM",
+      "icon": "💉",
+      "quickref": "docs/DM_QOF_ClinicalQuickRef.html",
+      "fullsop": "docs/DM_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Heart Failure",
+      "code": "HF",
+      "icon": "🫀",
+      "quickref": "docs/HF_QOF_QuickRef_Clinician_v2.html",
+      "fullsop": "docs/HF_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Hypertension",
+      "code": "HYP",
+      "icon": "📊",
+      "quickref": "docs/HYP_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/HYP_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Mental Health",
+      "code": "MH",
+      "icon": "🧘",
+      "quickref": "docs/MH_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/MH_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Non-Diabetic Hyperglycaemia",
+      "code": "NDH",
+      "icon": "🔬",
+      "quickref": "docs/NDH_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/NDH_QOF_DeepOcean.html"
+    },
+    {
+      "section": "qof",
+      "title": "Stroke & TIA",
+      "code": "STIA",
+      "icon": "⚡",
+      "quickref": "docs/STIA_QOF_QuickRef_Clinician.html",
+      "fullsop": "docs/STIA_QOF_DeepOcean.html"
+    },
+    {
+      "section": "sop",
+      "title": "Duty Doctor SOP",
+      "icon": "👨‍⚕️",
+      "meta": "SPMC · 2025/26",
+      "file": "docs/SPMC_Duty_Doctor_SOP.html"
+    },
+    {
+      "section": "womens",
+      "title": "COCP Review Questionnaire",
+      "icon": "💊",
+      "meta": "Women's Health · 2025/26",
+      "file": "docs/COCP_Review_Questionnaire_GP.html"
+    }
+  ]
+}

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH QOF — Clinician Quick Reference 2025/26</title>
+<style>
+  :root {
+    --blue:        #0369a1;
+    --blue-dark:   #075985;
+    --blue-deep:   #0c2d48;
+    --blue-light:  #bae6fd;
+    --blue-pale:   #f0f9ff;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --green:       #059669;
+    --green-light: #d1fae5;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(3,105,161,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(3,105,161,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #061826 0%, #0c3a5c 60%, #0a2a45 100%);
+    padding: 2.2rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(186,230,253,.25) 0%, transparent 50%),
+      radial-gradient(circle at 10% 85%, rgba(3,105,161,.3) 0%, transparent 40%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(186,230,253,.15);
+    border: 1px solid rgba(186,230,253,.4);
+    color: #7dd3fc;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .25rem .75rem;
+    border-radius: 999px;
+    margin-bottom: .9rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--white);
+    line-height: 1.15;
+    position: relative;
+    margin-bottom: .5rem;
+  }
+  .hero h1 em { font-style: italic; color: #7dd3fc; }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .88rem;
+    position: relative;
+    margin-bottom: 1.2rem;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    position: relative;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    color: #cbd5e1;
+    font-size: .72rem;
+    padding: .25rem .7rem;
+    border-radius: 6px;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── GRID LAYOUT ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    border-top: 4px solid var(--blue);
+  }
+  .card.amber-top { border-top-color: var(--amber); }
+  .card.green-top { border-top-color: var(--green); }
+
+  .card-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--blue-dark);
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .card.amber-top .card-title { color: var(--amber-dark); }
+  .card.green-top .card-title { color: var(--green); }
+
+  /* ── INDICATORS TABLE ── */
+  .ind-wrap { overflow-x: auto; border-radius: 10px; }
+  .ind-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 480px;
+  }
+  .ind-table thead tr { background: var(--blue-dark); }
+  .ind-table thead th {
+    color: white;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: .6rem .9rem;
+    text-align: left;
+  }
+  .ind-table tbody tr:nth-child(even) { background: var(--blue-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table td { padding: .6rem .9rem; font-size: .84rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge {
+    font-weight: 700; color: var(--blue-dark); font-size: .8rem;
+    background: var(--blue-light); padding: .15rem .45rem;
+    border-radius: 5px; white-space: nowrap;
+  }
+  .pts { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .8rem; padding: .15rem .45rem; border-radius: 5px; min-width: 24px; text-align: center; }
+  .target { display: inline-block; background: var(--green-light); color: #065f46; font-weight: 600; font-size: .78rem; padding: .15rem .5rem; border-radius: 999px; }
+
+  /* ── CHECKLIST ── */
+  .check-list { list-style: none; }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .55rem .75rem;
+    border-radius: 8px;
+    margin-bottom: .35rem;
+    font-size: .86rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    border: 1px solid var(--border);
+    background: var(--white);
+    user-select: none;
+  }
+  .check-list li:hover { background: var(--blue-pale); border-color: var(--blue-light); }
+  .check-list li.checked { background: var(--blue-pale); border-color: var(--blue); text-decoration: line-through; opacity: .6; }
+  .check-box {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 2px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; color: transparent;
+    margin-top: .1rem;
+    transition: background .15s, border-color .15s;
+  }
+  .check-list li.checked .check-box { background: var(--blue); border-color: var(--blue); color: white; }
+
+  /* ── RULE LIST ── */
+  .rule-list { list-style: none; }
+  .rule-list li {
+    font-size: .86rem;
+    color: var(--slate-mid);
+    padding: .35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .rule-list li:last-child { border-bottom: none; }
+  .rule-list li::before { content: '✓'; color: var(--blue); font-weight: 700; position: absolute; left: 0; }
+  .rule-list.amber li::before { content: '→'; color: var(--amber); }
+  .rule-list.green li::before { content: '✓'; color: var(--green); }
+
+  /* ── ALERT ── */
+  .alert {
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    margin-top: .75rem;
+    display: flex;
+    gap: .65rem;
+    align-items: flex-start;
+    font-size: .84rem;
+  }
+  .alert-amber { background: var(--amber-light); border: 1px solid #fcd34d; }
+  .alert-blue  { background: var(--blue-pale);   border: 1px solid var(--blue-light); }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-amber strong { color: var(--amber-dark); }
+  .alert-blue  strong { color: var(--blue-dark); }
+
+  /* ── LES GRID ── */
+  .les-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .35rem .75rem;
+    margin: .6rem 0;
+  }
+  .les-item {
+    font-size: .84rem;
+    color: var(--slate-mid);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .les-item::before { content: '✓'; color: var(--green); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── WINDOW BADGE ── */
+  .window-badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .1rem .45rem;
+    border-radius: 4px;
+    margin-left: .3rem;
+  }
+  .w12 { background: #fee2e2; color: #991b1b; }
+  .w24 { background: #dcfce7; color: #166534; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--slate-light);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { padding: 1.75rem 1.25rem 1.5rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .span-2, .span-3 { grid-column: span 1; }
+    .les-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.6rem; }
+  }
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Clinician Quick Reference</div>
+  <h1>Mental Health <em>QOF</em> 2025/26</h1>
+  <p class="hero-sub">Strouts Place Medical Centre &nbsp;·&nbsp; SMI Register — Schizophrenia, Bipolar &amp; Other Psychoses</p>
+  <div class="hero-badges">
+    <span class="hero-badge">Version 1.0</span>
+    <span class="hero-badge">Effective: April 2025</span>
+    <span class="hero-badge">Review: March 2026</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ROW 1: Indicators full width -->
+  <div style="margin-bottom:1.25rem;">
+    <div class="card" style="padding: 0; overflow:hidden; border-top: 4px solid var(--blue);">
+      <div style="padding:.9rem 1.2rem .6rem; font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--blue-dark);">📋 QOF Indicators &amp; Targets</div>
+      <div class="ind-wrap">
+        <table class="ind-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Indicator</th>
+              <th>Pts</th>
+              <th>Target</th>
+              <th>Window</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-badge">MH002</span></td>
+              <td>Comprehensive care plan documented &amp; agreed with patient/carer</td>
+              <td><span class="pts">5</span></td>
+              <td><span class="target">40–90%</span></td>
+              <td>12 months</td>
+            </tr>
+            <tr>
+              <td><span class="code-badge">MH003</span></td>
+              <td>Blood pressure recorded</td>
+              <td><span class="pts">3</span></td>
+              <td><span class="target">50–90%</span></td>
+              <td>12 months</td>
+            </tr>
+            <tr>
+              <td><span class="code-badge">MH006</span></td>
+              <td>BMI recorded</td>
+              <td><span class="pts">3</span></td>
+              <td><span class="target">50–90%</span></td>
+              <td>12 months</td>
+            </tr>
+            <tr>
+              <td><span class="code-badge">MH007</span></td>
+              <td>Alcohol consumption (AUDIT-C) recorded</td>
+              <td><span class="pts">3</span></td>
+              <td><span class="target">50–90%</span></td>
+              <td>12 months</td>
+            </tr>
+            <tr>
+              <td><span class="code-badge">MH011</span></td>
+              <td>Lipid profile recorded</td>
+              <td><span class="pts">7</span></td>
+              <td><span class="target">50–90%</span></td>
+              <td><span class="window-badge w12">12m high-risk</span><span class="window-badge w24">24m others</span></td>
+            </tr>
+            <tr>
+              <td><span class="code-badge">MH012</span></td>
+              <td>Blood glucose / HbA1c recorded <em style="font-size:.78rem; color:var(--slate-light)">(exclude if diabetic)</em></td>
+              <td><span class="pts">7</span></td>
+              <td><span class="target">50–90%</span></td>
+              <td>12 months</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-blue" style="margin:.75rem 1.2rem 1rem;">
+        <span>💡</span>
+        <div><strong>MH011 high-risk (12-month window):</strong> Currently prescribed antipsychotics AND/OR pre-existing CVD (CHD, diabetes, stroke, PAD, CKD) AND/OR current smoker AND/OR BMI ≥23 (≥25 if White ethnicity). All others: 24 months.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: One-Stop Clinic -->
+  <div>
+
+    <!-- ONE-STOP CLINIC CHECKLIST -->
+    <div class="card green-top">
+      <div class="card-title">🩺 One-Stop Clinic — HCA (30 min)</div>
+      <p style="font-size:.82rem; color:var(--slate-light); margin-bottom:.7rem;">All checks &amp; bloods in one visit. Code same day using <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template.</p>
+      <ul class="check-list" id="clinic-list">
+        <li onclick="toggle(this)"><span class="check-box">✓</span>Blood pressure (MH003)</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>Weight &amp; BMI (MH006)</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>Waist circumference if BMI ≥25</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>AUDIT-C alcohol screen (MH007)</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>Lipid profile — confirm 12m or 24m window (MH011)</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>Blood glucose / HbA1c — unless diabetic (MH012)</li>
+        <li onclick="toggle(this)"><span class="check-box">✓</span>All results coded same day in EMIS</li>
+      </ul>
+    </div>
+
+
+
+  </div>
+
+  <!-- ROW 3: Pharmacist section -->
+  <div style="margin-bottom:1.25rem;">
+    <div class="card" style="border-top: 4px solid var(--green);">
+      <div class="card-title" style="color:var(--green);">💊 Pharmacist — Follow-up TC Appointment</div>
+      <p style="font-size:.84rem; color:var(--slate-mid); margin-bottom:1.1rem;">Conducted once One-Stop Clinic blood results are available. The TC covers three areas:</p>
+
+      <div class="grid-3" style="margin-bottom:.75rem;">
+
+        <!-- Care Plan -->
+        <div style="background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:10px; padding:1rem;">
+          <div style="font-family:Georgia,'Times New Roman',serif; font-size:.9rem; color:var(--blue-dark); margin-bottom:.5rem;">📄 Care Plan (MH002)</div>
+          <p style="font-size:.84rem; color:var(--slate-mid);">Review, update and agree the care plan with the patient and/or carer. Ensure it is coded in EMIS.</p>
+        </div>
+
+        <!-- LES -->
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:1rem;">
+          <div style="font-family:Georgia,'Times New Roman',serif; font-size:.9rem; color:var(--green); margin-bottom:.5rem;">🧪 LES Physical Health Check</div>
+          <div class="les-grid" style="grid-template-columns:1fr; gap:.25rem;">
+            <div class="les-item" style="color:var(--slate-mid);">HbA1c</div>
+            <div class="les-item" style="color:var(--slate-mid);">HDL cholesterol</div>
+            <div class="les-item" style="color:var(--slate-mid);">Blood pressure</div>
+            <div class="les-item" style="color:var(--slate-mid);">BMI</div>
+          </div>
+        </div>
+
+        <!-- Medication Review -->
+        <div style="background:var(--amber-light); border:1px solid #fcd34d; border-radius:10px; padding:1rem;">
+          <div style="font-family:Georgia,'Times New Roman',serif; font-size:.9rem; color:var(--amber-dark); margin-bottom:.5rem;">💊 Medication Review</div>
+          <p style="font-size:.84rem; color:var(--slate-mid);">Antipsychotic efficacy, side effects, adherence and optimisation.</p>
+        </div>
+
+      </div>
+
+      <div style="font-size:.82rem; color:var(--slate-mid); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.7rem 1rem; margin-bottom:.75rem;">
+        📋 Code all LES components using the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS
+      </div>
+
+      <div class="alert alert-amber" style="margin-top:0;">
+        <span>⚠️</span>
+        <div><strong>ECG — not routine.</strong> Only if cardiac risk changes (new IHD or arrhythmia). ELFT are responsible for the initial ECG prior to antipsychotic initiation.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; MH QOF Clinician Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+</script>
+</body>
+</html>

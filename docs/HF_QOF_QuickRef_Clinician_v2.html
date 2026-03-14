@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HF QOF 2025/26 — Clinical Quick Reference</title>
+<style>
+:root {
+  --b:       #0369a1;
+  --b-dark:  #075985;
+  --b-deep:  #0c4a6e;
+  --b-light: #bae6fd;
+  --b-pale:  #f0f9ff;
+  --slate:   #0f172a;
+  --mid:     #475569;
+  --light:   #94a3b8;
+  --amber:   #f59e0b;
+  --amb-l:   #fef3c7;
+  --amb-d:   #78350f;
+  --green:   #059669;
+  --green-l: #ecfdf5;
+  --green-b: #a7f3d0;
+  --red:     #dc2626;
+  --red-l:   #fef2f2;
+  --red-b:   #fecaca;
+  --white:   #ffffff;
+  --surf:    #f8fafc;
+  --border:  #e2e8f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--surf);
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #03234a 0%, #0c4a6e 55%, #075985 100%);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 10%, rgba(125,211,252,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  margin-bottom: .3rem;
+}
+.header-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: white;
+  line-height: 1.1;
+}
+.header-title em { font-style: italic; color: #7dd3fc; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; }
+.hbadge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #cbd5e1;
+  font-size: .68rem;
+  padding: .2rem .6rem;
+  border-radius: 5px;
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 3rem;
+}
+
+/* ── SECTION TITLE ── */
+.sec { margin-bottom: 1.2rem; }
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .6rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--b-light);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--b-dark);
+}
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .85rem 1rem;
+}
+.card-title {
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .45rem;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.card.blue   { border-left: 3px solid var(--b);     }
+.card.green  { border-left: 3px solid var(--green);  background: var(--green-l); }
+.card.red    { border-left: 3px solid var(--red);    background: var(--red-l); }
+.card.amber  { border-left: 3px solid var(--amber);  background: var(--amb-l); }
+.card.blue   .card-title { color: var(--b-dark); }
+.card.green  .card-title { color: #065f46; }
+.card.red    .card-title { color: var(--red); }
+.card.amber  .card-title { color: var(--amb-d); }
+
+/* ── CHECKLIST ROWS ── */
+.clist { list-style: none; }
+.clist li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .2rem 0 .2rem 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  line-height: 1.4;
+}
+.clist li:last-child { border-bottom: none; }
+.clist li::before { content: '→'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .26rem; color: var(--b); }
+.clist.green li::before { color: var(--green); }
+.clist.red   li::before { color: var(--red); }
+.clist.amber li::before { color: var(--amber); }
+
+/* ── DRUG PILLS ── */
+.drug-pills { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .5rem; }
+.dp { font-weight: 600; font-size: .72rem; padding: .15rem .5rem; border-radius: 4px; }
+.dp-blue  { background: #dbeafe; color: #1e40af; }
+.dp-green { background: #d1fae5; color: #065f46; }
+.dp-red   { background: var(--red-l); color: var(--red); }
+
+/* ── MONITORING TABLE ── */
+.mon-table { width: 100%; border-collapse: collapse; font-size: .82rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.mon-table thead tr { background: var(--b-dark); }
+.mon-table thead th { color: white; padding: .55rem .75rem; text-align: left; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+.mon-table tbody tr:nth-child(even) { background: var(--b-pale); }
+.mon-table td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
+.mon-table tr:last-child td { border-bottom: none; }
+.freq { display: inline-block; font-weight: 600; font-size: .72rem; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; }
+.f-weeks     { background: #fce7f3; color: #9d174d; }
+.f-monthly   { background: #dbeafe; color: #1e40af; }
+.f-sixmonth  { background: #dbeafe; color: #1e40af; }
+.f-annual    { background: #dcfce7; color: #166534; }
+.f-prn       { background: var(--amb-l); color: var(--amb-d); }
+
+/* ── ALERT ── */
+.alert {
+  border-radius: 8px;
+  padding: .65rem .85rem;
+  font-size: .8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+.alert.blue  { background: var(--b-pale);  border: 1px solid var(--b-light); color: var(--b-dark); }
+.alert.amber { background: var(--amb-l);   border: 1px solid #fcd34d;        color: var(--amb-d); }
+.alert.red   { background: var(--red-l);   border: 1px solid var(--red-b);   color: var(--red); }
+.alert.green { background: var(--green-l); border: 1px solid var(--green-b); color: #065f46; }
+.alert-icon  { font-size: 1rem; flex-shrink: 0; line-height: 1.4; }
+
+/* ── DIVIDER ── */
+hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+/* ── NYHA TABLE ── */
+.nyha-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.nyha-card { border-radius: 8px; padding: .7rem .8rem; border: 1px solid; text-align: center; }
+.nyha-card .nyha-class { font-family: Georgia, serif; font-size: 1.2rem; font-weight: 700; margin-bottom: .2rem; }
+.nyha-card .nyha-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+.nyha-card p { font-size: .75rem; line-height: 1.35; }
+.nyha-card.i  { background: #f0fdf4; border-color: #86efac; }
+.nyha-card.ii { background: #fefce8; border-color: #fde047; }
+.nyha-card.iii{ background: #fff7ed; border-color: #fdba74; }
+.nyha-card.iv { background: var(--red-l); border-color: var(--red-b); }
+.nyha-card.i   .nyha-class { color: #15803d; }
+.nyha-card.ii  .nyha-class { color: #a16207; }
+.nyha-card.iii .nyha-class { color: #c2410c; }
+.nyha-card.iv  .nyha-class { color: var(--red); }
+.nyha-card.i   .nyha-label { color: #15803d; }
+.nyha-card.ii  .nyha-label { color: #a16207; }
+.nyha-card.iii .nyha-label { color: #c2410c; }
+.nyha-card.iv  .nyha-label { color: var(--red); }
+@media (max-width: 600px) { .nyha-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ── INDICATOR TABLE ── */
+.ind-table { width: 100%; border-collapse: collapse; font-size: .82rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.ind-table thead tr { background: var(--b-dark); }
+.ind-table thead th { color: white; padding: .55rem .75rem; text-align: left; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+.ind-table tbody tr:nth-child(even) { background: var(--b-pale); }
+.ind-table td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+.ind-table tr:last-child td { border-bottom: none; }
+.code-badge { background: var(--b-dark); color: white; font-size: .72rem; font-weight: 700; padding: .18rem .5rem; border-radius: 5px; }
+.pts-badge  { background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 700; padding: .18rem .5rem; border-radius: 5px; }
+.tgt-pill   { background: var(--green-l); color: #065f46; font-size: .72rem; font-weight: 600; padding: .18rem .5rem; border-radius: 999px; border: 1px solid var(--green-b); }
+.scope-tag  { display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; padding: .1rem .4rem; border-radius: 4px; margin-left: .3rem; vertical-align: middle; }
+.scope-all  { background: #dbeafe; color: #1e40af; }
+.scope-hfref{ background: #fce7f3; color: #9d174d; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem;
+  color: var(--light);
+  font-size: .72rem;
+  border-top: 1px solid var(--border);
+  max-width: 960px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="header-tag">Strouts Place Medical Centre · QOF 2025/26</div>
+      <div class="header-title">Heart Failure<br><em>Clinical Quick Reference</em></div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge">Drug Therapy · Physical Checks · Monitoring</span>
+      <span class="hbadge">Version 1.0 · Effective: April 2025</span>
+      <span class="hbadge">Owner: GP Lead</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ══ 0. INDICATORS AT A GLANCE ══ -->
+  <div class="sec">
+    <div class="sec-title">📋 QOF Indicators at a Glance</div>
+    <div style="overflow-x:auto; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); margin-bottom:.5rem;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+            <th>Scope</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">HF008</span></td>
+            <td>New diagnosis (on/after 1 Apr 2023) confirmed by echocardiogram or specialist assessment within 6 months before/after diagnosis, or within 6 months of registration</td>
+            <td><span class="pts-badge">6 pts</span></td>
+            <td><span class="tgt-pill">50–90%</span></td>
+            <td><span class="scope-tag scope-all">All HF</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF003</span></td>
+            <td>Currently treated with ACE inhibitor or ARB</td>
+            <td><span class="pts-badge">6 pts</span></td>
+            <td><span class="tgt-pill">60–92%</span></td>
+            <td><span class="scope-tag scope-hfref">HFrEF only</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF006</span></td>
+            <td>Currently treated with a beta-blocker licensed for heart failure</td>
+            <td><span class="pts-badge">6 pts</span></td>
+            <td><span class="tgt-pill">60–92%</span></td>
+            <td><span class="scope-tag scope-hfref">HFrEF only</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF007</span></td>
+            <td>Annual review in preceding 12 months including functional capacity assessment and medication review at maximal tolerated doses</td>
+            <td><span class="pts-badge">7 pts</span></td>
+            <td><span class="tgt-pill">50–90%</span></td>
+            <td><span class="scope-tag scope-all">All HF</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert blue">
+      <span class="alert-icon">ℹ️</span>
+      <div><strong>HFrEF / LVSD</strong> — HF003 and HF006 apply only to patients with heart failure due to reduced ejection fraction. Ensure HF type is correctly coded in EMIS for every patient on the register.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 1. DRUG THERAPY ══ -->
+  <div class="sec">
+    <div class="sec-title">💊 Drug Therapy — HFrEF / LVSD only</div>
+
+    <div class="grid2" style="margin-bottom:.75rem;">
+
+      <!-- ACE-I / ARB -->
+      <div class="card blue">
+        <div class="card-title">HF003 — ACE Inhibitor or ARB</div>
+        <ul class="clist">
+          <li><strong>First line:</strong> ACE inhibitor — titrate to maximum tolerated dose</li>
+          <li><strong>If ACE-I intolerant</strong> (cough, angioedema): switch to ARB</li>
+          <li>Do <strong>not</strong> combine ACE-I and ARB</li>
+          <li>Check U&amp;E and BP at initiation and each dose increase</li>
+          <li>If K⁺ &gt;5.5 mmol/L or significant eGFR fall: reduce dose or escalate to GP</li>
+        </ul>
+        <div class="drug-pills">
+          <span class="dp dp-blue">Ramipril</span>
+          <span class="dp dp-blue">Lisinopril</span>
+          <span class="dp dp-blue">Enalapril</span>
+          <span class="dp dp-blue">Perindopril</span>
+        </div>
+        <div style="margin-top:.5rem; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:#065f46;">If ACE-I intolerant</div>
+        <div class="drug-pills" style="margin-top:.2rem;">
+          <span class="dp dp-green">Candesartan</span>
+          <span class="dp dp-green">Valsartan</span>
+          <span class="dp dp-green">Losartan</span>
+        </div>
+      </div>
+
+      <!-- Beta-blocker -->
+      <div class="card blue">
+        <div class="card-title">HF006 — Beta-blocker (licensed for HF)</div>
+        <ul class="clist">
+          <li>Start at <strong>very low dose</strong> — titrate slowly over weeks to months</li>
+          <li>Symptoms may worsen initially — adjust diuretic if needed</li>
+          <li><strong>Not withheld</strong> for: age, PVD, ED, DM, interstitial lung disease, COPD (no reversibility)</li>
+          <li><strong>Contraindicated:</strong> asthma, reversible airways obstruction</li>
+          <li>Patients on unlicensed BB pre-diagnosis: <strong>excluded from HF006</strong> — do not switch drug</li>
+        </ul>
+        <div style="margin-top:.5rem; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:#065f46;">✅ Licensed for HF</div>
+        <div class="drug-pills" style="margin-top:.2rem;">
+          <span class="dp dp-green">Bisoprolol</span>
+          <span class="dp dp-green">Carvedilol</span>
+          <span class="dp dp-green">Nebivolol (≥70 yrs)</span>
+        </div>
+        <div style="margin-top:.5rem; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--red);">🚫 Not licensed for HF</div>
+        <div class="drug-pills" style="margin-top:.2rem;">
+          <span class="dp dp-red">Atenolol</span>
+          <span class="dp dp-red">Metoprolol</span>
+          <span class="dp dp-red">Propranolol</span>
+          <span class="dp dp-red">Sotalol</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert amber">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Titration is mandatory</strong> — NICE NG106 requires upward titration to target or maximum tolerated dose. Document current dose and any clinical reason for not titrating at every review. Prescribing at a sub-therapeutic dose without documentation does not satisfy the clinical standard.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 2. PHYSICAL CHECKS — HCA/NURSE ══ -->
+  <div class="sec">
+    <div class="sec-title">🩺 Physical Checks — HCA / Nurse (HF007 Annual Review)</div>
+
+    <div class="grid2" style="margin-bottom:.75rem;">
+      <div class="card blue">
+        <div class="card-title">Required at Every Annual Review</div>
+        <ul class="clist">
+          <li><strong>Functional capacity</strong> — NYHA class, exercise tolerance <span style="background:#dbeafe;color:#1e40af;font-size:.68rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;margin-left:.2rem;">MUST BE CODED</span></li>
+          <li><strong>Weight and fluid status</strong> — note any rapid gain</li>
+          <li><strong>BMI</strong></li>
+          <li><strong>Blood pressure</strong></li>
+          <li><strong>Heart rate and pulse rhythm</strong></li>
+          <li><strong>Smoking status</strong></li>
+          <li><strong>Alcohol status</strong> (AUDIT-C)</li>
+          <li><strong>Frailty and palliative / end-of-life care needs</strong> — consider where appropriate</li>
+        </ul>
+      </div>
+
+      <div class="card amber">
+        <div class="card-title">Escalation from Review</div>
+        <ul class="clist amber">
+          <li>Signs of worsening HF (↑ breathlessness, weight gain &gt;2 kg in 3 days, oedema, new arrhythmia) → <strong>flag to GP same day</strong></li>
+          <li>New AF, bradycardia &lt;60, or unexplained tachycardia &gt;100 → <strong>ECG and flag to GP same day</strong></li>
+          <li>Any urgent clinical concern → <strong>GP same day</strong> — do not defer</li>
+        </ul>
+        <div class="alert amber" style="margin-top:.6rem;">
+          <span class="alert-icon">📋</span>
+          <div>Use <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> — code all elements on the same day as the appointment.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NYHA -->
+    <div style="margin-bottom:.6rem; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--b-dark);">NYHA Functional Classification</div>
+    <div class="nyha-grid">
+      <div class="nyha-card i">
+        <div class="nyha-class">I</div>
+        <div class="nyha-label">No limitation</div>
+        <p>Ordinary activity does not cause symptoms</p>
+      </div>
+      <div class="nyha-card ii">
+        <div class="nyha-class">II</div>
+        <div class="nyha-label">Slight limitation</div>
+        <p>Comfortable at rest; symptoms with moderate exertion</p>
+      </div>
+      <div class="nyha-card iii">
+        <div class="nyha-class">III</div>
+        <div class="nyha-label">Marked limitation</div>
+        <p>Comfortable at rest; symptoms with minimal activity</p>
+      </div>
+      <div class="nyha-card iv">
+        <div class="nyha-class">IV</div>
+        <div class="nyha-label">Severe limitation</div>
+        <p>Symptoms at rest; unable to carry out any activity</p>
+      </div>
+    </div>
+
+    <div class="alert red" style="margin-top:.6rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>NYHA III or IV — consider referral to specialist HF team. NYHA IV with rapid deterioration — same-day GP review and consider emergency admission.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 3. MONITORING ══ -->
+  <div class="sec">
+    <div class="sec-title">🧪 Monitoring Requirements</div>
+
+    <div style="overflow-x:auto; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); margin-bottom:.75rem;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Investigation</th>
+            <th>Frequency</th>
+            <th>Key Actions / Notes</th>
+            <th>Responsible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>U&amp;E</strong><br><span style="font-size:.75rem;color:var(--light);">Renal function &amp; electrolytes</span></td>
+            <td>
+              <span class="freq f-weeks">1–2 wks post change</span><br>
+              <span class="freq f-sixmonth" style="margin-top:.3rem;display:inline-block;">6-monthly (stable)</span>
+            </td>
+            <td>After initiation or dose increase of ACE-I, ARB or diuretic. Check for hyperkalaemia (K⁺ &gt;5.5 mmol/L) and eGFR decline. Reduce dose or escalate to GP if abnormal.</td>
+            <td>Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>LFTs</strong></td>
+            <td><span class="freq f-annual">Annually</span></td>
+            <td>Routine annual monitoring. More frequently if liver disease or amiodarone prescribed.</td>
+            <td>Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>FBC</strong></td>
+            <td><span class="freq f-annual">Annually</span></td>
+            <td>Check for anaemia (common in HF, worsens prognosis) and iron deficiency.</td>
+            <td>GP / Pharmacist</td>
+          </tr>
+          <tr>
+            <td><strong>TFTs</strong></td>
+            <td><span class="freq f-annual">Annually</span></td>
+            <td>Particularly important if on amiodarone. Thyroid dysfunction can worsen or precipitate HF.</td>
+            <td>GP / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>Blood pressure</strong></td>
+            <td>
+              <span class="freq f-weeks">1–2 wks post change</span><br>
+              <span class="freq f-sixmonth" style="margin-top:.3rem;display:inline-block;">Each review</span>
+            </td>
+            <td>At every clinical contact. After any antihypertensive or diuretic change. Target BP in HF is guided by clinical tolerance, not a fixed QOF threshold.</td>
+            <td>HCA / Nurse / Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>Heart rate &amp; rhythm</strong></td>
+            <td><span class="freq f-sixmonth">Each review</span></td>
+            <td>At every structured review. ECG if new AF, significant bradycardia (&lt;60), or unexplained tachycardia (&gt;100).</td>
+            <td>HCA / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>Weight</strong></td>
+            <td><span class="freq f-sixmonth">Each review</span></td>
+            <td>Advise daily weighing at home. &gt;2 kg gain in 3 days indicates fluid retention — adjust diuretic or contact practice per self-management plan.</td>
+            <td>HCA / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>NT-proBNP / BNP</strong></td>
+            <td><span class="freq f-prn">As indicated</span></td>
+            <td>Not a routine annual requirement. Use at new / suspected diagnosis to guide referral urgency, or if clinical deterioration suspected.</td>
+            <td>GP</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert blue">
+      <span class="alert-icon">💡</span>
+      <div>All monitoring results must be reviewed by a clinician and acted upon. Abnormal results must not be left without a documented clinical response.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 4. REVIEW FREQUENCY ══ -->
+  <div class="sec">
+    <div class="sec-title">📅 Review Frequency</div>
+    <div class="grid3">
+      <div class="card green">
+        <div class="card-title">Stable HF</div>
+        <ul class="clist green">
+          <li>Routine review every <strong>6–12 months</strong></li>
+          <li>Annual QOF review (HF007) must be within 12 months</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">After Medication Change</div>
+        <ul class="clist amber">
+          <li>Follow-up within <strong>1–2 weeks</strong></li>
+          <li>Check BP, HR, symptoms and U&amp;E</li>
+          <li>Review before further dose titration</li>
+        </ul>
+      </div>
+      <div class="card red">
+        <div class="card-title">Deteriorating / Complex</div>
+        <ul class="clist red">
+          <li>Shorten review interval — do not wait for annual review</li>
+          <li>Consider specialist HF team referral</li>
+          <li>Assess frailty and palliative / EOL needs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; HF QOF Clinical Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+</body>
+</html>

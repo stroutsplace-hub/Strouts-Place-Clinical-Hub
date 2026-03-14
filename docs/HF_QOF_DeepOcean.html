@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart Failure QOF SOP 2025/26 — Deep Ocean</title>
+<style>
+  :root {
+    --blue:       #0369a1;
+    --blue-dark:  #075985;
+    --blue-deep:  #0c4a6e;
+    --blue-light: #bae6fd;
+    --blue-pale:  #f0f9ff;
+    --slate:      #082032;
+    --slate-mid:  #334155;
+    --slate-light:#94a3b8;
+    --amber:      #f59e0b;
+    --amber-light:#fef3c7;
+    --amber-dark: #92400e;
+    --green:      #059669;
+    --green-light:#a7f3d0;
+    --green-pale: #ecfdf5;
+    --red:        #dc2626;
+    --red-light:  #fecaca;
+    --red-pale:   #fef2f2;
+    --purple:     #7c3aed;
+    --purp-pale:  #f5f3ff;
+    --white:      #ffffff;
+    --surface:    #f8fafc;
+    --border:     #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(3,105,161,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(3,105,161,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--blue-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--blue-light); color: var(--blue-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #03234a 0%, #0c4a6e 55%, #075985 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(186,230,253,.2) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(3,105,161,.3) 0%, transparent 40%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(186,230,253,.2);
+    border: 1px solid rgba(186,230,253,.5);
+    color: #7dd3fc;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+  .hero h1 em { font-style: italic; color: #7dd3fc; }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 600px;
+    margin-bottom: 1.8rem;
+  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: .6rem; position: relative; }
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  /* ── SECTIONS ── */
+  section { margin-bottom: 3rem; }
+  section.animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  section.animate.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--blue);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    color: var(--slate);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(3,105,161,.1); transform: translateY(-2px); }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-blue  { background: var(--blue-pale);   border: 1px solid var(--blue-light); }
+  .alert-amber { background: var(--amber-light);  border: 1px solid #fcd34d; }
+  .alert-green { background: var(--green-pale);   border: 1px solid var(--green-light); }
+  .alert-red   { background: var(--red-pale);     border: 1px solid var(--red-light); }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-blue  strong { color: var(--blue-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+  .alert-green strong { color: #065f46; }
+  .alert-red   strong { color: var(--red); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: var(--blue-dark); }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--blue-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--blue-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--blue-dark); font-size: .85rem; background: var(--blue-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill  { display: inline-block; background: #dbeafe; color: var(--blue-dark); font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; }
+
+  /* ── ROLES GRID ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--blue);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(3,105,161,.14); transform: translateY(-3px); }
+  .role-icon  { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--blue-dark); margin-bottom: .6rem; }
+  .role-list  { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  /* ── PROCESS STEPS ── */
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--blue-light));
+    border-radius: 2px;
+  }
+  .step { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--blue);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--blue-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--blue-light); }
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(3,105,161,.1); }
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc  { font-size: .88rem; color: var(--slate-mid); }
+  .step-list  { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--blue); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── MONITORING TABLE ── */
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--blue-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill       { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-weeks      { background: #fce7f3; color: #9d174d; }
+  .freq-sixmonthly { background: #dbeafe; color: #1e40af; }
+  .freq-annually   { background: #dcfce7; color: #166534; }
+  .freq-asneeded   { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── INTERACTIVE CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--blue-pale); border-color: var(--blue-light); }
+  .checklist li.checked { background: var(--blue-pale); border-color: var(--blue); color: var(--slate); text-decoration: line-through; opacity: .65; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+    font-size: .75rem;
+    color: transparent;
+    margin-top: .1rem;
+  }
+  .checklist li.checked .check-box { background: var(--blue); border-color: var(--blue); color: white; }
+
+  /* ── RESOURCES ── */
+  .resource-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .resource-list li {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .resource-list li:hover { background: var(--blue-pale); border-color: var(--blue-light); }
+  .resource-list li::before { content: '📎'; flex-shrink: 0; }
+
+  /* ── DRUG PILLS ── */
+  .drug-pills { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .7rem; }
+  .drug-pill { font-weight: 600; font-size: .76rem; padding: .2rem .6rem; border-radius: 4px; }
+  .dp-blue   { background: #dbeafe; color: #1e40af; }
+  .dp-green  { background: #d1fae5; color: #065f46; }
+  .dp-red    { background: var(--red-pale); color: var(--red); }
+  .dp-amber  { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-brand { font-size: .85rem; }
+    .nav-links a { padding: .3rem .5rem; font-size: .72rem; }
+    main { padding: 68px 1rem 3rem; }
+    .hero { padding: 2rem 1.25rem 1.75rem; border-radius: 14px; }
+    .hero h1 { font-size: 2rem; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .steps::before { left: 19px; }
+    .step { gap: 1rem; }
+    .step-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .step-body { padding: 1rem 1.1rem; }
+    .card { padding: 0; overflow-x: auto; }
+    .ind-table, .mon-table { min-width: 520px; }
+    div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr"],
+    div[style*="grid-template-columns:1fr 1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    .checklist li { font-size: .84rem; padding: .65rem .85rem; }
+    .alert { font-size: .85rem; padding: .85rem 1rem; }
+  }
+  @media (max-width: 480px) {
+    main { padding: 64px .75rem 2.5rem; }
+    .hero { padding: 1.5rem 1rem 1.5rem; }
+    .hero h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-brand">Strouts Place · Heart Failure QOF SOP</div>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#clinical">Clinical Guidance</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#exceptions">Exceptions</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Heart Failure<br><em>QOF</em> 2025/26</h1>
+    <p class="hero-sub">Achieving targets for HF003, HF006, HF007 &amp; HF008 — a guide for administrative and clinical staff at <strong style="color:#7dd3fc;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- ══ 0. OVERVIEW ══ -->
+  <section id="overview">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Scale &amp; Impact</strong>
+        Heart failure is the only major cardiovascular disease with increasing prevalence in England, and carries a poor prognosis. Structured, evidence-based management — including echocardiographic diagnosis, ACE-I/ARB and licensed beta-blocker therapy, and regular review — is proven to improve symptoms, reduce hospitalisation rates, and extend survival across all age groups.
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        All indicators apply to patients on the <strong>Heart Failure register</strong>. This SOP covers the full pathway — from register accuracy and diagnosis confirmation through to annual review, medication optimisation, monitoring, and exception reporting. HF003 and HF006 apply only to patients with <strong>HFrEF (reduced ejection fraction / LVSD)</strong>; HF007 and HF008 apply to <strong>all</strong> patients on the register. Ensure each patient has their HF type correctly coded in EMIS.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 1. INDICATORS ══ -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicators at a Glance</h2>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+            <th>Applies to</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">HF008</span></td>
+            <td>Diagnosis confirmed by <strong>echocardiogram or specialist assessment</strong> within 6 months before or after diagnosis; or within 6 months of registration if no prior confirmation exists</td>
+            <td><span class="points-badge">6</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+            <td>All HF patients — diagnoses on/after 1 Apr 2023</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF003</span></td>
+            <td>Currently treated with an <strong>ACE inhibitor (ACE-I) or Angiotensin II receptor blocker (ARB)</strong></td>
+            <td><span class="points-badge">6</span></td>
+            <td><span class="target-pill">60–92%</span></td>
+            <td>HFrEF / LVSD patients only</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF006</span></td>
+            <td>Currently treated with a <strong>beta-blocker licensed for heart failure</strong></td>
+            <td><span class="points-badge">6</span></td>
+            <td><span class="target-pill">60–92%</span></td>
+            <td>HFrEF / LVSD patients only</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HF007</span></td>
+            <td>Review in the preceding 12 months including <strong>functional capacity assessment</strong> and <strong>medication review at maximal tolerated doses</strong></td>
+            <td><span class="points-badge">7</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+            <td>All HF register patients</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>HFrEF / HFpEF distinction — critical for HF003 and HF006</strong>
+        HF003 and HF006 apply only to patients with <strong>Heart Failure with reduced ejection fraction (HFrEF)</strong>, defined as HF due to left ventricular systolic dysfunction (LVSD) or reduced ejection fraction (EF). Patients with preserved ejection fraction (HFpEF) are excluded from these two indicators. HF007 and HF008 apply to <strong>all</strong> patients on the HF register regardless of ejection fraction. The type of HF must be clearly coded in EMIS for accurate denominator calculation.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 2. ROLES ══ -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance for heart failure indicators</li>
+          <li>Chairs the monthly QOF meeting; reviews dashboard and agrees action plans</li>
+          <li>Coordinates recall campaigns with the admin team following each QOF meeting</li>
+          <li>Escalates persistent non-responders at the monthly QOF meeting</li>
+          <li>Ensures register accuracy is reviewed regularly with the GP Lead</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Sends invitation letters and SMS when directed following the monthly QOF meeting</li>
+          <li>Books annual HF review appointments with the appropriate clinician</li>
+          <li>Scans and codes echocardiogram reports and specialist letters on receipt — same day</li>
+          <li>Logs DNA attempts; adds patients with repeated non-response to the monthly QOF meeting agenda</li>
+          <li>Ensures new HF diagnosis letters from secondary care are flagged to the GP for register addition</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">HCA / Practice Nurse</div>
+        <ul class="role-list">
+          <li>Conducts the HF007 annual review using <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong></li>
+          <li>Records functional capacity (NYHA class, exercise tolerance, breathlessness, oedema)</li>
+          <li>Records weight, blood pressure, heart rate and rhythm</li>
+          <li>Records smoking status and alcohol history (AUDIT-C)</li>
+          <li>Codes all review elements on the same day as the appointment</li>
+          <li>Flags any clinical deterioration to the Pharmacist or GP on the same day</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with GP Lead, PM and Admin Lead</li>
+          <li>Conducts medication review — confirms and optimises ACE-I/ARB (HF003) and licensed beta-blocker (HF006)</li>
+          <li>Titrates therapy to maximum tolerated dose; documents any barriers</li>
+          <li>Arranges and reviews monitoring bloods (U&amp;E, LFTs) after initiation or dose changes</li>
+          <li>Reviews diuretic dose at each appointment</li>
+          <li>Escalates to GP if clinical concerns are identified or therapy thresholds are not being met</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP Lead</div>
+        <ul class="role-list">
+          <li>Chairs the monthly QOF meeting; reviews clinical data and performance</li>
+          <li>Maintains register accuracy — adds new diagnoses, removes incorrect entries</li>
+          <li>Approves clinical exception reporting</li>
+          <li>Acts on escalations from Pharmacist, HCA or Nurse</li>
+          <li>Reviews new HF diagnoses from secondary care — confirms HF type (HFrEF vs HFpEF) and codes appropriately</li>
+          <li>Considers referral to specialist HF team or cardiology for complex or deteriorating patients</li>
+          <li>Reviews patients with repeated DNA or declining attendance raised at the monthly QOF meeting</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 3. PROCESS ══ -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Register Accuracy &amp; Indicator Review</div>
+          <p class="step-desc">The HF register and QOF dashboard are reviewed at the <strong>monthly QOF meeting</strong> by the GP Lead, Pharmacist and Practice Manager. Admin do not generate recall lists independently — all action plans are agreed at the QOF meeting and communicated to the admin team.</p>
+          <ul class="step-list">
+            <li>Review the HF register — confirm all patients have an accurate diagnosis and correct HF type coded (HFrEF vs HFpEF)</li>
+            <li>Identify patients with a new HF diagnosis (on/after 1 Apr 2023) with no echo or specialist confirmation recorded — flag for HF008</li>
+            <li>Identify HFrEF patients not currently prescribed ACE-I/ARB (HF003) or a licensed beta-blocker (HF006)</li>
+            <li>Identify all patients with no annual review in the preceding 12 months — flag for HF007</li>
+            <li>Admin team notified at or following the QOF meeting of patients to recall</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Confirm Diagnosis — HF008 <span style="font-size:.8rem; font-weight:400; color:var(--slate-light);">(Pharmacist or GP)</span></div>
+          <p class="step-desc">For all HF diagnoses made on or after 1 April 2023, the practice must confirm that an echocardiogram or specialist assessment has been completed. This applies regardless of whether the diagnosis was made at the practice or in secondary care.</p>
+          <ul class="step-list">
+            <li><strong>New diagnosis at this practice:</strong> arrange echocardiogram or refer to cardiology / rapid-access HF clinic within 6 months of diagnosis. Ensure NT-proBNP is checked — if raised, refer urgently (2 weeks if very high; 6 weeks if raised)</li>
+            <li><strong>Patient registered after diagnosis elsewhere:</strong> check for an existing echo report or specialist letter; if not present, arrange echo or specialist review within 6 months of registration</li>
+            <li><strong>Acute HF presentation:</strong> NICE recommends echo within 48 hours of hospital admission for suspected acute HF with raised natriuretic peptides. On receipt of discharge documentation, admin codes the echo result same day and flags to GP for register review</li>
+            <li>All echo results and specialist letters must be coded in EMIS on the day of receipt, with the report date and relevant findings (EF, LVSD confirmed/excluded)</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div>
+              <strong>Symptoms alone are insufficient</strong>
+              Clinical symptoms and signs of HF are not sufficient to make a definitive QOF diagnosis. Cardiac dysfunction must be confirmed by echocardiography or specialist assessment. Ensure that diagnoses added to the register have documentary evidence of this confirmation.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book Annual Review</div>
+          <ul class="step-list">
+            <li>Admin sends a personalised invitation letter or SMS</li>
+            <li>Book an <strong>annual HF review with HCA or Nurse — 20–30 minutes</strong> to allow full assessment</li>
+            <li>Advise the patient to bring a current medication list and any home blood pressure or weight monitoring records to the appointment</li>
+            <li>If no response after 2 weeks: send a second invitation. After a further 2 weeks: telephone outreach attempt</li>
+            <li>If still no response: <strong>add to the next monthly QOF meeting agenda</strong> for team review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Annual HF Review — HCA / Practice Nurse (HF007)</div>
+          <p class="step-desc">The review clinician completes the structured annual review using the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS. All elements must be coded on the same day as the appointment.</p>
+
+          <div style="background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:12px; padding:1.2rem; margin:1rem 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--blue-dark); margin-bottom:.7rem; text-align:center;">💙 &nbsp;HF Annual Review (HF007)</div>
+            <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.3rem .5rem;">
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Functional capacity — NYHA class, exercise tolerance</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Weight and fluid status</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>BMI</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Blood pressure</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Heart rate and pulse rhythm</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Smoking status</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Alcohol status (AUDIT-C)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>Frailty and palliative / end-of-life care needs considered where appropriate</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--blue);font-weight:700;">✓</span>All findings coded same day in EMIS</li>
+            </ul>
+          </div>
+
+          <div class="alert alert-amber">
+            <span class="alert-icon">⚠️</span>
+            <div>
+              <strong>Functional capacity must be explicitly coded</strong>
+              HF007 requires an assessment of functional capacity — this is a mandatory element. Recording a general "annual review" without a specific functional capacity code (e.g. NYHA classification or equivalent) will not satisfy the indicator. All clinical staff conducting this review must code the functional capacity assessment explicitly.
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-top:.8rem;">
+            <div style="background:var(--amber-light); border:1px solid #fcd34d; border-radius:10px; padding:.9rem 1rem; border-top:3px solid var(--amber);">
+              <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--amber-dark); margin-bottom:.4rem;">⚠️ &nbsp;Clinical Deterioration</div>
+              <p style="font-size:.83rem; color:var(--slate-mid);">If the patient shows signs of worsening HF — increased breathlessness, rapid weight gain (&gt;2 kg in 3 days), increasing oedema, or new arrhythmia — flag to GP on the same day. Do not defer to the next scheduled appointment.</p>
+            </div>
+            <div style="background:var(--red-pale); border:1px solid var(--red-light); border-radius:10px; padding:.9rem 1rem; border-top:3px solid var(--red);">
+              <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--red); margin-bottom:.4rem;">🚨 &nbsp;Urgent GP Review Needed</div>
+              <p style="font-size:.83rem; color:var(--slate-mid);">Inform the GP same day for: severe decompensation, possible acute HF, new AF / significant arrhythmia, or any clinical concern requiring urgent assessment. The GP decides on emergency management and follow-up.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Medication Optimisation — Pharmacist (HF003 &amp; HF006)</div>
+          <p class="step-desc">Following the annual review, the Pharmacist conducts a structured medication review, with the goal of achieving maximum tolerated doses of first-line HFrEF therapies.</p>
+          <ul class="step-list">
+            <li><strong>HF003 — ACE-I or ARB:</strong> Confirm the patient is currently prescribed and taking an ACE inhibitor (first line) or ARB (if ACE-I intolerant). If not prescribed and no documented contraindication: initiate therapy. If prescribed at a sub-therapeutic dose: up-titrate. Document any barriers to titration clearly.</li>
+            <li><strong>HF006 — Licensed beta-blocker:</strong> Confirm the patient is currently prescribed and taking bisoprolol, carvedilol, or nebivolol (≥70 years, stable mild–moderate HF). If not prescribed and no documented contraindication: initiate at a very low dose. Titrate slowly over weeks to months. Document any barriers.</li>
+            <li>Arrange monitoring bloods (U&amp;E, LFTs) after ACE-I/ARB initiation or dose increase; review results before further titration</li>
+            <li>Review diuretic dose — adjust for fluid status, renal function and symptoms</li>
+            <li>Escalate to GP Lead if therapy cannot be optimised due to clinical complexity, persistent side effects, or deteriorating renal function</li>
+            <li>Signpost to lifestyle support where relevant: smoking cessation, alcohol reduction, weight management, physical activity</li>
+          </ul>
+          <div class="alert alert-blue" style="margin-top:.8rem;">
+            <span class="alert-icon">💡</span>
+            <div>
+              <strong>Titration is part of the indicator intent</strong>
+              NICE NG106 requires that therapies are titrated upwards to the target or maximum tolerated dose. Prescribing at a sub-therapeutic dose without documenting clinical reasons for not titrating will not satisfy the clinical standard, even if the indicator is technically met. Always record current doses and the reason for any ceiling on titration.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Follow-up &amp; Recall</div>
+          <ul class="step-list">
+            <li><strong>Stable HF:</strong> schedule routine review within 6–12 months; annual QOF review must be completed within 12 months</li>
+            <li><strong>After any medication initiation or dose change:</strong> arrange follow-up within <strong>1–2 weeks</strong> to review symptoms, blood pressure, heart rate and monitoring bloods</li>
+            <li><strong>Deteriorating or complex patients:</strong> shorten review intervals and consider referral to the specialist HF team or cardiology</li>
+            <li>Patients who DNA repeated appointments: escalate to the monthly QOF meeting; GP reviews clinical appropriateness of alternative outreach (e.g. home visit, telephone review, carer contact)</li>
+            <li>Consider exception reporting for patients who have declined after appropriate information and two documented invitation attempts — see Section 7</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 4. CLINICAL GUIDANCE ══ -->
+  <section id="clinical">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Clinical Guidance — Drug Therapy</h2>
+    </div>
+
+    <!-- ACE-I/ARB -->
+    <div class="card" style="border-left: 4px solid var(--blue); margin-bottom:1rem;">
+      <div style="font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; color:var(--blue-dark); margin-bottom:.9rem;">💊 &nbsp;HF003 — ACE Inhibitor or ARB (HFrEF / LVSD)</div>
+      <p style="font-size:.88rem; color:var(--slate-mid); margin-bottom:.8rem;">NICE NG106 recommends ACE inhibitors as first-line therapy in all patients with HFrEF. ACE-I improve symptoms, reduce hospitalisation rates, and improve survival in all age groups. ARBs are used only in patients who are intolerant of ACE-I (typically due to cough or angioedema). Both therapies should be titrated upwards to target or maximum tolerated dose.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem;">
+        <div style="background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:10px; padding:.9rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--blue-dark); margin-bottom:.4rem;">First line — ACE Inhibitor</div>
+          <div class="drug-pills">
+            <span class="drug-pill dp-blue">Ramipril</span>
+            <span class="drug-pill dp-blue">Lisinopril</span>
+            <span class="drug-pill dp-blue">Enalapril</span>
+            <span class="drug-pill dp-blue">Perindopril</span>
+          </div>
+          <p style="font-size:.82rem; color:var(--slate-mid); margin-top:.6rem;">Titrate to target dose per BNF. Monitor U&amp;E and BP at initiation and each dose increase.</p>
+        </div>
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:10px; padding:.9rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#065f46; margin-bottom:.4rem;">If ACE-I intolerant — ARB</div>
+          <div class="drug-pills">
+            <span class="drug-pill dp-green">Candesartan</span>
+            <span class="drug-pill dp-green">Valsartan</span>
+            <span class="drug-pill dp-green">Losartan</span>
+          </div>
+          <p style="font-size:.82rem; color:var(--slate-mid); margin-top:.6rem;">Use only if ACE-I intolerant. Document the reason for switching. Titrate to target dose.</p>
+        </div>
+        <div style="background:var(--red-pale); border:1px solid var(--red-light); border-radius:10px; padding:.9rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--red); margin-bottom:.4rem;">Do not combine</div>
+          <p style="font-size:.82rem; color:var(--slate-mid);">Do not prescribe ACE-I and ARB together in HF — this increases the risk of hyperkalaemia and renal impairment without additional benefit (NICE NG106).</p>
+        </div>
+      </div>
+      <div class="alert alert-amber" style="margin-top:.8rem;">
+        <span class="alert-icon">🧪</span>
+        <div><strong>Monitoring required</strong> — Check U&amp;E and BP at baseline, 1–2 weeks after initiation, 1–2 weeks after each dose increase, and at least annually when stable. Hyperkalaemia (&gt;5.5 mmol/L) or a significant fall in eGFR requires dose reduction or GP review.</div>
+      </div>
+    </div>
+
+    <!-- Beta-blocker -->
+    <div class="card" style="border-left: 4px solid var(--blue); margin-bottom:1rem;">
+      <div style="font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; color:var(--blue-dark); margin-bottom:.9rem;">💊 &nbsp;HF006 — Beta-blocker Licensed for Heart Failure (HFrEF / LVSD)</div>
+      <p style="font-size:.88rem; color:var(--slate-mid); margin-bottom:.8rem;">NICE NG106 recommends licensed beta-blockers as first-line therapy alongside ACE-I/ARB in all patients with HFrEF. Beta-blockers must be initiated at a very low dose and titrated slowly over weeks to months. Symptoms may worsen initially, requiring adjustment of concomitant diuretic therapy. This is expected and does not necessarily indicate treatment failure.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:.8rem;">
+        <div style="background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:10px; padding:.9rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--blue-dark); margin-bottom:.4rem;">✅ Licensed for HF — use these</div>
+          <div class="drug-pills">
+            <span class="drug-pill dp-blue">Bisoprolol</span>
+            <span class="drug-pill dp-blue">Carvedilol</span>
+            <span class="drug-pill dp-blue">Nebivolol (≥70 yrs)</span>
+          </div>
+          <p style="font-size:.82rem; color:var(--slate-mid); margin-top:.6rem;">Start low, go slow. Titrate at 2-week intervals if tolerated. Target doses per BNF / NICE NG106.</p>
+        </div>
+        <div style="background:var(--red-pale); border:1px solid var(--red-light); border-radius:10px; padding:.9rem 1rem;">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--red); margin-bottom:.4rem;">🚫 Not licensed for HF — do not switch</div>
+          <div class="drug-pills">
+            <span class="drug-pill dp-red">Atenolol</span>
+            <span class="drug-pill dp-red">Metoprolol</span>
+            <span class="drug-pill dp-red">Propranolol</span>
+            <span class="drug-pill dp-red">Sotalol</span>
+          </div>
+          <p style="font-size:.82rem; color:var(--slate-mid); margin-top:.6rem;">Patients already on an unlicensed beta-blocker before HF diagnosis are <strong>excluded from HF006 denominator</strong>. Do not change their drug solely to meet QOF.</p>
+        </div>
+      </div>
+      <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:10px; padding:.9rem 1.1rem;">
+        <div style="font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#065f46; margin-bottom:.5rem;">When not to withhold beta-blockers</div>
+        <p style="font-size:.84rem; color:var(--slate-mid);">NICE NG106 states that beta-blockers should <strong>not</strong> be withheld solely because of: older age, peripheral vascular disease (PVD), erectile dysfunction (ED), diabetes mellitus, interstitial pulmonary disease, or COPD without reversibility. The only clear contraindications are <strong>asthma</strong> and <strong>reversible airways obstruction</strong> — these groups were excluded from the clinical trials underpinning this recommendation.</p>
+      </div>
+    </div>
+
+    <!-- Review frequency card -->
+    <div class="card" style="border-left: 4px solid var(--amber);">
+      <div style="font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; color:var(--amber-dark); margin-bottom:.9rem;">📅 &nbsp;Review Frequency — NICE NG106</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem;">
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:10px; padding:.9rem 1rem; border-top:3px solid var(--green);">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#065f46; margin-bottom:.35rem;">Stable HF</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Routine review within <strong>6–12 months</strong>. Annual QOF review must be completed within 12 months (HF007).</p>
+        </div>
+        <div style="background:var(--amber-light); border:1px solid #fcd34d; border-radius:10px; padding:.9rem 1rem; border-top:3px solid var(--amber);">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--amber-dark); margin-bottom:.35rem;">After Medication Change</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Review within <strong>days to 2 weeks</strong>. Check BP, heart rate, symptoms and monitoring bloods.</p>
+        </div>
+        <div style="background:var(--red-pale); border:1px solid var(--red-light); border-radius:10px; padding:.9rem 1rem; border-top:3px solid var(--red);">
+          <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--red); margin-bottom:.35rem;">Deteriorating / Complex</div>
+          <p style="font-size:.83rem; color:var(--slate-mid);">Shorten interval significantly. Consider specialist HF team referral. Assess for frailty and palliative / end-of-life needs.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ 5. MONITORING ══ -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Monitoring Requirements</h2>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Investigation</th>
+            <th>Frequency</th>
+            <th>Indication / Notes</th>
+            <th>Responsible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>U&amp;E (renal function, electrolytes)</strong></td>
+            <td><span class="freq-pill freq-weeks">1–2 weeks post change</span> <span class="freq-pill freq-sixmonthly">6-monthly stable</span></td>
+            <td>After initiation or dose increase of ACE-I, ARB or diuretic. At least 6-monthly when stable. Check for hyperkalaemia (&gt;5.5) and eGFR decline.</td>
+            <td>Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>LFTs</strong></td>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Routine annual monitoring. More frequently if liver disease or amiodarone prescribed.</td>
+            <td>Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>FBC</strong></td>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Check for anaemia (common in HF, worsens prognosis) and iron deficiency.</td>
+            <td>GP / Pharmacist</td>
+          </tr>
+          <tr>
+            <td><strong>TFTs</strong></td>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Particularly important if patient is on amiodarone. Thyroid dysfunction can worsen or precipitate HF.</td>
+            <td>GP / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>Blood pressure</strong></td>
+            <td><span class="freq-pill freq-weeks">1–2 weeks post change</span> <span class="freq-pill freq-sixmonthly">6-monthly</span></td>
+            <td>At every clinical contact. After any antihypertensive or diuretic change. Target BP in HF is guided by clinical tolerance, not a fixed QOF threshold.</td>
+            <td>HCA / Nurse / Pharmacist / GP</td>
+          </tr>
+          <tr>
+            <td><strong>Heart rate &amp; rhythm</strong></td>
+            <td><span class="freq-pill freq-sixmonthly">Each review</span></td>
+            <td>At every structured review. ECG if new AF, significant bradycardia (&lt;60), or tachycardia (&gt;100) unexplained by clinical condition.</td>
+            <td>HCA / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>Weight</strong></td>
+            <td><span class="freq-pill freq-sixmonthly">Each review</span></td>
+            <td>Advise patients to weigh daily at home if able. &gt;2 kg gain in 3 days indicates fluid retention — increase diuretic or contact practice as agreed in self-management plan.</td>
+            <td>HCA / Nurse</td>
+          </tr>
+          <tr>
+            <td><strong>NT-proBNP / BNP</strong></td>
+            <td><span class="freq-pill freq-asneeded">As clinically indicated</span></td>
+            <td>Not a routine annual QOF requirement, but useful to guide diagnosis (HF008) and detect deterioration. Obtain on new/suspected diagnosis to guide referral urgency.</td>
+            <td>GP</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="alert alert-amber" style="margin-top:.8rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Monitoring triggers action</strong>
+        All monitoring results must be reviewed by a clinician and acted upon. Abnormal results should not be left without a documented clinical response.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6. EXCEPTION REPORTING ══ -->
+  <section id="exceptions">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Exception Reporting</h2>
+    </div>
+
+    <p style="color:var(--slate-mid); font-size:.9rem; margin-bottom:1rem;">Exception reporting allows practices to exclude individual patients from specific QOF indicators where it would be clinically inappropriate or impossible to include them. Exceptions must be coded correctly in EMIS and must be justified by a clear clinical or administrative reason.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <div class="card" style="border-top: 4px solid var(--red);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--red); margin-bottom:.8rem;">🩺 &nbsp;Clinical Exceptions</div>
+        <ul style="list-style:none;">
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">→</span>Documented contraindication to the medication (e.g. asthma for beta-blockers; bilateral renal artery stenosis for ACE-I)</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">→</span>Adverse reaction or intolerance clearly documented in the patient record</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">→</span>Comorbidity that makes the intervention clinically inappropriate (e.g. end-stage renal disease for ACE-I; severe bradycardia for beta-blockers)</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">→</span>Palliative care / end-of-life care agreed — treatment de-escalation is appropriate and documented</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative;"><span style="position:absolute;left:0;color:var(--red);font-weight:700;">→</span>Specialist instruction not to prescribe — documented in a clinic letter or correspondence</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top: 4px solid var(--amber);">
+        <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--amber-dark); margin-bottom:.8rem;">🙋 &nbsp;Patient Preference / Administrative Exceptions</div>
+        <ul style="list-style:none;">
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Patient declined therapy after receiving information about the benefits and risks — discussion documented</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Patient declined annual review after <strong>two documented invitation attempts</strong> — both attempts must be recorded in EMIS before this exception can be applied</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative; border-bottom:1px solid var(--border);"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Patient newly registered — insufficient time to complete the required intervention within the measurement window</li>
+          <li style="font-size:.86rem; color:var(--slate-mid); padding:.28rem 0; padding-left:1.1rem; position:relative;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Use the correct EMIS exception code — distinguish between clinical contraindication and patient preference / non-attendance; these are counted separately in QOF reporting</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-blue" style="margin-top:.5rem;">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>HF006 — Unlicensed beta-blocker exclusion</strong>
+        Patients who were already taking a beta-blocker that is <em>not licensed for heart failure</em> (e.g. atenolol, metoprolol) at the time of their HF diagnosis are <strong>automatically excluded from the HF006 denominator</strong>. This exclusion is built into the QOF business rules — it is not an exception you need to apply. Do <strong>not</strong> change their beta-blocker solely to meet the indicator.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ 7. CHECKLIST ══ -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">7</div>
+      <h2 class="section-title">Admin &amp; Clinical Checklist — Per Patient</h2>
+    </div>
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:1rem;">Click each item to mark it complete. Use this when processing a patient through the HF annual review cycle.</p>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified at monthly QOF meeting — GP Lead confirms HF type (HFrEF / HFpEF) is correctly coded in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>For new diagnoses (on/after 1 Apr 2023): existing echo report or specialist letter checked — if absent, Pharmacist or GP arranges referral for echo or specialist assessment (HF008)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Echo report / specialist letter received and coded in EMIS same day — EF and LVSD status documented (HF008)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient invited for annual review — letter / SMS sent (date logged)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Annual HF review booked — HCA or Nurse, 20–30 minutes</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Annual review attended — functional capacity (NYHA), weight, BMI, BP, HR, pulse rhythm, smoking, alcohol, frailty / EOL needs coded same day using <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS (HF007)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Clinical deterioration or urgent concerns — flagged to Pharmacist or GP same day</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Pharmacist medication review — ACE-I or ARB confirmed and coded at current dose (HF003) [HFrEF only]</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Pharmacist medication review — licensed beta-blocker confirmed and coded at current dose (HF006) [HFrEF only]</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Titration discussed and documented — barriers to dose increase recorded if applicable</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Monitoring bloods arranged / reviewed — U&amp;E, LFTs, FBC as appropriate</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Next review scheduled — within 6 months (stable) or sooner if medication changed or clinical concern</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA: second invitation sent; further contact attempts logged in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA / declining after repeated attempts: added to next monthly QOF meeting agenda for GP review</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If exception required: correct EMIS exception code applied with documented rationale</li>
+    </ul>
+  </section>
+
+  <!-- ══ 8. RESOURCES ══ -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">8</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE NG106 — Chronic heart failure in adults: diagnosis and management (2018): <strong>nice.org.uk/guidance/ng106</strong></li>
+      <li>NICE CG187 — Acute heart failure: diagnosis and management (2014, updated 2021): <strong>nice.org.uk/guidance/cg187</strong></li>
+      <li>NICE IND192 — Echocardiogram or specialist assessment for new heart failure: <strong>nice.org.uk/indicator/ind192</strong></li>
+      <li>NICE IND193 — ACE inhibitor or ARB therapy in heart failure with LVSD: <strong>nice.org.uk/indicator/ind193</strong></li>
+      <li>NICE IND194 — Beta-blocker licensed for heart failure in HF with LVSD: <strong>nice.org.uk/indicator/ind194</strong></li>
+      <li>NICE IND195 — Annual review with functional capacity assessment in heart failure: <strong>nice.org.uk/indicator/ind195</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+      <li>British National Formulary — beta-blocker and ACE inhibitor prescribing in heart failure: <strong>bnf.nice.org.uk</strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--blue-pale); border-color: var(--blue-light);">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--blue-dark);">Version</strong></td>
+          <td>1.0</td>
+          <td><strong style="color:var(--blue-dark);">Effective</strong></td>
+          <td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--blue-dark);">Review due</strong></td>
+          <td>March 2026</td>
+          <td><strong style="color:var(--blue-dark);">Owner</strong></td>
+          <td>GP Lead — Strouts Place Medical Centre</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates. All staff involved in the heart failure pathway are expected to have read and understood this SOP before managing patients on the HF register.</p>
+      <p style="margin-top:.6rem; font-size:.82rem; color:var(--slate-mid); border-top:1px solid var(--border); padding-top:.6rem;"><strong style="color:var(--blue-dark);">Confidentiality notice:</strong> This document is intended solely for use by authorised staff at Strouts Place Medical Centre. It contains practice-specific operational information and must not be reproduced, distributed, or disclosed to any person outside of the practice without prior written authorisation from the GP Lead.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Heart Failure QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  // Scroll reveal
+  const allSections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  allSections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.classList.add('animate');
+      observer.observe(s);
+    }
+  });
+
+  // Checklist toggle
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+
+  // Stagger role cards
+  const rolesObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.role-card').forEach((card, i) => {
+          card.style.transition = `opacity .5s ease ${i * .08}s, transform .5s ease ${i * .08}s, box-shadow .2s, border-color .2s`;
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        });
+        rolesObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.roles-grid').forEach(g => {
+    const rect = g.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      g.querySelectorAll('.role-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+      });
+    }
+    rolesObserver.observe(g);
+  });
+</script>
+</body>
+</html>

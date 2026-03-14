@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NDH QOF 2025/26 — Clinical Quick Reference</title>
+<style>
+:root {
+  --g2:       #16a34a;
+  --g2-dark:  #15803d;
+  --g2-deep:  #14532d;
+  --g2-light: #bbf7d0;
+  --g2-pale:  #f0fdf4;
+  --slate:   #0f172a;
+  --mid:     #475569;
+  --light:   #94a3b8;
+  --amber:   #f59e0b;
+  --amb-l:   #fef3c7;
+  --amb-d:   #78350f;
+  --blue:    #0ea5e9;
+  --blue-l:  #f0f9ff;
+  --green:   #059669;
+  --green-l: #ecfdf5;
+  --red:     #dc2626;
+  --red-l:   #fef2f2;
+  --white:   #ffffff;
+  --surf:    #f8fafc;
+  --border:  #e2e8f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--surf);
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #0c2340 0%, #15803d 55%, #16a34a 100%);
+  padding: 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 10%, rgba(165,243,252,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #86efac;
+  margin-bottom: .3rem;
+}
+.header-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: white;
+  line-height: 1.1;
+}
+.header-title em { font-style: italic; color: #86efac; }
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .3rem;
+}
+.hbadge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #cbd5e1;
+  font-size: .68rem;
+  padding: .2rem .6rem;
+  border-radius: 5px;
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 3rem;
+}
+
+/* ── SECTION TITLE ── */
+.sec { margin-bottom: 1.2rem; }
+.sec-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--g2-dark);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .6rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--g2-light);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* ── INDICATOR TABLE ── */
+.ind-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.ind-table thead tr { background: var(--g2-dark); }
+.ind-table thead th {
+  color: white;
+  padding: .55rem .75rem;
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+.ind-table tbody tr:nth-child(even) { background: var(--g2-pale); }
+.ind-table tbody tr:last-child td { border-bottom: none; }
+.ind-table td {
+  padding: .55rem .75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.code { font-weight: 700; color: var(--g2-dark); white-space: nowrap; }
+.pts  { font-weight: 700; color: white; background: var(--amber); padding: .15rem .4rem; border-radius: 4px; font-size: .75rem; white-space: nowrap; display: inline-block; }
+.tgt  { font-weight: 600; color: var(--g2-deep); background: var(--g2-light); padding: .15rem .45rem; border-radius: 999px; font-size: .75rem; white-space: nowrap; display: inline-block; }
+
+/* ── 2-COL / 3-COL GRIDS ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+}
+
+/* ── TABLE SCROLL ── */
+.tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .9rem 1rem;
+}
+.card-title {
+  font-weight: 700;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.card.green2   { border-left: 3px solid var(--g2);      }
+.card.amber  { border-left: 3px solid var(--amber);   background: var(--amb-l); }
+.card.blue   { border-left: 3px solid var(--blue);    background: var(--blue-l); }
+.card.green  { border-left: 3px solid var(--green);   background: var(--green-l); }
+.card.red    { border-left: 3px solid var(--red);     background: var(--red-l); }
+.card.green2   .card-title { color: var(--g2-dark); }
+.card.amber  .card-title { color: var(--amb-d); }
+.card.blue   .card-title { color: #0369a1; }
+.card.green  .card-title { color: #065f46; }
+.card.red    .card-title { color: var(--red); }
+
+.clist { list-style: none; }
+.clist li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .22rem 0 .22rem 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.clist li:last-child { border-bottom: none; }
+.clist li::before { content: '→'; position: absolute; left: 0; color: var(--g2); font-weight: 700; font-size: .75rem; top: .28rem; }
+.clist.amber li::before { color: var(--amber); }
+.clist.blue  li::before { color: var(--blue); }
+.clist.green li::before { color: var(--green); }
+.clist.red   li::before { color: var(--red); }
+
+/* ── RESULT BANDS ── */
+.result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+@media (max-width: 580px) { .result-grid { grid-template-columns: 1fr; } }
+
+.result-box {
+  border-radius: 8px;
+  padding: .75rem .9rem;
+  border: 1px solid var(--border);
+  background: var(--white);
+}
+.result-box.normal { border-top: 3px solid #22c55e; }
+.result-box.ndh    { border-top: 3px solid var(--amber); }
+.result-box.dm     { border-top: 3px solid var(--red); }
+.result-label {
+  font-weight: 700;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .3rem;
+}
+.result-box.normal .result-label { color: #16a34a; }
+.result-box.ndh    .result-label { color: var(--amb-d); }
+.result-box.dm     .result-label { color: var(--red); }
+.result-val {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  margin-bottom: .2rem;
+}
+.result-box.normal .result-val { color: #15803d; }
+.result-box.ndh    .result-val { color: var(--amb-d); }
+.result-box.dm     .result-val { color: var(--red); }
+.result-action { font-size: .76rem; color: var(--mid); }
+
+/* ── ELIGIBILITY SPLIT ── */
+.elig-split { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+@media (max-width: 480px) { .elig-split { grid-template-columns: 1fr; } }
+
+.elig-box {
+  border-radius: 10px;
+  padding: .8rem .9rem;
+  border: 1px solid;
+}
+.elig-box.include { background: var(--g2-pale);  border-color: var(--g2-light); }
+.elig-box.exclude { background: var(--amb-l);   border-color: #fcd34d; }
+.elig-title {
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .4rem;
+}
+.elig-box.include .elig-title { color: var(--g2-dark); }
+.elig-box.exclude .elig-title { color: var(--amb-d); }
+.elig-box ul { list-style: none; }
+.elig-box ul li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .18rem 0 .18rem 1rem;
+  position: relative;
+}
+.elig-box ul li::before { content: '•'; position: absolute; left: 0; font-weight: 700; }
+.elig-box.include ul li::before { color: var(--g2); }
+.elig-box.exclude ul li::before { color: var(--amber); }
+
+/* ── REVIEW CHECKLIST ── */
+.review-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .25rem .75rem;
+}
+@media (max-width: 480px) { .review-checks { grid-template-columns: 1fr; } }
+.rc-item {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .2rem 0 .2rem 1.1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.rc-item::before { content: '✓'; position: absolute; left: 0; color: var(--g2); font-weight: 700; font-size: .75rem; }
+
+/* ── ALERT BAR ── */
+.alert {
+  border-radius: 8px;
+  padding: .65rem .9rem;
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  font-size: .82rem;
+  margin-top: .6rem;
+}
+.alert.amber { background: var(--amb-l); border: 1px solid #fcd34d; color: var(--amb-d); }
+.alert.green2  { background: var(--g2-pale); border: 1px solid var(--g2-light); color: var(--g2-deep); }
+.alert.red   { background: var(--red-l); border: 1px solid #fca5a5; color: var(--red); }
+.alert-icon  { flex-shrink: 0; font-size: .95rem; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--light);
+  font-size: .72rem;
+  border-top: 1px solid var(--border);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .header-title { font-size: 1.4rem; }
+  .card { padding: .85rem .9rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-tag">Strouts Place · Clinical Quick Reference</div>
+      <div class="header-title">Non-Diabetic Hyperglycaemia <em>QOF</em> 2025/26</div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge">For: GP / Pharmacist / HCA / Nurse</span>
+      <span class="hbadge">Version 1.0 · April 2025</span>
+      <span class="hbadge">Owner: GP Lead</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── INDICATOR ── -->
+  <div class="sec">
+    <div class="sec-title">📊 QOF Indicator at a Glance</div>
+    <div class="tbl-scroll" style="box-shadow:0 1px 4px rgba(0,0,0,.06);">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>What to achieve</th>
+            <th>Pts</th>
+            <th>Target</th>
+            <th>Key condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code">NDH002</span></td>
+            <td>HbA1c or fasting blood glucose performed in the preceding 12 months</td>
+            <td><span class="pts">18</span></td>
+            <td><span class="tgt">50–90%</span></td>
+            <td>All patients on NDH register aged ≥18</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert green2" style="margin-top:.7rem;">
+      <span class="alert-icon">ℹ️</span>
+      <div><strong>Register definition:</strong> Patients aged 18+ with a coded record of non-diabetic hyperglycaemia or pre-diabetes <strong>not superseded</strong> by a diabetes diagnosis prior to the start of the financial year. Either an HbA1c or fasting blood glucose satisfies the indicator — both are not required.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── NDH DEFINITION ── -->
+  <div class="sec">
+    <div class="sec-title">🩸 Diagnostic Thresholds — NDH vs Diabetes</div>
+    <div class="result-grid">
+      <div class="result-box normal">
+        <div class="result-label">Normal</div>
+        <div class="result-val">HbA1c &lt;42<br><span style="font-size:.8rem;font-family:sans-serif;font-weight:400;">mmol/mol</span></div>
+        <div class="result-action">or FPG &lt;5.5 mmol/l — discuss with GP whether to maintain on NDH register</div>
+      </div>
+      <div class="result-box ndh">
+        <div class="result-label">NDH / Prediabetes</div>
+        <div class="result-val">HbA1c 42–47<br><span style="font-size:.8rem;font-family:sans-serif;font-weight:400;">mmol/mol</span></div>
+        <div class="result-action">or FPG 5.5–6.9 mmol/l — code result, reinforce lifestyle advice, offer NHS DPP referral</div>
+      </div>
+      <div class="result-box dm">
+        <div class="result-label">Diabetes</div>
+        <div class="result-val">HbA1c ≥48<br><span style="font-size:.8rem;font-family:sans-serif;font-weight:400;">mmol/mol</span></div>
+        <div class="result-action">or FPG ≥7.0 mmol/l — flag to GP or pharmacist immediately; remove from NDH register; add to diabetes register</div>
+      </div>
+    </div>
+    <div class="alert amber">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Two readings required for formal diabetes diagnosis</strong> in asymptomatic patients (NICE PH38 / NG28). One abnormal result should prompt clinical review and repeat testing — do not add to the diabetes register on a single result without GP review unless symptomatic.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── ANNUAL REVIEW WHAT TO DO ── -->
+  <div class="sec">
+    <div class="sec-title">🩺 Annual Review — What to Complete</div>
+    <div class="grid2">
+      <div class="card green2">
+        <div class="card-title">🔄 All NDH Patients — Annual Blood Test</div>
+        <div class="review-checks">
+          <div class="rc-item">HbA1c <em>or</em> fasting blood glucose (NDH002)</div>
+          <div class="rc-item">Brief lifestyle advice — diet, activity, weight</div>
+          <div class="rc-item">Code result with correct SNOMED code same day</div>
+          <div class="rc-item">Review result and interpret using thresholds above</div>
+        </div>
+        <div class="alert green2" style="margin-top:.7rem;">
+          <span class="alert-icon">📋</span>
+          <div>Code all results on the <strong>same day</strong> using the EMIS NDH / pre-diabetes template. Log next recall date.</div>
+        </div>
+      </div>
+      <div class="card amber">
+        <div class="card-title">🔗 Also Consider at Each Review</div>
+        <ul class="clist amber">
+          <li>Offer or reinforce NHS DPP referral if eligible and not enrolled</li>
+          <li>Review weight and BMI — refer to weight management services if indicated</li>
+          <li>Smoking status — brief advice / cessation referral if current smoker</li>
+          <li>Alcohol status — brief advice if AUDIT-C positive</li>
+          <li>Review medications associated with hyperglycaemia (e.g. steroids, antipsychotics)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert amber" style="margin-top:.7rem;">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Progression to diabetes:</strong> flag to GP or pharmacist immediately on the same day. Do not leave for the next routine appointment.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── NHS DPP ELIGIBILITY ── -->
+  <div class="sec">
+    <div class="sec-title">🏃 NHS Diabetes Prevention Programme — Referral Eligibility</div>
+    <div class="elig-split">
+      <div class="elig-box include">
+        <div class="elig-title">✅ Eligible for Referral</div>
+        <ul>
+          <li>Aged 18 or over</li>
+          <li>NDH blood test result in the preceding 12 months</li>
+          <li>History of Gestational Diabetes Mellitus (GDM) — also eligible for self-referral</li>
+        </ul>
+      </div>
+      <div class="elig-box exclude">
+        <div class="elig-title">🚫 Not Eligible</div>
+        <ul>
+          <li>Pregnant</li>
+          <li>Ever diagnosed with type 2 diabetes</li>
+          <li>Moderate or severe frailty</li>
+          <li>Active eating disorder</li>
+          <li>Bariatric surgery within the previous 2 years</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert green2">
+      <span class="alert-icon">💡</span>
+      <div>Programme completion (&gt;60% of sessions) is associated with a <strong>37% relative risk reduction</strong> in developing type 2 diabetes. Digital and face-to-face options are available. Code the referral in EMIS on the day it is made.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── WHICH TEST? ── -->
+  <div class="sec">
+    <div class="sec-title">🔬 Which Test to Use?</div>
+    <div class="grid2">
+      <div class="card green2">
+        <div class="card-title">HbA1c — First Choice for Most Patients</div>
+        <ul class="clist">
+          <li>Non-fasting — convenient for patients</li>
+          <li>Reflects average blood glucose over ~3 months</li>
+          <li>SNOMED: code numeric result in mmol/mol</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">Fasting Blood Glucose — Use When HbA1c is Unreliable</div>
+        <ul class="clist blue">
+          <li>Haemoglobin disorders (e.g. sickle cell, thalassaemia)</li>
+          <li>Haemolytic anaemia</li>
+          <li>Recent blood transfusion (&lt;3 months)</li>
+          <li>Patient must fast for ≥8 hours prior to test</li>
+          <li>SNOMED: code as fasting plasma glucose in mmol/l</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── QUICK DECISION AID ── -->
+  <div class="sec">
+    <div class="sec-title">⚡ At-a-Glance Decision Aid</div>
+    <div class="grid2">
+      <div class="card green2">
+        <div class="card-title">Patient has overdue annual test?</div>
+        <ul class="clist">
+          <li>Request HbA1c (first choice) or fasting blood glucose</li>
+          <li>Book phlebotomy or nurse appointment</li>
+          <li>Code result same day on EMIS NDH template</li>
+        </ul>
+      </div>
+      <div class="card green2">
+        <div class="card-title">Result in NDH range (HbA1c 42–47 or FPG 5.5–6.9)?</div>
+        <ul class="clist">
+          <li>Reinforce lifestyle advice (diet, weight, activity)</li>
+          <li>Offer NHS DPP referral if eligible and not already enrolled</li>
+          <li>Book next annual recall — log date in patient record</li>
+        </ul>
+      </div>
+      <div class="card red">
+        <div class="card-title">Result indicates diabetes (HbA1c ≥48 or FPG ≥7.0)?</div>
+        <ul class="clist red">
+          <li>Flag to GP or pharmacist <strong>same day</strong></li>
+          <li>GP to confirm diagnosis (second reading if asymptomatic)</li>
+          <li>Remove from NDH register; add to diabetes register</li>
+          <li>Initiate diabetes management pathway</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">Result normal (HbA1c &lt;42 or FPG &lt;5.5)?</div>
+        <ul class="clist green">
+          <li>Code result</li>
+          <li>Discuss with GP — should patient remain on NDH register?</li>
+          <li>Document decision in patient notes</li>
+          <li>If removed from register: confirm correct SNOMED coding</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; NDH QOF Clinical Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+</body>
+</html>

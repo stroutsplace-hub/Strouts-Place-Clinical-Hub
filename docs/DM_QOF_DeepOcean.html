@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes QOF SOP 2025/26 — Deep Ocean</title>
+
+<style>
+  :root {
+    --green:       #059669;
+    --green-dark:  #047857;
+    --green-deep:  #064e3b;
+    --green-light: #a7f3d0;
+    --green-pale:  #ecfdf5;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --red-light:   #fef2f2;
+    --red:         #dc2626;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(5,150,105,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(5,150,105,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--green-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--green-light); color: var(--green-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #022c22 0%, #065f46 60%, #064e3b 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(167,243,208,.2) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(5,150,105,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(167,243,208,.2);
+    border: 1px solid rgba(167,243,208,.5);
+    color: #6ee7b7;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+  .hero h1 em { font-style: italic; color: #6ee7b7; }
+
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  /* ── SECTION ── */
+  section {
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--green);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    color: var(--slate);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(5,150,105,.12); transform: translateY(-2px); }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-green { background: var(--green-pale);  border: 1px solid #6ee7b7; }
+  .alert-amber { background: var(--amber-light); border: 1px solid #fcd34d; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-green strong { color: var(--green-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: #047857; }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--green-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--green-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge { font-weight: 700; color: var(--green-dark); font-size: .85rem; background: var(--green-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill { display: inline-block; background: #d1fae5; color: #065f46; font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; }
+
+  /* ── ROLES GRID ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--green);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(5,150,105,.14); transform: translateY(-3px); }
+  .role-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--green-dark); margin-bottom: .6rem; }
+  .role-list { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  /* ── PROCESS STEPS ── */
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green), var(--green-light));
+    border-radius: 2px;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--green-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--green-light); }
+
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(5,150,105,.12); }
+
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc { font-size: .88rem; color: var(--slate-mid); }
+  .step-list { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--green); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── MONITORING TABLE ── */
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--green-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly   { background: #dbeafe; color: #1e40af; }
+  .freq-quarterly { background: #fce7f3; color: #9d174d; }
+  .freq-annually  { background: #dcfce7; color: #166534; }
+  .freq-asneeded  { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--green-pale); border-color: #6ee7b7; }
+  .checklist li.checked { background: var(--green-pale); border-color: var(--green); color: var(--slate); text-decoration: line-through; opacity: .65; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+    font-size: .75rem;
+    color: transparent;
+    margin-top: .1rem;
+  }
+  .checklist li.checked .check-box { background: var(--green); border-color: var(--green); color: white; }
+
+  /* ── RESOURCES ── */
+  .resource-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .resource-list li {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .resource-list li:hover { background: var(--green-pale); border-color: #6ee7b7; }
+  .resource-list li::before { content: '📎'; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--slate-light);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .role-card:nth-child(1) { animation-delay: .05s; }
+  .role-card:nth-child(2) { animation-delay: .1s; }
+  .role-card:nth-child(3) { animation-delay: .15s; }
+  .role-card:nth-child(4) { animation-delay: .2s; }
+  .role-card:nth-child(5) { animation-delay: .25s; }
+
+  /* ── FRAILTY SPLIT BOX ── */
+  .frailty-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .frailty-box {
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    border: 1px solid;
+  }
+  .frailty-box.none { background: var(--green-pale); border-color: #6ee7b7; }
+  .frailty-box.moderate { background: var(--amber-light); border-color: #fcd34d; }
+  .frailty-box .fb-title { font-family: Georgia, 'Times New Roman', serif; font-size: .95rem; margin-bottom: .4rem; }
+  .frailty-box.none .fb-title { color: var(--green-dark); }
+  .frailty-box.moderate .fb-title { color: var(--amber-dark); }
+  .frailty-box ul { list-style: none; }
+  .frailty-box ul li { font-size: .82rem; color: var(--slate-mid); padding: .2rem 0; padding-left: 1rem; position: relative; }
+  .frailty-box ul li::before { content: '•'; position: absolute; left: 0; font-weight: 700; }
+  .frailty-box.none ul li::before { color: var(--green); }
+  .frailty-box.moderate ul li::before { color: var(--amber); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 2rem 1.5rem; }
+    .frailty-grid { grid-template-columns: 1fr; }
+    nav { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; DM QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Diabetes<br><em>QOF</em> 2025/26</h1>
+    <p class="hero-sub">Achieving targets for DM006, DM012, DM014, DM020, DM021, DM034, DM035 &amp; DM036 — a guide for administrative and clinical staff at <strong style="color:#6ee7b7;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Scale &amp; Impact</strong>
+        In 2023/24 approximately <strong>3.7 million people</strong> in England live with diagnosed diabetes. Effective monitoring and control in primary care directly reduces mortality and morbidity from both micro- and macrovascular complications. Much of this work is done by GPs and the wider primary care team.
+      </div>
+    </div>
+    <div class="alert alert-green">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        All indicators apply to patients on the <strong>diabetes register</strong> (type 1 and type 2 unless otherwise specified). This SOP covers the full annual review pathway — from register identification through clinical review, structured education referral, coding, and QOF monitoring. Frailty status is central to several indicators: ensure each patient has a current frailty assessment recorded.
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicators at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">DM006</span></td>
+            <td>Patients with nephropathy (proteinuria or micro-albuminuria) currently treated with ACE-I or ARB</td>
+            <td><span class="points-badge">3</span></td>
+            <td><span class="target-pill">57–97%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM012</span></td>
+            <td>Foot examination and risk classification recorded in preceding 12 months</td>
+            <td><span class="points-badge">4</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM014</span></td>
+            <td>Newly diagnosed patients referred to structured education programme within 9 months of diagnosis</td>
+            <td><span class="points-badge">11</span></td>
+            <td><span class="target-pill">40–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM036</span></td>
+            <td>Patients aged ≤79, without moderate/severe frailty: last BP ≤140/90 mmHg in preceding 12 months</td>
+            <td><span class="points-badge">27</span></td>
+            <td><span class="target-pill">38–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM020</span></td>
+            <td>Patients without moderate/severe frailty: last HbA1c ≤58 mmol/mol in preceding 12 months</td>
+            <td><span class="points-badge">17</span></td>
+            <td><span class="target-pill">35–75%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM021</span></td>
+            <td>Patients with moderate/severe frailty: last HbA1c ≤75 mmol/mol in preceding 12 months</td>
+            <td><span class="points-badge">10</span></td>
+            <td><span class="target-pill">52–92%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM034</span></td>
+            <td>Patients aged ≥40, no CVD history, without moderate/severe frailty: treated with statin (or alternative lipid-lowering therapy if statin declined/unsuitable), or CVD risk &lt;10% recorded in preceding 3 years</td>
+            <td><span class="points-badge">4</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">DM035</span></td>
+            <td>Patients with history of CVD (excl. haemorrhagic stroke): treated with statin or alternative lipid-lowering therapy if statin declined/unsuitable</td>
+            <td><span class="points-badge">2</span></td>
+            <td><span class="target-pill">50–90%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-green" style="margin-top:1rem;">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>DM014 — Timing detail</strong>
+        Nine months is defined as <strong>279 days</strong> from entry onto the diabetes register. Digital programmes (e.g. <em>Healthy Living with Type 2 Diabetes</em>) are acceptable and can be offered at any point post-diagnosis, supporting annual reinforcement.
+      </div>
+    </div>
+    <div class="alert alert-green">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>DM036 — Home BP monitoring</strong>
+        The clinic target of 140/90 mmHg corresponds to an HBPM target of <strong>135/85 mmHg</strong>. Document clearly which method was used when recording the reading.
+      </div>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>DM034 — QRISK3 exclusion</strong>
+        Patients with type 2 diabetes who have a CVD risk of less than 10% recorded in the preceding 3 years are <strong>excluded from the denominator</strong> for DM034. Ensure a current QRISK3 score is documented for all eligible patients.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance</li>
+          <li>Attends monthly QOF meeting; reviews dashboard and agrees action plans</li>
+          <li>Coordinates annual review recall campaign with admin lead</li>
+          <li>Escalates persistent non-responders to GP lead</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Generates diabetes register reports to identify patients due a review</li>
+          <li>Sends invitation letters and SMS for annual review</li>
+          <li>Books annual review appointment with HCA or Nurse</li>
+          <li>Scans and codes results received from secondary care</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">Healthcare Assistant (HCA) / Nurse</div>
+        <ul class="role-list">
+          <li><strong>Annual review:</strong> BP, HbA1c, lipid profile, urine ACR, foot exam + risk classification, BMI, smoking, alcohol status, QRISK3 calculation, retinal screening status check</li>
+          <li><strong>New diabetic review:</strong> all of the above, plus structured education referral (DM014), retinal screening referral — both coded on the day</li>
+          <li>Documents all readings with correct SNOMED codes same day using the EMIS diabetes template</li>
+          <li>Flags any abnormal results to GP or pharmacist for action as per surgery policy</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting with GP lead, PM and admin lead</li>
+          <li>Conducts medication review — statin prescribing (DM034/035), ACE-I/ARB for nephropathy (DM006)</li>
+          <li>Reviews results and actions abnormals as per surgery policy</li>
+          <li>Optimises BP and diabetic control; adjusts or initiates therapy as appropriate</li>
+          <li>Arranges follow-up for patients requiring monitoring or treatment changes</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting; chairs review</li>
+          <li>Reviews and acts on abnormal results as per surgery policy</li>
+          <li>Manages patients requiring clinical escalation</li>
+          <li>Approves clinical exception reporting</li>
+          <li>Annual register accuracy review — add new diagnoses, remove incorrect entries</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Identify Patients Due an Annual Review</div>
+          <ul class="step-list">
+            <li>Run diabetes register report monthly — patients with type 1 or type 2 diabetes diagnosis codes</li>
+            <li>Filter for overdue or missing QOF indicators (DM006, DM012, DM014, DM020/021, DM034/035, DM036)</li>
+            <li>For DM034: check whether a current QRISK3 score (&lt;3 years) is documented — if so and &lt;10%, patient is excluded from denominator</li>
+            <li>For newly diagnosed patients: flag those approaching the 279-day window for DM014 structured education referral</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book</div>
+          <ul class="step-list">
+            <li>Send a personalised invitation letter or SMS within 5 working days of the report being run</li>
+            <li>Book an <strong>annual review appointment with HCA or Nurse</strong> — allow at least 30 minutes</li>
+            <li>If no response after 2 weeks: send a second invitation. After a further 2 weeks: telephone outreach.</li>
+            <li>If still no response after 3 attempts: add to the monthly QOF meeting agenda for review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Review Appointment — HCA / Nurse</div>
+          <p class="step-desc">Complete all measurements, bloods and assessments using the <strong>(RP) LTC Review Tower Hamlets CEG v1.4</strong> template in EMIS. Everything must be coded on the same day.</p>
+
+          <div style="background:var(--green-pale); border:1px solid #a7f3d0; border-radius:12px; padding:1.2rem; margin:1rem 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--green-dark); margin-bottom:.7rem;">🔄 &nbsp;Annual Review — all established patients</div>
+            <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.3rem .5rem;">
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Blood pressure (DM036)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Urine ACR (for DM006 — nephropathy)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>HbA1c (DM020/DM021)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Foot exam + risk classification (DM012)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Lipid profile (for DM034/035 statin review)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Weight &amp; BMI</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Smoking status</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Alcohol status (AUDIT-C)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>Retinal screening — check status &amp; date</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>QRISK3 calculated &amp; coded</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--green);font-weight:700;">✓</span>All results coded same day in EMIS</li>
+            </ul>
+          </div>
+
+          <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:1.2rem; margin:1rem 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:#92400e; margin-bottom:.7rem;">🆕 &nbsp;New Diabetic Review — additional items</div>
+            <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.3rem .5rem;">
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">✓</span>All annual review checks above</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">✓</span>Structured education referral (DM014) — coded same day</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">✓</span>Retinal screening referral — made and coded</li>
+            </ul>
+            <p style="font-size:.78rem; color:var(--slate-light); margin-top:.6rem;">DM014 referral must be made within 279 days of entry onto the diabetes register</p>
+          </div>
+
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Abnormal findings</strong> — Any abnormal results identified during the review must be flagged to the pharmacist or GP for action as per surgery policy.</div>
+          </div>
+
+          <div class="frailty-grid">
+            <div class="frailty-box none">
+              <div class="fb-title">No / Mild Frailty (DM020 + DM036)</div>
+              <ul>
+                <li>HbA1c target ≤58 mmol/mol</li>
+                <li>BP target ≤140/90 mmHg (clinic) or ≤135/85 mmHg (HBPM)</li>
+                <li>DM036 applies to patients aged ≤79 only</li>
+              </ul>
+            </div>
+            <div class="frailty-box moderate">
+              <div class="fb-title">Moderate / Severe Frailty (DM021)</div>
+              <ul>
+                <li>HbA1c target ≤75 mmol/mol</li>
+                <li>DM036 does not apply — no BP QOF target</li>
+                <li>Individualise targets — avoid overtreatment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Medication Review — Pharmacist or GP</div>
+          <p class="step-desc">Once the annual review results are available, the Pharmacist or GP reviews medications and acts on results.</p>
+          <ul class="step-list">
+            <li><strong>DM006:</strong> If ACR ≥3 mg/mmol (micro-albuminuria or proteinuria) and patient is <em>not</em> on ACE-I or ARB — initiate or refer for initiation. Also consider SGLT2i per NICE guidance for type 2 diabetes with renal disease.</li>
+            <li><strong>DM034:</strong> Confirm statin prescribing for eligible patients aged ≥40 without CVD history; calculate/verify QRISK3 if not done in past 3 years; document statin as high-intensity (atorvastatin 20 mg for primary prevention). Where statin is declined or unsuitable, prescribe alternative lipid-lowering therapy and document reason.</li>
+            <li><strong>DM035:</strong> Confirm statin prescribing for all patients with a history of CVD (excluding haemorrhagic stroke); atorvastatin 80 mg for secondary prevention. Where statin is declined or unsuitable, prescribe alternative and document reason.</li>
+            <li>Action any other abnormal results as per the <strong>lab workflow policy</strong></li>
+            <li>Signpost to weight management, smoking cessation, podiatry or other services as appropriate</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Statin prescribing (DM034/035)</strong> — High-intensity statin therapy is recommended: <strong>atorvastatin 20 mg</strong> for primary prevention; <strong>atorvastatin 80 mg</strong> for secondary prevention. Document any switch to an alternative lipid-lowering therapy with the clinical reason.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Structured Education Referral — DM014</div>
+          <p class="step-desc">All newly diagnosed patients must be referred to a structured education programme within 279 days of entry onto the diabetes register.</p>
+          <ul class="step-list">
+            <li>Make referral at the time of diagnosis or as soon as practicable — do not delay to the annual review</li>
+            <li>Code the referral on the day it is made; this is what counts for QOF — completion of the programme is not required</li>
+            <li>If patient is unable or unwilling to attend group education, offer an equivalent individual or digital alternative and document this</li>
+            <li>Admin team: run a monthly check of newly diagnosed patients approaching the 279-day window</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Coding &amp; Documentation</div>
+          <ul class="step-list">
+            <li>All results coded in the patient record on the day of the appointment using the EMIS diabetes template</li>
+            <li>Foot examination: code the specific risk classification level — low, increased (moderate), high, or ulcerated. The term 'moderate risk' is used in clinical coding for the QOF concept of 'increased risk'.</li>
+            <li>BP readings: document whether clinic or home measurement and record the method used</li>
+            <li>Blood results from secondary care: scan and code on receipt — do not wait for the annual review</li>
+            <li>Frailty: ensure a current eFI / frailty score is recorded and coded in the patient record</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">7</div>
+        <div class="step-body">
+          <div class="step-title">Exception Reporting</div>
+          <p class="step-desc">Exceptions may be entered by any appropriate member of staff but must be <strong>approved by the GP</strong>, and only where clinically justified.</p>
+          <ul class="step-list">
+            <li>Patient has been informed of the recommendation but declines (patient declined)</li>
+            <li>Clinical contraindication documented and approved by the GP</li>
+            <li>Patient recently registered (within 3 months) — new patient exception</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong> Commissioners may audit a random sample of exceptions — incorrect coding can result in financial claw-back.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-green">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against targets, problem-solve barriers and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden; margin-top: 1rem;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Activity</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Run diabetes register report; identify patients with overdue indicators or approaching 279-day DM014 window</td>
+            <td>Practice Manager / Admin Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting — GP Lead, Pharmacist, PM and Admin Lead review dashboard, performance and agree action plans</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Check QOF dashboard for current achievement against thresholds; review statin and ACE-I/ARB prescribing gaps</td>
+            <td>Practice Manager + Pharmacist</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full register accuracy review — add new diagnoses, remove incorrect entries, update frailty scores</td>
+            <td>GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting agenda to include patients with 3+ failed contacts — discuss and agree approach as a team</td>
+            <td>Admin Lead + QOF Meeting</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Admin Checklist — Per Patient</h2>
+    </div>
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:1rem;">Click each item to mark it complete. Use this when processing a patient through the diabetes annual review cycle.</p>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified on diabetes register report with overdue QOF item(s)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter / SMS sent (date logged)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Annual review appointment booked with HCA or Nurse</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Review attended — BP, HbA1c, lipid profile, urine ACR, foot exam, BMI, smoking, alcohol, retinal screening status, QRISK3 all completed</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If new diagnosis: structured education referral (DM014) and retinal screening referral made and coded same day</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Foot examination coded with correct risk classification (low / increased / high / ulcerated)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>All results coded same day in EMIS using diabetes template</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Any abnormal results flagged to pharmacist or GP as per surgery policy</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Medication review completed — statin (DM034/035) and ACE-I/ARB for nephropathy (DM006) checked and actioned</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>BP and diabetic control optimised by pharmacist; follow-up arranged if required</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If DNA (Did Not Attend): second invite sent within 5 working days</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>If 3× DNA or failed contacts: added to monthly QOF meeting agenda for team review</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE NG28 — Type 2 diabetes in adults (2015, updated 2022): <strong>nice.org.uk/guidance/NG28</strong></li>
+      <li>NICE NG17 — Type 1 diabetes in adults (2015, updated 2022): <strong>nice.org.uk/guidance/NG17</strong></li>
+      <li>NICE NG18 — Diabetes (type 1 and type 2) in children and young people (2015, updated 2023): <strong>nice.org.uk/guidance/NG18</strong></li>
+      <li>NICE NG19 — Diabetic foot problems: prevention and management (2015, updated 2019): <strong>nice.org.uk/guidance/NG19</strong></li>
+      <li>NICE NG238 — Cardiovascular disease: risk assessment and reduction, including lipid modification (2023): <strong>nice.org.uk/guidance/ng238</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+      <li>Healthy Living with Type 2 Diabetes (nationally commissioned digital education): <strong><a href="https://www.healthyliving.nhs.uk" target="_blank" style="color:var(--green-dark);">healthyliving.nhs.uk</a></strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--green-pale); border-color: #a7f3d0;">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--green-dark);">Version</strong></td>
+          <td>1.0</td>
+          <td><strong style="color:var(--green-dark);">Effective</strong></td>
+          <td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green-dark);">Review due</strong></td>
+          <td>March 2026</td>
+          <td><strong style="color:var(--green-dark);">Owner</strong></td>
+          <td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates. All staff are expected to have read and understood this SOP before undertaking diabetes annual reviews.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Diabetes QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  // Checklist toggle
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+
+  // Stagger role cards - removed for local file compatibility
+</script>
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypertension QOF SOP 2025/26 — Deep Ocean</title>
+<style>
+  :root {
+    --burg:        #9f1239;
+    --burg-dark:   #881337;
+    --burg-deep:   #4c0519;
+    --burg-light:  #fecdd3;
+    --burg-pale:   #fff1f2;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(159,18,57,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(159,18,57,.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: slideDown .5s ease both;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    color: var(--burg-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    display: block;
+    padding: .3rem .75rem;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--burg-light); color: var(--burg-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a0008 0%, #6b0020 60%, #4c0519 100%);
+    border-radius: 20px;
+    padding: 3.5rem 3rem 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .7s ease both;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(254,205,211,.25) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(159,18,57,.3) 0%, transparent 40%);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(254,205,211,.2);
+    border: 1px solid rgba(254,205,211,.5);
+    color: #fda4af;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: .8rem;
+  }
+
+  .hero h1 em { font-style: italic; color: #fda4af; }
+
+  .hero-sub {
+    color: #94a3b8;
+    font-size: .95rem;
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #cbd5e1;
+    font-size: .75rem;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+  }
+
+  /* ── SECTION ── */
+  section { margin-bottom: 3rem; }
+  section.animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  section.animate.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-num {
+    width: 32px; height: 32px;
+    background: var(--burg);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    color: var(--slate);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(159,18,57,.12); transform: translateY(-2px); }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    font-size: .9rem;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-burg  { background: var(--burg-pale);   border: 1px solid #fda4af; }
+  .alert-amber { background: var(--amber-light);  border: 1px solid #fcd34d; }
+  .alert strong { display: block; margin-bottom: .2rem; }
+  .alert-burg  strong { color: var(--burg-dark); }
+  .alert-amber strong { color: var(--amber-dark); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .ind-table thead tr { background: var(--burg-dark); }
+  .ind-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .ind-table tbody tr { transition: background .15s; }
+  .ind-table tbody tr:nth-child(even) { background: var(--burg-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--burg-light); }
+  .ind-table td { padding: .75rem 1rem; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--burg-dark); font-size: .85rem; background: var(--burg-light); padding: .2rem .5rem; border-radius: 5px; white-space: nowrap; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .85rem; padding: .2rem .5rem; border-radius: 5px; text-align: center; min-width: 28px; }
+  .target-pill  { display: inline-block; background: var(--burg-pale); color: var(--burg-dark); font-weight: 600; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; }
+
+  /* ── BP TARGET CARDS ── */
+  .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .bp-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.6rem; text-align: center; }
+  .bp-card.under80 { border-top: 4px solid var(--burg); }
+  .bp-card.over80  { border-top: 4px solid var(--burg-deep); }
+  .bp-label  { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--slate-light); margin-bottom: .5rem; }
+  .bp-target { font-family: Georgia, 'Times New Roman', serif; font-size: 2.2rem; color: var(--burg-dark); line-height: 1; margin-bottom: .25rem; }
+  .bp-unit   { font-size: .8rem; color: var(--slate-mid); margin-bottom: .4rem; }
+  .bp-hbpm   { display: inline-block; background: var(--burg-pale); color: var(--burg-dark); font-size: .72rem; font-weight: 600; padding: .15rem .55rem; border-radius: 4px; margin-bottom: .5rem; }
+  .bp-meta   { font-size: .75rem; color: var(--slate-light); }
+  .bp-meta strong { color: var(--amber-dark); }
+
+  /* ── ROLES GRID ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow .2s, transform .2s;
+    border-top: 4px solid var(--burg);
+  }
+  .role-card:hover { box-shadow: 0 8px 32px rgba(159,18,57,.14); transform: translateY(-3px); }
+  .role-icon  { font-size: 1.6rem; margin-bottom: .5rem; }
+  .role-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.05rem; color: var(--burg-dark); margin-bottom: .6rem; }
+  .role-list  { list-style: none; }
+  .role-list li { font-size: .85rem; color: var(--slate-mid); padding: .3rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+  .role-list li:last-child { border-bottom: none; }
+  .role-list li::before { content: '→'; color: var(--burg); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+
+  /* ── PROCESS STEPS ── */
+  .steps { position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 23px; top: 40px; bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--burg), var(--burg-light));
+    border-radius: 2px;
+  }
+
+  .step { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+
+  .step-dot {
+    width: 48px; height: 48px;
+    background: var(--burg);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--burg-light);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .step:hover .step-dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--burg-light); }
+
+  .step-body {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+    transition: box-shadow .2s;
+  }
+  .step:hover .step-body { box-shadow: 0 6px 24px rgba(159,18,57,.1); }
+
+  .step-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); margin-bottom: .5rem; }
+  .step-desc  { font-size: .88rem; color: var(--slate-mid); }
+  .step-list  { list-style: none; margin-top: .6rem; }
+  .step-list li { font-size: .86rem; color: var(--slate-mid); padding: .25rem 0; padding-left: 1.2rem; position: relative; }
+  .step-list li::before { content: '✓'; color: var(--burg); font-weight: 700; position: absolute; left: 0; }
+
+  /* ── MONITORING TABLE ── */
+  .mon-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .mon-table thead tr { background: var(--slate); }
+  .mon-table thead th { color: white; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .75rem 1rem; text-align: left; }
+  .mon-table tbody tr:nth-child(even) { background: var(--surface); }
+  .mon-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .mon-table tbody tr:hover           { background: var(--burg-pale); }
+  .mon-table td { padding: .7rem 1rem; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mon-table tr:last-child td { border-bottom: none; }
+  .freq-pill      { display: inline-block; font-weight: 600; font-size: .75rem; padding: .2rem .6rem; border-radius: 999px; }
+  .freq-monthly   { background: #dbeafe; color: #1e40af; }
+  .freq-annually  { background: #dcfce7; color: #166534; }
+  .freq-asneeded  { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: .75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    user-select: none;
+  }
+  .checklist li:hover { background: var(--burg-pale); border-color: #fda4af; }
+  .checklist li.checked { background: var(--burg-pale); border-color: var(--burg); color: var(--slate); text-decoration: line-through; opacity: .65; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+    font-size: .75rem;
+    color: transparent;
+    margin-top: .1rem;
+  }
+  .checklist li.checked .check-box { background: var(--burg); border-color: var(--burg); color: white; }
+
+  /* ── RESOURCES ── */
+  .resource-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .resource-list li {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .88rem;
+    color: var(--slate-mid);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .resource-list li:hover { background: var(--burg-pale); border-color: #fda4af; }
+  .resource-list li::before { content: '📎'; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: .78rem;
+    color: var(--slate-light);
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .role-card { animation: fadeIn .5s ease both; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .role-card:nth-child(1) { animation-delay: .05s; }
+  .role-card:nth-child(2) { animation-delay: .1s; }
+  .role-card:nth-child(3) { animation-delay: .15s; }
+  .role-card:nth-child(4) { animation-delay: .2s; }
+  .role-card:nth-child(5) { animation-delay: .25s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-brand { font-size: .85rem; }
+    .nav-links a { padding: .3rem .5rem; font-size: .72rem; }
+    main { padding: 68px 1rem 3rem; }
+    .hero { padding: 2rem 1.25rem 1.75rem; border-radius: 14px; }
+    .hero h1 { font-size: 2rem; }
+    .hero-sub { font-size: .88rem; }
+    .hero-badge { font-size: .7rem; padding: .25rem .6rem; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .bp-grid { grid-template-columns: 1fr; }
+    .steps::before { left: 19px; }
+    .step { gap: 1rem; }
+    .step-dot { width: 40px; height: 40px; font-size: 1rem; }
+    .step-body { padding: 1rem 1.1rem; }
+    .card { padding: 0; overflow-x: auto; }
+    .ind-table, .mon-table { min-width: 520px; }
+    .ind-table td, .ind-table th,
+    .mon-table td, .mon-table th { padding: .6rem .75rem; font-size: .82rem; }
+    .checklist li { font-size: .84rem; padding: .65rem .85rem; }
+    .alert { font-size: .85rem; padding: .85rem 1rem; }
+    .section-title { font-size: 1.25rem; }
+    .resource-list li { font-size: .84rem; }
+    .code-badge { font-size: .78rem; }
+    .points-badge { font-size: .78rem; }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.7rem; }
+    .nav-brand { display: none; }
+    main { padding: 64px .75rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Strouts Place &nbsp;·&nbsp; HYP QOF SOP</span>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Standard Operating Procedure</div>
+    <h1>Hypertension<br><em>QOF Management</em> 2025/26</h1>
+    <p class="hero-sub">Achieving targets for HYP008 &amp; HYP009 — a guide for administrative and clinical staff at <strong style="color:#fda4af;">Strouts Place Medical Centre</strong>.</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Strouts Place Medical Centre</span>
+      <span class="hero-badge">Version 1.0</span>
+      <span class="hero-badge">Effective: April 2025</span>
+      <span class="hero-badge">Review: March 2026</span>
+      <span class="hero-badge">Owner: GP Lead</span>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <section id="purpose">
+    <div class="section-label">
+      <div class="section-num">!</div>
+      <h2 class="section-title">Why This Matters</h2>
+    </div>
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>The UK's Leading Modifiable Cardiovascular Risk Factor</strong>
+        Hypertension affects around 1 in 3 adults in England and is the biggest single risk factor for stroke, MI, heart failure, and premature death. Many patients remain undiagnosed, untreated, or sub-optimally managed.
+      </div>
+    </div>
+    <div class="alert alert-burg">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Scope</strong>
+        Applies to all patients on the Hypertension register. Covers HYP008 (aged ≤79) and HYP009 (aged ≥80) — including recall, BP measurement, treatment escalation, exception coding, and performance monitoring.
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <h2 class="section-title">QOF Indicators at a Glance</h2>
+    </div>
+    <div class="card" style="padding: 0; overflow:hidden;"><div style="overflow-x:auto;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">HYP008</span></td>
+            <td>Patients aged <strong>≤79 years</strong> with hypertension in whom the last BP reading (preceding 12 months) is <strong>≤140/90 mmHg</strong> (clinic) or <strong>≤135/85 mmHg</strong> (HBPM)</td>
+            <td><span class="points-badge">38</span></td>
+            <td><span class="target-pill">40–85%</span></td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HYP009</span></td>
+            <td>Patients aged <strong>≥80 years</strong> with hypertension in whom the last BP reading (preceding 12 months) is <strong>≤150/90 mmHg</strong> (clinic) or <strong>≤145/85 mmHg</strong> (HBPM)</td>
+            <td><span class="points-badge">14</span></td>
+            <td><span class="target-pill">40–85%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+
+    <div class="bp-grid">
+      <div class="bp-card under80">
+        <div class="bp-label">HYP008 — Aged ≤79</div>
+        <div class="bp-target">140/90</div>
+        <div class="bp-unit">mmHg — clinic reading</div>
+        <div class="bp-hbpm">HBPM equivalent: 135/85 mmHg</div>
+        <div class="bp-meta"><strong>38 points</strong> &nbsp;·&nbsp; threshold 40–85%</div>
+      </div>
+      <div class="bp-card over80">
+        <div class="bp-label">HYP009 — Aged ≥80</div>
+        <div class="bp-target">150/90</div>
+        <div class="bp-unit">mmHg — clinic reading</div>
+        <div class="bp-hbpm">HBPM equivalent: 145/85 mmHg</div>
+        <div class="bp-meta"><strong>14 points</strong> &nbsp;·&nbsp; threshold 40–85%</div>
+      </div>
+    </div>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>HBPM targets updated 2024/25</strong>
+        Both indicators now include explicit HBPM equivalents per updated NICE guidance. HBPM readings must be coded with an HBPM-specific SNOMED CT code — a generic BP code will not satisfy QOF.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Roles &amp; Responsibilities</h2>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card">
+        <div class="role-icon">🗂️</div>
+        <div class="role-title">Practice Manager</div>
+        <ul class="role-list">
+          <li>Owns overall QOF performance</li>
+          <li>Attends monthly QOF meeting</li>
+          <li>Coordinates recall campaign with admin team</li>
+          <li>Chairs escalation of persistent non-responders</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📋</div>
+        <div class="role-title">Admin / Reception Team</div>
+        <ul class="role-list">
+          <li>Generates hypertension register reports</li>
+          <li>Sends invitation letters and SMS for BP review</li>
+          <li>Books BP check appointments with HCA, nurse or pharmacist</li>
+          <li>Logs DNA attempts and adds non-responders to QOF meeting agenda</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">🩺</div>
+        <div class="role-title">Healthcare Assistant (HCA)</div>
+        <ul class="role-list">
+          <li>Takes and records clinic BP using a validated device and correct technique</li>
+          <li>Records weight, BMI, smoking and alcohol intake</li>
+          <li>Codes all readings on the day using correct SNOMED CT codes</li>
+          <li>Flags elevated readings to nurse or pharmacist for review</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">💊</div>
+        <div class="role-title">Pharmacist</div>
+        <ul class="role-list">
+          <li>Attends monthly QOF meeting</li>
+          <li>Conducts medication reviews — adherence, side-effects, dose optimisation</li>
+          <li>Optimises treatment per NICE NG136 stepwise pathway</li>
+          <li>Runs targeted recall clinics for uncontrolled or near-miss BP</li>
+          <li>Escalates to GP where appropriate</li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-title">GP Lead</div>
+        <ul class="role-list">
+          <li>Chairs monthly QOF meeting</li>
+          <li>Reviews and approves exception reports</li>
+          <li>Manages resistant hypertension and complex clinical needs</li>
+          <li>Annual register accuracy review</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Step-by-Step Process</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Identify Patients Due a Review</div>
+          <ul class="step-list">
+            <li>Run hypertension register report monthly</li>
+            <li>Prioritise patients whose last BP was above target</li>
+            <li>Flag patients approaching year-end (31 March) without a qualifying reading</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Invite &amp; Book</div>
+          <ul class="step-list">
+            <li>Send invitation letter or SMS within 5 working days of report</li>
+            <li>Book BP review with HCA, nurse or pharmacist</li>
+            <li>No response after 2 weeks: second invite. After further 2 weeks: telephone outreach</li>
+            <li>3 failed attempts: add to QOF meeting agenda</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">BP Review Appointment — HCA / Nurse / Pharmacist</div>
+          <p class="step-desc">Complete all measurements and code in EMIS on the same day.</p>
+          <p class="step-desc" style="margin-top:.6rem;">Use the <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS.</p>
+
+          <div style="background:var(--burg-pale); border:1px solid #fda4af; border-radius:12px; padding:1.2rem; margin:1rem 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif; font-size:1rem; color:var(--burg-dark); margin-bottom:.7rem;">🩺 &nbsp;BP Review — what to complete</div>
+            <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.3rem .5rem;">
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>BP (clinic) — validated device, correct technique</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Or HBPM average — coded with HBPM SNOMED code</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Weight &amp; BMI</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Smoking status</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Alcohol status (AUDIT-C if not recent)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>QRISK3 calculated &amp; coded</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Medication review — adherence, side-effects (pharmacist only)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>Lifestyle advice coded (diet, salt, exercise)</li>
+              <li style="font-size:.86rem; color:var(--slate-mid); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--burg);font-weight:700;">✓</span>All results coded same day in EMIS</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Treatment Escalation — Pharmacist / GP</div>
+          <p class="step-desc">Where BP is above target, review and optimise before adding agents. Repeat BP within 4–8 weeks of any medication change.</p>
+          <ul class="step-list">
+            <li><strong>Step 1:</strong> ACEi or ARB (aged &lt;55, non-Black African/Caribbean) or CCB (aged ≥55 or Black African/Caribbean)</li>
+            <li><strong>Step 2:</strong> ACEi or ARB + CCB</li>
+            <li><strong>Step 3:</strong> ACEi or ARB + CCB + thiazide-like diuretic (e.g. indapamide)</li>
+            <li><strong>Step 4:</strong> Spironolactone if K⁺ &lt;4.5, or alpha-/beta-blocker if K⁺ ≥4.5 — consider specialist referral</li>
+            <li>Check adherence before stepping up</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <div class="step-title">Coding &amp; Documentation</div>
+          <ul class="step-list">
+            <li>Code all results on the day of appointment</li>
+            <li>Clinic BP: correct SNOMED BP code with systolic and diastolic values</li>
+            <li>HBPM: HBPM-specific SNOMED code — a generic BP code will not satisfy QOF</li>
+            <li>Medication changes: prescribe and link to clinical record same day</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-dot">6</div>
+        <div class="step-body">
+          <div class="step-title">Exception Reporting</div>
+          <p class="step-desc">May be entered by any appropriate staff member but must be <strong>approved by the GP</strong>, and only where clinically justified.</p>
+          <ul class="step-list">
+            <li>Patient informed but declines (patient declined)</li>
+            <li>Clinical contraindication approved by GP (e.g. severe frailty, terminal illness)</li>
+            <li>Registered within 3 months — new patient exception</li>
+          </ul>
+          <div class="alert alert-amber" style="margin-top:.8rem;">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Exception reporting must never be used to improve QOF scores without clinical justification.</strong> Commissioners may audit a random sample of exceptions — incorrect coding can result in financial claw-back.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MONITORING -->
+  <section id="monitoring">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Monitoring &amp; QOF Meeting</h2>
+    </div>
+    <div class="alert alert-burg">
+      <span class="alert-icon">📅</span>
+      <div>
+        <strong>Monthly QOF Meeting</strong>
+        The GP Lead, Pharmacist, Practice Manager and Admin Lead meet monthly to review the QOF dashboard, assess performance against targets, problem-solve barriers and agree actionable improvement plans for the following month.
+      </div>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden; margin-top:1rem;"><div style="overflow-x:auto;">
+      <table class="mon-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Activity</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Run hypertension register report; identify patients without a qualifying BP in the preceding 12 months</td>
+            <td>Admin Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>QOF meeting — review dashboard, performance and agree action plans</td>
+            <td>GP Lead (Chair)</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-monthly">Monthly</span></td>
+            <td>Check HYP008 and HYP009 achievement against thresholds</td>
+            <td>Practice Manager + Pharmacist</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-annually">Annually</span></td>
+            <td>Full register accuracy review — add new diagnoses, remove incorrect entries</td>
+            <td>GP Lead</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-asneeded">As needed</span></td>
+            <td>3+ failed contacts or DNAs raised at QOF meeting for team review</td>
+            <td>Admin Lead → QOF Meeting</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Admin Checklist</h2>
+    </div>
+    <p style="color:var(--slate-mid); font-size:.88rem; margin-bottom:1rem;">Click each item to mark it complete. Use this when processing a patient through the hypertension annual review cycle.</p>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Patient identified on hypertension register report — no qualifying BP in past 12 months</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Invitation letter / SMS sent (date logged)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>BP review appointment booked</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Review attended — BP recorded (clinic with correct technique, or HBPM average with HBPM SNOMED code)</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Weight, BMI, smoking and alcohol coded</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>All results coded same day in EMIS</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>BP above target: medication review actioned and repeat BP booked within 4–8 weeks</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>Medication changes prescribed and linked to clinical record</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>DNA: second invite sent within 5 working days</li>
+      <li onclick="toggle(this)"><span class="check-box">✓</span>3× DNA or failed contacts: added to QOF meeting agenda</li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Useful Resources</h2>
+    </div>
+    <ul class="resource-list">
+      <li>NICE NG136 — Hypertension in adults: diagnosis and management (2019, updated 2023): <strong>nice.org.uk/guidance/ng136</strong></li>
+      <li>NICE IND239 — Blood pressure in hypertension, aged ≤79 (basis for HYP008): <strong>nice.org.uk/indicator/ind239</strong></li>
+      <li>NICE IND240 — Blood pressure in hypertension, aged ≥80 (basis for HYP009): <strong>nice.org.uk/indicator/ind240</strong></li>
+      <li>British and Irish Hypertension Society — validated BP devices and HBPM protocol: <strong>bihsoc.org</strong></li>
+      <li>NHS England QOF guidance 2025/26: <strong>england.nhs.uk/qof</strong></li>
+    </ul>
+
+    <div class="card" style="margin-top:1.5rem; background: var(--burg-pale); border-color: #fda4af;">
+      <table style="width:100%; font-size:.82rem; color:var(--slate-mid);">
+        <tr>
+          <td><strong style="color:var(--burg-dark);">Version</strong></td>
+          <td>1.0</td>
+          <td><strong style="color:var(--burg-dark);">Effective</strong></td>
+          <td>April 2025</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--burg-dark);">Review due</strong></td>
+          <td>March 2026</td>
+          <td><strong style="color:var(--burg-dark);">Owner</strong></td>
+          <td>GP Lead</td>
+        </tr>
+      </table>
+      <p style="margin-top:.8rem; font-size:.82rem; color:var(--slate-mid); font-style:italic;">This document should be reviewed annually in line with NHS England QOF guidance updates. All staff are expected to have read and understood this SOP before managing patients under the hypertension QOF indicators.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Hypertension QOF SOP 2025/26 &nbsp;·&nbsp; NHS England Quality and Outcomes Framework &nbsp;·&nbsp; Confidential — For Internal Use Only
+</footer>
+
+<script>
+  const allSections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  allSections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.classList.add('animate');
+      observer.observe(s);
+    }
+  });
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+  }
+
+  const rolesObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.role-card').forEach((card, i) => {
+          card.style.transition = `opacity .5s ease ${i * .08}s, transform .5s ease ${i * .08}s, box-shadow .2s, border-color .2s`;
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0)';
+        });
+        rolesObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.roles-grid').forEach(g => {
+    const rect = g.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      g.querySelectorAll('.role-card').forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px)';
+      });
+    }
+    rolesObserver.observe(g);
+  });
+</script>
+</body>
+</html>

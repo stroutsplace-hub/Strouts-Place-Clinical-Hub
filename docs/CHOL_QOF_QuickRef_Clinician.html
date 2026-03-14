@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHOL QOF — Clinician Quick Reference 2025/26</title>
+<style>
+  :root {
+    --purple:       #7c3aed;
+    --purple-dark:  #5b21b6;
+    --purple-light: #ddd6fe;
+    --purple-pale:  #f5f3ff;
+    --slate:        #082032;
+    --slate-mid:    #334155;
+    --slate-light:  #94a3b8;
+    --amber:        #f59e0b;
+    --amber-light:  #fef3c7;
+    --amber-dark:   #92400e;
+    --orange:       #ea580c;
+    --orange-pale:  #fff7ed;
+    --orange-border:#fed7aa;
+    --info-light:   #eff6ff;
+    --info-border:  #93c5fd;
+    --green-pale:   #f0fdf4;
+    --green:        #16a34a;
+    --green-border: #86efac;
+    --white:        #ffffff;
+    --surface:      #f8fafc;
+    --border:       #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(124,58,237,.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(124,58,237,.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-shrink: 0;
+  }
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: .9rem;
+    color: var(--purple-dark);
+    white-space: nowrap;
+  }
+  .nav-tag {
+    background: var(--purple-pale);
+    border: 1px solid var(--purple-light);
+    color: var(--purple-dark);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .2rem .6rem;
+    border-radius: 999px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: .25rem .6rem;
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--purple-light); color: var(--purple-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 66px 1.25rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #1a0533 0%, #3b0764 60%, #2e1065 100%);
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 85% 30%, rgba(221,214,254,.15) 0%, transparent 50%);
+  }
+  .page-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    position: relative;
+  }
+  .page-header h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: white;
+    line-height: 1.15;
+  }
+  .page-header h1 em { color: #c4b5fd; font-style: italic; }
+  .page-header p { color: #94a3b8; font-size: .82rem; margin-top: .3rem; }
+  .header-badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .header-badge {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    color: #cbd5e1;
+    font-size: .68rem;
+    padding: .2rem .6rem;
+    border-radius: 5px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .75rem;
+    margin-top: 1.5rem;
+  }
+  .sec-num {
+    width: 26px; height: 26px;
+    background: var(--purple);
+    color: white;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .75rem;
+    flex-shrink: 0;
+  }
+  .sec-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    color: var(--slate);
+  }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 1rem; }
+  .ind-table { width: 100%; border-collapse: collapse; }
+  .ind-table thead tr { background: #5b21b6; }
+  .ind-table thead th { color: white; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: .6rem .9rem; text-align: left; }
+  .ind-table tbody tr:nth-child(even) { background: var(--purple-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--purple-light); }
+  .ind-table td { padding: .6rem .9rem; font-size: .83rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--purple-dark); font-size: .78rem; background: var(--purple-light); padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; display: inline-block; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .78rem; padding: .15rem .45rem; border-radius: 4px; text-align: center; min-width: 24px; }
+  .target-pill  { display: inline-block; background: var(--purple-pale); color: var(--purple-dark); font-weight: 600; font-size: .74rem; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; }
+
+  /* ── CHOLESTEROL TARGET CARDS ── */
+  .chol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+  .chol-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+  .chol-card.ldl  { border-left: 4px solid var(--purple); }
+  .chol-card.nhdl { border-left: 4px solid #4c1d95; }
+  .chol-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--slate-light); margin-bottom: .2rem; }
+  .chol-num   { font-family: Georgia, 'Times New Roman', serif; font-size: 1.8rem; color: var(--purple-dark); line-height: 1; }
+  .chol-unit  { font-size: .72rem; color: var(--slate-mid); }
+  .chol-note  { display: inline-block; background: var(--purple-pale); color: var(--purple-dark); font-size: .68rem; font-weight: 600; padding: .15rem .45rem; border-radius: 4px; margin-top: .3rem; }
+
+  /* ── RESULT PATHWAY ── */
+  .pathway { display: grid; grid-template-columns: 1fr 4px 1fr 4px 1fr; gap: .6rem; align-items: stretch; margin-bottom: 1rem; }
+  .path-card { border-radius: 10px; padding: .8rem 1rem; border: 1px solid; }
+  .path-card.at-target  { background: var(--green-pale);   border-color: var(--green-border); border-top: 3px solid var(--green); }
+  .path-card.not-target { background: var(--orange-pale);  border-color: var(--orange-border); border-top: 3px solid var(--orange); }
+  .path-card.intolerant { background: var(--info-light);   border-color: var(--info-border);  border-top: 3px solid #3b82f6; }
+  .path-div  { background: var(--border); border-radius: 2px; align-self: stretch; }
+  .path-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .35rem; }
+  .path-card.at-target  .path-head { color: var(--green); }
+  .path-card.not-target .path-head { color: var(--orange); }
+  .path-card.intolerant .path-head { color: #1d4ed8; }
+  .path-card ul { list-style: none; }
+  .path-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .18rem 0; padding-left: .9rem; position: relative; line-height: 1.4; }
+  .path-card ul li::before { content: '→'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .22rem; }
+  .path-card.at-target  ul li::before { color: var(--green); }
+  .path-card.not-target ul li::before { color: var(--orange); }
+  .path-card.intolerant ul li::before { color: #3b82f6; }
+
+  /* ── TREATMENT PATHWAY GRID ── */
+  .tx-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+  .tx-card { border-radius: 10px; padding: .8rem 1rem; border: 1px solid; }
+  .tx-card.first  { background: var(--purple-pale); border-color: var(--purple-light); border-top: 3px solid var(--purple); }
+  .tx-card.second { background: var(--orange-pale); border-color: var(--orange-border); border-top: 3px solid var(--orange); }
+  .tx-card.third  { background: var(--info-light);  border-color: var(--info-border);  border-top: 3px solid #3b82f6; }
+  .tx-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .35rem; }
+  .tx-card.first  .tx-head { color: var(--purple-dark); }
+  .tx-card.second .tx-head { color: var(--orange); }
+  .tx-card.third  .tx-head { color: #1d4ed8; }
+  .tx-card p { font-size: .8rem; color: var(--slate-mid); line-height: 1.45; }
+  .tx-card ul { list-style: none; margin-top: .3rem; }
+  .tx-card ul li { font-size: .79rem; color: var(--slate-mid); padding: .15rem 0; padding-left: .9rem; position: relative; line-height: 1.4; }
+  .tx-card ul li::before { content: '·'; position: absolute; left: 0; font-weight: 900; }
+  .tx-card.first  ul li::before { color: var(--purple); }
+  .tx-card.second ul li::before { color: var(--orange); }
+  .tx-card.third  ul li::before { color: #3b82f6; }
+
+  /* ── DRUG PILLS ── */
+  .drug-pills { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .5rem; }
+  .drug-pill  { font-size: .72rem; font-weight: 600; padding: .15rem .5rem; border-radius: 4px; }
+  .drug-pill.purple { background: var(--purple-light); color: var(--purple-dark); }
+  .drug-pill.blue   { background: #dbeafe; color: #1e40af; }
+  .drug-pill.orange { background: #fed7aa; color: #9a3412; }
+
+  /* ── MED REVIEW CARDS ── */
+  .med-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+  .med-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: .85rem 1rem; }
+  .med-card.chol003 { border-top: 3px solid var(--purple); }
+  .med-card.chol004 { border-top: 3px solid #4c1d95; }
+  .med-head { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .4rem; }
+  .med-card.chol003 .med-head { color: var(--purple-dark); }
+  .med-card.chol004 .med-head { color: #4c1d95; }
+  .med-card ul { list-style: none; }
+  .med-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .18rem 0; padding-left: .9rem; position: relative; line-height: 1.4; }
+  .med-card ul li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .22rem; color: var(--purple); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem 2.5rem;
+    color: var(--slate-light);
+    font-size: .72rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .5rem; }
+    .nav-tag { display: none; }
+    main { padding: 58px 1rem 2.5rem; }
+    .page-header { padding: 1.4rem 1.25rem; border-radius: 12px; }
+    .page-header h1 { font-size: 1.5rem; }
+    .chol-grid  { grid-template-columns: 1fr; }
+    .tx-grid    { grid-template-columns: 1fr; }
+    .med-grid   { grid-template-columns: 1fr; }
+    .pathway    { grid-template-columns: 1fr; }
+    .path-div   { display: none; }
+  }
+
+  @media (max-width: 400px) {
+    .nav-brand { font-size: .78rem; }
+    main { padding: 56px .75rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-brand">Strouts Place &nbsp;·&nbsp; CHOL QOF</span>
+    <span class="nav-tag">Quick Reference</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#targets">Targets</a></li>
+    <li><a href="#treatment">Treatment</a></li>
+    <li><a href="#review">Med Review</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <h1>Cholesterol &amp; <em>Lipid Management</em><br>Clinician Quick Reference</h1>
+        <p>CHOL003 · CHOL004 &nbsp;·&nbsp; Strouts Place Medical Centre &nbsp;·&nbsp; 2025/26</p>
+      </div>
+      <div class="header-badges">
+        <span class="header-badge">Version 1.0</span>
+        <span class="header-badge">April 2025</span>
+        <span class="header-badge">Owner: GP Lead</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="sec-label">
+      <div class="sec-num">1</div>
+      <h2 class="sec-title">QOF Indicators</h2>
+    </div>
+    <div class="ind-wrap">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>What must be confirmed / recorded</th>
+            <th>Register</th>
+            <th>Pts</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">CHOL003</span></td>
+            <td>Currently prescribed a <strong>statin</strong>, or where declined/unsuitable, another lipid-lowering therapy</td>
+            <td>CHD, PAD, Stroke/TIA, CKD</td>
+            <td><span class="points-badge">38</span></td>
+            <td><span class="target-pill">70–95%</span></td>
+            <td>Current</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">CHOL004</span></td>
+            <td>Most recent cholesterol result: LDL <strong>≤2.0 mmol/L</strong> or non-HDL <strong>≤2.6 mmol/L</strong>. Where both available on same date, <strong>LDL takes priority</strong></td>
+            <td>CHD, PAD, Stroke/TIA</td>
+            <td><span class="points-badge">44</span></td>
+            <td><span class="target-pill">20–50%</span></td>
+            <td>12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.76rem; color:var(--slate-light); margin-top:-.4rem; margin-bottom:1rem;">⚡ QOF uses the <strong>most recent</strong> cholesterol result in the 12-month window — a timely repeat test after therapy change can secure attainment.</p>
+  </section>
+
+  <!-- TARGETS -->
+  <section id="targets">
+    <div class="sec-label">
+      <div class="sec-num">2</div>
+      <h2 class="sec-title">Cholesterol Targets at a Glance</h2>
+    </div>
+    <div class="chol-grid">
+      <div class="chol-card ldl">
+        <div>
+          <div class="chol-label">CHOL004 — LDL Cholesterol</div>
+          <div class="chol-num">≤ 2.0</div>
+          <div class="chol-unit">mmol/L</div>
+          <div class="chol-note">Priority reading if both LDL and non-HDL available on same date</div>
+        </div>
+        <div style="font-size:2rem; opacity:.2;">🧬</div>
+      </div>
+      <div class="chol-card nhdl">
+        <div>
+          <div class="chol-label">CHOL004 — Non-HDL Cholesterol</div>
+          <div class="chol-num">≤ 2.6</div>
+          <div class="chol-unit">mmol/L</div>
+          <div class="chol-note">Used when LDL not available on the most recent date</div>
+        </div>
+        <div style="font-size:2rem; opacity:.2;">🧬</div>
+      </div>
+    </div>
+    <div style="background:var(--amber-light); border:1px solid #fcd34d; border-radius:10px; padding:.75rem 1rem; font-size:.8rem; color:var(--slate-mid); margin-bottom:1rem;">
+      <strong style="color:var(--amber-dark);">⚠️ Note on register scope:</strong> CHOL003 includes patients on the <strong>CKD register</strong> in addition to CHD, PAD and Stroke/TIA. CHOL004 does <strong>not</strong> include CKD patients — it covers CHD, PAD and Stroke/TIA only.
+    </div>
+  </section>
+
+  <!-- TREATMENT -->
+  <section id="treatment">
+    <div class="sec-label">
+      <div class="sec-num">3</div>
+      <h2 class="sec-title">Lipid-Lowering Treatment Pathway</h2>
+    </div>
+    <div class="tx-grid">
+      <div class="tx-card first">
+        <div class="tx-head">1st Line — High-Intensity Statin</div>
+        <p>Recommended for all patients with established CVD for secondary prevention (NICE NG238).</p>
+        <ul>
+          <li>Atorvastatin 40–80 mg daily</li>
+          <li>Rosuvastatin 20–40 mg daily</li>
+        </ul>
+        <div class="drug-pills">
+          <span class="drug-pill purple">Atorvastatin 40 mg</span>
+          <span class="drug-pill purple">Atorvastatin 80 mg</span>
+          <span class="drug-pill purple">Rosuvastatin 20 mg</span>
+        </div>
+      </div>
+      <div class="tx-card second">
+        <div class="tx-head">2nd Line — Statin Declined / Not Tolerated</div>
+        <p>Document reason. Initiate oral non-statin therapy.</p>
+        <ul>
+          <li>Ezetimibe 10 mg daily — first choice</li>
+          <li>Add bempedoic acid if ezetimibe insufficient (NICE TA694)</li>
+        </ul>
+        <div class="drug-pills">
+          <span class="drug-pill orange">Ezetimibe 10 mg</span>
+          <span class="drug-pill orange">Bempedoic acid / ezetimibe</span>
+        </div>
+      </div>
+      <div class="tx-card third">
+        <div class="tx-head">3rd Line — Injectable Therapies</div>
+        <p><strong>Specialist initiation only</strong> — refer via agreed local pathway for persistently elevated LDL despite oral therapy. Do not initiate in primary care.</p>
+        <ul>
+          <li>Inclisiran — if LDL ≥2.6 mmol/L (NICE TA733)</li>
+          <li>Alirocumab / evolocumab — if LDL &gt;3.5–4.0 mmol/L (NICE TA393 / TA394)</li>
+        </ul>
+        <div class="drug-pills">
+          <span class="drug-pill blue">Inclisiran</span>
+          <span class="drug-pill blue">Alirocumab</span>
+          <span class="drug-pill blue">Evolocumab</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MED REVIEW -->
+  <section id="review">
+    <div class="sec-label">
+      <div class="sec-num">4</div>
+      <h2 class="sec-title">Medication Review — Pharmacist</h2>
+    </div>
+
+    <div class="med-card chol003" style="margin-bottom:1rem;">
+      <div class="med-head">💊 &nbsp;CHOL003 — Statin / Lipid-Lowering Therapy</div>
+      <ul>
+        <li>Confirm statin is on the active medication list — not stopped or marked as not taken</li>
+        <li>If no lipid-lowering therapy prescribed and no exception recorded — initiate or escalate to GP</li>
+        <li>Where statin declined or not tolerated — code reason and initiate alternative therapy</li>
+        <li>Review <strong>LFTs annually</strong> in patients on statins</li>
+        <li>Assess for myalgia and other statin side effects at every review</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--info-light); border:1px solid var(--info-border); border-radius:10px; padding:.8rem 1rem; font-size:.8rem; color:var(--slate-mid); margin-bottom:1rem;">
+      <strong style="color:#1d4ed8;">🧪 Blood tests to arrange</strong> — fasting lipid profile (total cholesterol, LDL, HDL, non-HDL, triglycerides) + <strong>liver function tests</strong> (annual statin monitoring). Renal function if on ACE-I, ARB or diuretic.
+    </div>
+
+    <div style="background:var(--green-pale); border:1px solid var(--green-border); border-radius:10px; padding:.75rem 1rem; font-size:.8rem; color:var(--slate-mid);">
+      <strong style="color:var(--green);">🔄 After any therapy change</strong> — arrange a repeat fasting lipid profile in <strong>8–12 weeks</strong>.
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Cholesterol &amp; Lipid Management QOF Clinician Quick Reference 2025/26 &nbsp;·&nbsp; For internal clinical use only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('section').forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.style.opacity = 0;
+      s.style.transform = 'translateY(20px)';
+      s.style.transition = 'opacity .5s ease, transform .5s ease';
+      obs.observe(s);
+    }
+  });
+</script>
+</body>
+</html>

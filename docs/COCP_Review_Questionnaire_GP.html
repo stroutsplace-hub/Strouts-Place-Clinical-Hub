@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COCP Review Questionnaire — Strouts Place Medical Centre</title>
+<style>
+  :root {
+    --navy: #0f2942;
+    --navy-mid: #1a3d5c;
+    --teal: #0ea472;
+    --teal-light: #d4f5e9;
+    --teal-dark: #0b7a56;
+    --rose: #be185d;
+    --rose-light: #fce7f3;
+    --rose-mid: #f9a8d4;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --muted: #64748b;
+    --light: #f1f5f9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: var(--navy);
+    color: #fff;
+    padding: 1.5rem 2rem 1.25rem;
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .header-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .header-subtitle {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0.25rem;
+  }
+  .header-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+  }
+  .badge.rose { background: var(--rose-light); color: var(--rose); border-color: var(--rose-mid); }
+
+  /* PATIENT INFO BANNER */
+  .patient-banner {
+    background: var(--surface);
+    border-bottom: 2px solid var(--teal);
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .patient-field { flex: 1; min-width: 200px; }
+  .patient-field label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .patient-field .field-line {
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    width: 100%;
+    padding: 4px 0;
+    font-size: 0.9rem;
+    background: transparent;
+    color: var(--text);
+    outline: none;
+  }
+  .patient-field .field-line:focus { border-bottom-color: var(--teal); }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 820px;
+    margin: 1.5rem auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  /* ALERT BANNER */
+  .alert {
+    display: flex;
+    gap: 10px;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+  .alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .alert.red { background: var(--red-light); border: 1px solid #fca5a5; color: #991b1b; }
+  .alert.amber { background: var(--amber-light); border: 1px solid #fcd34d; color: #92400e; }
+
+  /* SECTION */
+  .section {
+    background: var(--surface);
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .section-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .section-body { padding: 0; }
+
+  /* QUESTION ROW */
+  .q-row {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-row:last-child { border-bottom: none; }
+  .q-row.flagged { background: var(--red-light); border-left: 3px solid var(--red); }
+  .q-row.amber-flag { background: var(--amber-light); border-left: 3px solid var(--amber); }
+
+  .q-label {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0.6rem;
+    align-items: flex-start;
+  }
+  .q-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 20px;
+    padding-top: 2px;
+  }
+  .q-text {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .q-flag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--red-light);
+    color: var(--red);
+    margin-left: 6px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .q-flag.amber { background: var(--amber-light); color: var(--amber); }
+
+  /* ANSWER AREA */
+  .answer-area { padding-left: 28px; }
+
+  /* CHECKBOXES */
+  .check-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 0.5rem; }
+  .check-option {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--light);
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--text);
+    transition: border-color .15s, background .15s;
+    user-select: none;
+  }
+  .check-option:hover { border-color: var(--teal); background: var(--teal-light); }
+  .check-option input[type="checkbox"] { width: 15px; height: 15px; accent-color: var(--teal); cursor: pointer; }
+  .check-option.danger { border-color: #fca5a5; }
+  .check-option.danger:hover { border-color: var(--red); background: var(--red-light); }
+  .check-option input[type="checkbox"].danger { accent-color: var(--red); }
+
+  /* STACKED CHECKBOXES */
+  .check-stack { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.5rem; }
+  .check-stack .check-option { width: fit-content; }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    padding: 4px 0;
+    font-size: 0.85rem;
+    background: transparent;
+    color: var(--text);
+    outline: none;
+    margin-top: 4px;
+  }
+  .text-input:focus { border-bottom-color: var(--teal); }
+  .text-input-label { font-size: 0.75rem; color: var(--muted); margin-right: 6px; }
+
+  .inline-input { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .inline-input input {
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    padding: 3px 0;
+    font-size: 0.85rem;
+    background: transparent;
+    color: var(--text);
+    outline: none;
+    min-width: 100px;
+    flex: 1;
+  }
+  .inline-input input:focus { border-bottom-color: var(--teal); }
+
+  /* TEXTAREA */
+  .notes-area {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: var(--light);
+    color: var(--text);
+    resize: vertical;
+    outline: none;
+    margin-top: 6px;
+    min-height: 80px;
+  }
+  .notes-area:focus { border-color: var(--teal); background: var(--surface); }
+
+  /* CLINICIAN SECTION */
+  .clinician-section {
+    background: var(--navy);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    color: #fff;
+  }
+  .clinician-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1rem;
+  }
+  .clinician-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .clinician-field label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .clinician-field input, .clinician-field select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+  }
+  .clinician-field input:focus, .clinician-field select:focus { border-color: var(--teal); }
+  .clinician-field select option { background: var(--navy); color: #fff; }
+  .clinician-notes { margin-top: 1rem; }
+  .clinician-notes label { display: block; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.55); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .clinician-notes textarea { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 8px 10px; color: #fff; font-size: 0.85rem; font-family: inherit; outline: none; resize: vertical; min-height: 70px; }
+  .clinician-notes textarea:focus { border-color: var(--teal); }
+  .clinician-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+  .clinician-pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.85);
+    font-size: 0.8rem; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .clinician-pill:hover { border-color: var(--teal); background: rgba(14,164,114,0.15); }
+  .clinician-pill input { width: 14px; height: 14px; accent-color: var(--teal); cursor: pointer; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  @media print {
+    body { background: white; }
+    .main { padding: 0; max-width: 100%; }
+    .section, .clinician-section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Combined Oral Contraceptive Pill (COCP)<br>Review Questionnaire</div>
+      <div class="header-subtitle">Strouts Place Medical Centre · For use in General Practice</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge rose">🌸 Women's Health</span>
+      <span class="badge">2025/26</span>
+      <span class="badge">Confidential</span>
+    </div>
+  </div>
+</div>
+
+<!-- PATIENT INFO -->
+<div class="patient-banner">
+  <div class="patient-field" style="flex: 2;">
+    <label>Full Name</label>
+    <input class="field-line" type="text" placeholder="Patient full name">
+  </div>
+  <div class="patient-field">
+    <label>Date of Birth</label>
+    <input class="field-line" type="text" placeholder="DD / MM / YYYY">
+  </div>
+  <div class="patient-field">
+    <label>Date of Review</label>
+    <input class="field-line" type="text" placeholder="DD / MM / YYYY">
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ALERT -->
+  <div class="alert red">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Important:</strong> Questions marked <span style="background:#fee2e2;color:#dc2626;font-weight:700;padding:1px 6px;border-radius:4px;font-size:0.75rem;">STOP &amp; REVIEW</span> indicate potential contraindications. If ticked YES, do not reissue COCP without GP review.</div>
+  </div>
+
+  <!-- SECTION 1: GENERAL HEALTH -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">1</div>
+      <div class="section-title">General Health</div>
+    </div>
+    <div class="section-body">
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">1.</span>
+          <span class="q-text">Do you currently smoke?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — how many per day?</span>
+            <input type="text" placeholder="e.g. 10">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">2.</span>
+          <span class="q-text">Has your weight changed significantly in the last year?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — details:</span>
+            <input type="text" placeholder="Please describe">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">3.</span>
+          <span class="q-text">Do you have regular blood pressure checks?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Yes</label>
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Not sure</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row amber-flag">
+        <div class="q-label">
+          <span class="q-num">4.</span>
+          <span class="q-text">Do you suffer from migraines? <span class="q-flag amber">REVIEW</span></span>
+        </div>
+        <div class="answer-area">
+          <div class="check-stack">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Yes — without aura (no warning signs)</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Yes — with aura (e.g. flashing lights, zig-zag lines, speech disturbance)</label>
+          </div>
+          <div class="alert amber" style="margin-top:6px; margin-bottom:0; font-size:0.78rem; padding: 6px 10px;">
+            <span class="alert-icon">⚡</span>
+            <div>Migraine with aura is a <strong>UKMEC 4 absolute contraindication</strong> for COCP. Do not reissue — refer to GP.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row flagged">
+        <div class="q-label">
+          <span class="q-num">5.</span>
+          <span class="q-text">Have you had any of the following since your last review? <span class="q-flag">STOP &amp; REVIEW</span></span>
+        </div>
+        <div class="answer-area">
+          <div class="check-stack">
+            <label class="check-option danger"><input type="checkbox" class="danger"> Leg swelling or pain</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Chest pain / shortness of breath</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Visual disturbances</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Jaundice</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Severe headaches</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> High blood pressure diagnosis</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: FAMILY & MEDICAL HISTORY -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">2</div>
+      <div class="section-title">Family &amp; Medical History</div>
+    </div>
+    <div class="section-body">
+
+      <div class="q-row flagged">
+        <div class="q-label">
+          <span class="q-num">6.</span>
+          <span class="q-text">Have you or an immediate family member had a blood clot, stroke, or heart attack under age 45? <span class="q-flag">STOP &amp; REVIEW</span></span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — details:</span>
+            <input type="text" placeholder="Relationship and condition">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">7.</span>
+          <span class="q-text">Are you taking any new medications (including over-the-counter or herbal)?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — list:</span>
+            <input type="text" placeholder="Medication names">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">8.</span>
+          <span class="q-text">Any new diagnoses or health issues since last review?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — please specify:</span>
+            <input type="text" placeholder="Details">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: CONTRACEPTIVE USE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">3</div>
+      <div class="section-title">Contraceptive Use &amp; Preferences</div>
+    </div>
+    <div class="section-body">
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">9.</span>
+          <span class="q-text">Are you happy with your current method of contraception?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Yes</label>
+            <label class="check-option"><input type="checkbox"> No — would like to discuss alternatives</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">10.</span>
+          <span class="q-text">Do you take your pill regularly and at the same time daily?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Yes</label>
+            <label class="check-option"><input type="checkbox"> No</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If no — frequency of missed pills:</span>
+            <input type="text" placeholder="e.g. once a week">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">11.</span>
+          <span class="q-text">Any side effects from your pill?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> No</label>
+            <label class="check-option"><input type="checkbox"> Yes</label>
+          </div>
+          <div class="inline-input">
+            <span class="text-input-label">If yes — please describe:</span>
+            <input type="text" placeholder="e.g. nausea, mood changes, headaches">
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">12.</span>
+          <span class="q-text">Interested in long-acting contraception options (coil, implant, injection)?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Yes — please discuss</label>
+            <label class="check-option"><input type="checkbox"> No</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: SCREENING -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">4</div>
+      <div class="section-title">Screening &amp; Health Maintenance</div>
+    </div>
+    <div class="section-body">
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">13.</span>
+          <span class="q-text">When was your last cervical smear (if applicable)?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Within 3 years</label>
+            <label class="check-option danger"><input type="checkbox" class="danger"> Over 3 years ago</label>
+            <label class="check-option"><input type="checkbox"> Not sure</label>
+            <label class="check-option"><input type="checkbox"> N/A</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">14.</span>
+          <span class="q-text">When was your last sexual health check?</span>
+        </div>
+        <div class="answer-area">
+          <div class="check-group">
+            <label class="check-option"><input type="checkbox"> Within 1 year</label>
+            <label class="check-option"><input type="checkbox"> Over 1 year ago</label>
+            <label class="check-option"><input type="checkbox"> Never</label>
+            <label class="check-option"><input type="checkbox"> N/A</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5: ADDITIONAL NOTES -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">5</div>
+      <div class="section-title">Additional Notes</div>
+    </div>
+    <div class="section-body">
+      <div class="q-row">
+        <div class="q-label">
+          <span class="q-num">15.</span>
+          <span class="q-text">Any concerns or questions to discuss with your clinician?</span>
+        </div>
+        <div class="answer-area">
+          <textarea class="notes-area" placeholder="Patient to complete — free text…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLINICIAN USE ONLY -->
+  <div class="clinician-section">
+    <div class="clinician-title">🩺 For Clinician Use Only</div>
+    <div class="clinician-grid">
+      <div class="clinician-field">
+        <label>Blood Pressure (today)</label>
+        <input type="text" placeholder="e.g. 118 / 76 mmHg">
+      </div>
+      <div class="clinician-field">
+        <label>BMI / Weight</label>
+        <input type="text" placeholder="e.g. 23.4 / 65 kg">
+      </div>
+      <div class="clinician-field">
+        <label>Clinician Name</label>
+        <input type="text" placeholder="Name and role">
+      </div>
+      <div class="clinician-field">
+        <label>Review Outcome</label>
+        <select>
+          <option value="">— select —</option>
+          <option>COCP continued — no concerns</option>
+          <option>COCP continued — follow-up arranged</option>
+          <option>COCP switched to alternative</option>
+          <option>COCP discontinued</option>
+          <option>Referred to GP</option>
+          <option>Referred to specialist</option>
+        </select>
+      </div>
+    </div>
+    <div class="clinician-notes">
+      <label>Clinical Notes &amp; Actions</label>
+      <textarea placeholder="Document clinical decisions, counselling given, actions taken…"></textarea>
+    </div>
+    <div class="clinician-pills">
+      <label class="clinician-pill"><input type="checkbox"> Pill issued (3 months)</label>
+      <label class="clinician-pill"><input type="checkbox"> Pill issued (6 months)</label>
+      <label class="clinician-pill"><input type="checkbox"> BP checked &amp; recorded</label>
+      <label class="clinician-pill"><input type="checkbox"> Cervical screening advised</label>
+      <label class="clinician-pill"><input type="checkbox"> STI screening offered</label>
+      <label class="clinician-pill"><input type="checkbox"> LARC counselling given</label>
+      <label class="clinician-pill"><input type="checkbox"> Next review booked</label>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; COCP Review Questionnaire 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+</body>
+</html>

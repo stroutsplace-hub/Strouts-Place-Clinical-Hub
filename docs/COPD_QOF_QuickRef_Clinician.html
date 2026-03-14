@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPD QOF 2025/26 — Clinical Quick Reference</title>
+<style>
+:root {
+  --b:       #4f46e5;
+  --b-dark:  #3730a3;
+  --b-deep:  #1e1b4b;
+  --b-light: #c7d2fe;
+  --b-pale:  #eef2ff;
+  --slate:   #0f172a;
+  --mid:     #475569;
+  --light:   #94a3b8;
+  --amber:   #f59e0b;
+  --amb-l:   #fef3c7;
+  --amb-d:   #78350f;
+  --green:   #059669;
+  --g-pale:  #f0fdf4;
+  --g-light: #a7f3d0;
+  --g-deep:  #065f46;
+  --red:     #dc2626;
+  --red-l:   #fef2f2;
+  --red-b:   #fecaca;
+  --orange:  #ea580c;
+  --ora-l:   #fff7ed;
+  --ora-b:   #fed7aa;
+  --white:   #ffffff;
+  --surf:    #f8fafc;
+  --border:  #e2e8f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--surf);
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 55%, #4f46e5 100%);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 10%, rgba(199,210,254,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--b-light);
+  margin-bottom: .3rem;
+}
+.header-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: white;
+  line-height: 1.1;
+}
+.header-title em { font-style: italic; color: var(--b-light); }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; }
+.hbadge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #cbd5e1;
+  font-size: .68rem;
+  padding: .2rem .6rem;
+  border-radius: 5px;
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 3rem;
+}
+
+/* ── SECTION TITLE ── */
+.sec { margin-bottom: 1.2rem; }
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .6rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--b-light);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--b-dark);
+}
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; }
+@media (max-width: 640px) {
+  .grid2, .grid3 { grid-template-columns: 1fr; }
+  .grid5 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .85rem 1rem;
+}
+.card-title {
+  font-weight: 700;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .45rem;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.card.blue   { border-left: 3px solid var(--b); }
+.card.green  { border-left: 3px solid var(--green);  background: var(--g-pale); }
+.card.red    { border-left: 3px solid var(--red);    background: var(--red-l); }
+.card.amber  { border-left: 3px solid var(--amber);  background: var(--amb-l); }
+.card.orange { border-left: 3px solid var(--orange); background: var(--ora-l); }
+.card.blue   .card-title { color: var(--b-dark); }
+.card.green  .card-title { color: var(--g-deep); }
+.card.red    .card-title { color: var(--red); }
+.card.amber  .card-title { color: var(--amb-d); }
+.card.orange .card-title { color: var(--orange); }
+
+/* ── CHECKLIST ROWS ── */
+.clist { list-style: none; }
+.clist li {
+  font-size: .82rem;
+  color: var(--mid);
+  padding: .22rem 0 .22rem 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  line-height: 1.4;
+}
+.clist li:last-child { border-bottom: none; }
+.clist li::before { content: '→'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .28rem; color: var(--b); }
+.clist.green  li::before { color: var(--green); }
+.clist.red    li::before { color: var(--red); }
+.clist.amber  li::before { color: var(--amber); }
+.clist.orange li::before { color: var(--orange); }
+
+/* ── INDICATOR TABLE ── */
+.ind-table { width: 100%; border-collapse: collapse; font-size: .82rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.ind-table thead tr { background: var(--b-dark); }
+.ind-table thead th { color: white; padding: .55rem .75rem; text-align: left; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+.ind-table tbody tr:nth-child(even) { background: var(--b-pale); }
+.ind-table td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+.ind-table tr:last-child td { border-bottom: none; }
+.code-badge { background: var(--b-dark); color: white; font-size: .72rem; font-weight: 700; padding: .18rem .5rem; border-radius: 5px; white-space: nowrap; }
+.pts-badge  { background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 700; padding: .18rem .5rem; border-radius: 5px; }
+.tgt-pill   { background: var(--g-pale); color: var(--g-deep); font-size: .72rem; font-weight: 600; padding: .18rem .5rem; border-radius: 999px; border: 1px solid var(--g-light); }
+.les-badge  { background: var(--b-pale); color: var(--b-dark); font-size: .68rem; font-weight: 700; padding: .1rem .4rem; border-radius: 4px; border: 1px solid var(--b-light); white-space: nowrap; margin-left: .3rem; }
+
+/* ── ALERT ── */
+.alert {
+  border-radius: 8px;
+  padding: .65rem .85rem;
+  font-size: .8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+.alert.blue   { background: var(--b-pale);  border: 1px solid var(--b-light); color: var(--b-dark); }
+.alert.amber  { background: var(--amb-l);   border: 1px solid #fcd34d;        color: var(--amb-d); }
+.alert.red    { background: var(--red-l);   border: 1px solid var(--red-b);   color: var(--red); }
+.alert.green  { background: var(--g-pale);  border: 1px solid var(--g-light); color: var(--g-deep); }
+.alert.orange { background: var(--ora-l);   border: 1px solid var(--ora-b);   color: var(--orange); }
+.alert-icon   { font-size: 1rem; flex-shrink: 0; line-height: 1.4; }
+
+/* ── MRC TABLE ── */
+.mrc-table { width: 100%; border-collapse: collapse; font-size: .82rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.mrc-table thead tr { background: var(--b-dark); }
+.mrc-table thead th { color: white; padding: .55rem .75rem; text-align: left; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.mrc-table tbody tr:nth-child(odd)  { background: var(--white); }
+.mrc-table tbody tr:nth-child(even) { background: var(--b-pale); }
+.mrc-table td { padding: .55rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; font-size: .82rem; color: var(--mid); }
+.mrc-table tr:last-child td { border-bottom: none; }
+.mrc-grade { display: inline-block; color: white; font-weight: 700; border-radius: 5px; padding: .12rem .45rem; font-size: .78rem; min-width: 24px; text-align: center; background: var(--b); }
+.mrc-grade.g3 { background: var(--amber); }
+.mrc-grade.g4 { background: var(--orange); }
+.mrc-grade.g5 { background: var(--red); }
+
+/* ── CAT TABLE ── */
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-bottom: .5rem; }
+@media (max-width: 600px) { .cat-grid { grid-template-columns: 1fr 1fr; } }
+.cat-card {
+  border-radius: 8px;
+  padding: .6rem .75rem;
+  border: 1px solid;
+  text-align: center;
+}
+.cat-score { font-family: Georgia, serif; font-size: 1.2rem; font-weight: 700; margin-bottom: .1rem; }
+.cat-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .2rem; }
+.cat-desc  { font-size: .7rem; line-height: 1.3; }
+.cat-card.low    { background: var(--g-pale);  border-color: var(--g-light); }
+.cat-card.med    { background: var(--amb-l);   border-color: #fde047; }
+.cat-card.high   { background: var(--ora-l);   border-color: var(--ora-b); }
+.cat-card.vhigh  { background: var(--red-l);   border-color: var(--red-b); }
+.cat-card.low   .cat-score, .cat-card.low   .cat-label { color: #15803d; }
+.cat-card.med   .cat-score, .cat-card.med   .cat-label { color: #a16207; }
+.cat-card.high  .cat-score, .cat-card.high  .cat-label { color: var(--orange); }
+.cat-card.vhigh .cat-score, .cat-card.vhigh .cat-label { color: var(--red); }
+
+/* ── DIVIDER ── */
+hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem;
+  color: var(--light);
+  font-size: .72rem;
+  border-top: 1px solid var(--border);
+  max-width: 960px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="header-tag">Strouts Place Medical Centre · QOF 2025/26</div>
+      <div class="header-title">COPD<br><em>Clinical Quick Reference</em></div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge">COPD010</span>
+      <span class="hbadge">Version 1.0 · Effective: April 2025</span>
+      <span class="hbadge">Owner: GP Lead</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ══ 1. INDICATOR ══ -->
+  <div class="sec">
+    <div class="sec-title">📋 QOF Indicator at a Glance</div>
+    <div style="overflow-x:auto; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); margin-bottom:.6rem;">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Indicator</th>
+            <th>Points</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">COPD010</span></td>
+            <td>Annual review including: <strong>number of exacerbations recorded</strong> and <strong>MRC dyspnoea scale assessed</strong> — both coded on the same day as the review</td>
+            <td><span class="pts-badge">9 pts</span></td>
+            <td><span class="tgt-pill">50–90%</span></td>
+            <td>Preceding 12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert amber">
+      <span class="alert-icon">⚠️</span>
+      <div>Both COPD010 components must be coded on the <strong>same day as the review</strong>. Either component recorded on a different date means the indicator is not met for that patient.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 2. REVIEW COMPONENTS ══ -->
+  <div class="sec">
+    <div class="sec-title">📝 Annual Review Components</div>
+    <p style="font-size:.82rem; color:var(--mid); margin-bottom:.6rem;">Use <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS.</p>
+    <div class="grid2" style="margin-bottom:.6rem;">
+      <div class="card blue">
+        <div class="card-title">🌬️ 1. MRC Dyspnoea Scale <span style="background:#dbeafe;color:#1e40af;font-size:.65rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;margin-left:.2rem;">QOF</span></div>
+        <ul class="clist">
+          <li>Score and record MRC grade 1–5 with the patient</li>
+          <li>Code on the <strong>same day</strong> as the review</li>
+          <li>See MRC scale below for grade descriptors and actions</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">🗓️ 2. Number of Exacerbations <span style="background:#dbeafe;color:#1e40af;font-size:.65rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;margin-left:.2rem;">QOF</span></div>
+        <ul class="clist">
+          <li>Record number of exacerbations since the last review</li>
+          <li>Include OCS courses and unscheduled attendances</li>
+          <li>Code on the <strong>same day</strong> as the review</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <div class="card-title">📊 3. CAT Score <span style="background:#ffedd5;color:#9a3412;font-size:.65rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;border:1px solid #fed7aa;margin-left:.2rem;">LES Required</span></div>
+        <ul class="clist orange">
+          <li>Complete the COPD Assessment Test (CAT) with the patient</li>
+          <li>Score out of 40 — code result on the day of review</li>
+          <li>See CAT scoring guide below</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <div class="card-title">🏃 4. Pulmonary Rehabilitation <span style="background:#ffedd5;color:#9a3412;font-size:.65rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;border:1px solid #fed7aa;margin-left:.2rem;">LES Required (MRC ≥3)</span></div>
+        <ul class="clist orange">
+          <li>Refer if MRC grade ≥3 — required for LES</li>
+          <li>Document referral or patient's informed refusal</li>
+          <li>PR improves quality of life and reduces exacerbations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="card blue">
+        <div class="card-title">💨 5. Inhaler Technique</div>
+        <ul class="clist">
+          <li>Assess face to face with patient's own inhaler(s)</li>
+          <li>Document whether satisfactory; record corrective advice given</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">🚬 6. Smoking Status</div>
+        <ul class="clist">
+          <li>Record smoking status at every review</li>
+          <li>Refer all current smokers to Stop Smoking service</li>
+          <li>Document referral or informed refusal</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">💉 7. Vaccinations</div>
+        <ul class="clist">
+          <li>Check flu and pneumococcal vaccination status</li>
+          <li>Offer/arrange if due — annual flu vaccine is the most impactful COPD intervention</li>
+          <li>Code vaccinated or declined</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 3. MRC SCALE ══ -->
+  <div class="sec">
+    <div class="sec-title">🌬️ MRC Dyspnoea Scale — Grade Descriptors &amp; Actions</div>
+    <div style="overflow-x:auto; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.06);">
+      <table class="mrc-table">
+        <thead>
+          <tr>
+            <th>Grade</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mrc-grade">1</span></td>
+            <td>Not troubled by breathlessness except on strenuous exercise</td>
+            <td>Optimise risk factors; smoking cessation; annual flu vaccine</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade">2</span></td>
+            <td>Short of breath when hurrying on level ground or up a slight hill</td>
+            <td>Review inhaler therapy; smoking cessation; consider PR if symptomatic</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade g3">3</span></td>
+            <td>Walks slower than contemporaries on level ground or stops after ~15 minutes at own pace</td>
+            <td><strong>Refer to pulmonary rehabilitation (LES required)</strong>; review inhaled therapy</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade g4">4</span></td>
+            <td>Stops for breath after ~100 yards or after a few minutes on level ground</td>
+            <td>PR referral; <strong>refer to secondary care</strong> (GP or Pharmacist); review full inhaled therapy; ensure rescue pack in place</td>
+          </tr>
+          <tr>
+            <td><span class="mrc-grade g5">5</span></td>
+            <td>Too breathless to leave the house, or breathless when dressing/undressing</td>
+            <td><strong>Refer to secondary/tertiary care</strong> (GP or Pharmacist); palliative care consideration; urgent rescue plan</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 4. CAT SCORING ══ -->
+  <div class="sec">
+    <div class="sec-title">📊 CAT Score — Interpretation Guide <span style="background:#ffedd5;color:#9a3412;font-size:.65rem;font-weight:700;padding:.12rem .4rem;border-radius:3px;border:1px solid #fed7aa;">LES Required</span></div>
+    <p style="font-size:.82rem; color:var(--mid); margin-bottom:.6rem;">8 questions, each scored 0–5. Maximum score = 40. Higher score = greater impact on health status.</p>
+    <div class="cat-grid">
+      <div class="cat-card low">
+        <div class="cat-score">0–9</div>
+        <div class="cat-label">Low Impact</div>
+        <p class="cat-desc">COPD has little effect on daily life. Maintain current management; reinforce smoking cessation and vaccinations.</p>
+      </div>
+      <div class="cat-card med">
+        <div class="cat-score">10–20</div>
+        <div class="cat-label">Medium Impact</div>
+        <p class="cat-desc">Review inhaler technique and adherence. Consider stepped-up therapy. PR if MRC ≥3.</p>
+      </div>
+      <div class="cat-card high">
+        <div class="cat-score">21–30</div>
+        <div class="cat-label">High Impact</div>
+        <p class="cat-desc">Review therapy and adherence. PR referral. Consider secondary care referral if not improving.</p>
+      </div>
+      <div class="cat-card vhigh">
+        <div class="cat-score">31–40</div>
+        <div class="cat-label">Very High Impact</div>
+        <p class="cat-desc">Significant burden. Secondary care referral (GP or Pharmacist). Urgent review of full management plan.</p>
+      </div>
+    </div>
+    <div class="alert amber">
+      <span class="alert-icon">⚠️</span>
+      <div>Before stepping up treatment always check adherence via prescription records and reassess inhaler technique — poor adherence and technique are common causes of high CAT scores.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 5. EXACERBATIONS ══ -->
+  <div class="sec">
+    <div class="sec-title">⚡ Exacerbation Frequency — Management Implications</div>
+    <div class="grid2">
+      <div class="card amber">
+        <div class="card-title">⚠️ 2+ Exacerbations per Year</div>
+        <ul class="clist amber">
+          <li>Consider stepped-up inhaled therapy — review with Pharmacist</li>
+          <li>Offer pulmonary rehabilitation referral (also LES required if MRC ≥3)</li>
+          <li>Ensure rescue pack (prednisolone + antibiotic) is in place</li>
+          <li>Review inhaler technique and adherence</li>
+        </ul>
+      </div>
+      <div class="card red">
+        <div class="card-title">🚨 Frequent or Severe Exacerbations</div>
+        <ul class="clist red">
+          <li>Consider secondary care referral — GP or Pharmacist can refer</li>
+          <li>Review for ICS appropriateness if frequent exacerbator</li>
+          <li>Check for comorbidities contributing to exacerbation frequency</li>
+          <li>Ensure self-management plan is up to date</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 6. INHALED THERAPY ══ -->
+  <div class="sec">
+    <div class="sec-title">💊 Inhaled Therapy — Key Principles (NICE NG115)</div>
+    <div class="grid3">
+      <div class="card blue">
+        <div class="card-title">🔵 SABA (Reliever)</div>
+        <ul class="clist">
+          <li>For symptom relief — use as needed</li>
+          <li>Frequent SABA use indicates poor control — review</li>
+          <li>Not sufficient as sole long-term therapy</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <div class="card-title">🟢 LABA / LAMA (Maintenance)</div>
+        <ul class="clist">
+          <li>First-line maintenance therapy for breathlessness</li>
+          <li>LAMA preferred if available and tolerated</li>
+          <li>Consider dual LABA/LAMA for inadequate symptom control</li>
+        </ul>
+      </div>
+      <div class="card amber">
+        <div class="card-title">⚠️ ICS — Use with Caution</div>
+        <ul class="clist amber">
+          <li>Add ICS only where ≥2 exacerbations/year or asthmatic features</li>
+          <li>Risk of pneumonia — do not add without documented indication</li>
+          <li>Consider stepping down ICS if no ongoing indication</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert blue" style="margin-top:.5rem;">
+      <span class="alert-icon">🌿</span>
+      <div>Consider <strong>environmental impact</strong> when reviewing inhalers — offer low-carbon device options where clinically appropriate and acceptable to the patient. Document device choice discussion.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══ 7. REFERRAL ══ -->
+  <div class="sec">
+    <div class="sec-title">🔁 Referral to Secondary Care — GP or Pharmacist Can Refer</div>
+    <div class="grid2">
+      <div class="card red">
+        <div class="card-title">🚨 Refer to Secondary Care</div>
+        <ul class="clist red">
+          <li>MRC grade 4 or 5</li>
+          <li>Frequent or severe exacerbations despite optimised therapy</li>
+          <li>Diagnostic uncertainty — spirometry not confirming obstruction</li>
+          <li>Suspected alpha-1 antitrypsin deficiency</li>
+          <li>Rapid decline in FEV1 or significant weight loss</li>
+          <li>CAT score 31–40 not responding to primary care management</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="card-title">✅ Before Referring — Check</div>
+        <ul class="clist green">
+          <li>Inhaler technique assessed and corrected</li>
+          <li>Adherence confirmed via prescription records</li>
+          <li>Smoking cessation offered and documented</li>
+          <li>Pulmonary rehabilitation offered (if MRC ≥3)</li>
+          <li>Comorbidities (HF, anaemia, anxiety) considered and managed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; COPD QOF Clinical Quick Reference 2025/26 &nbsp;·&nbsp; Confidential — For Internal Use Only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+</body>
+</html>

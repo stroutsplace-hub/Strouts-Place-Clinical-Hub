@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYP QOF — Clinician Quick Reference 2025/26</title>
+<style>
+  :root {
+    --burg:        #9f1239;
+    --burg-dark:   #881337;
+    --burg-light:  #fecdd3;
+    --burg-pale:   #fff1f2;
+    --slate:       #082032;
+    --slate-mid:   #334155;
+    --slate-light: #94a3b8;
+    --amber:       #f59e0b;
+    --amber-light: #fef3c7;
+    --amber-dark:  #92400e;
+    --green-pale:  #f0fdf4;
+    --green:       #16a34a;
+    --green-border:#86efac;
+    --green-dark:  #166534;
+    --blue-pale:   #eff6ff;
+    --blue-border: #93c5fd;
+    --blue:        #1d4ed8;
+    --orange-pale: #fff7ed;
+    --orange-border:#fed7aa;
+    --orange:      #ea580c;
+    --white:       #ffffff;
+    --surface:     #f8fafc;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(159,18,57,.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(159,18,57,.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .nav-left { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+  .nav-brand { font-family: Georgia, 'Times New Roman', serif; font-size: .9rem; color: var(--burg-dark); white-space: nowrap; }
+  .nav-tag {
+    background: var(--burg-pale);
+    border: 1px solid var(--burg-light);
+    color: var(--burg-dark);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .2rem .6rem;
+    border-radius: 999px;
+  }
+  .nav-links { display: flex; gap: 0; list-style: none; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: .25rem .6rem;
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--slate-mid);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover { background: var(--burg-light); color: var(--burg-dark); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 66px 1.25rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #1a0008 0%, #6b0020 60%, #4c0519 100%);
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 85% 30%, rgba(254,205,211,.15) 0%, transparent 50%);
+  }
+  .page-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    position: relative;
+  }
+  .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.4rem, 3vw, 2rem); color: white; line-height: 1.15; }
+  .page-header h1 em { color: #fda4af; font-style: italic; }
+  .page-header p { color: #94a3b8; font-size: .82rem; margin-top: .3rem; }
+  .header-badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .header-badge { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #cbd5e1; font-size: .68rem; padding: .2rem .6rem; border-radius: 5px; }
+
+  /* ── SECTION LABEL ── */
+  .sec-label { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; margin-top: 1.5rem; }
+  .sec-num { width: 26px; height: 26px; background: var(--burg); color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .75rem; flex-shrink: 0; }
+  .sec-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 1rem; }
+  .ind-table { width: 100%; border-collapse: collapse; }
+  .ind-table thead tr { background: var(--burg-dark); }
+  .ind-table thead th { color: white; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: .6rem .9rem; text-align: left; }
+  .ind-table tbody tr:nth-child(even) { background: var(--burg-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--burg-light); }
+  .ind-table td { padding: .6rem .9rem; font-size: .83rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--burg-dark); font-size: .78rem; background: var(--burg-light); padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; display: inline-block; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .78rem; padding: .15rem .45rem; border-radius: 4px; text-align: center; min-width: 24px; }
+  .target-pill  { display: inline-block; background: var(--burg-pale); color: var(--burg-dark); font-weight: 600; font-size: .74rem; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; }
+
+  /* ── BP TARGET CARDS ── */
+  .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+  .bp-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+  .bp-card.under80 { border-left: 4px solid var(--burg); }
+  .bp-card.over80  { border-left: 4px solid #4c0519; }
+  .bp-label  { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--slate-light); margin-bottom: .2rem; }
+  .bp-num    { font-family: Georgia, 'Times New Roman', serif; font-size: 1.8rem; color: var(--burg-dark); line-height: 1; }
+  .bp-unit   { font-size: .72rem; color: var(--slate-mid); }
+  .bp-hbpm   { display: inline-block; background: var(--burg-pale); color: var(--burg-dark); font-size: .68rem; font-weight: 600; padding: .15rem .45rem; border-radius: 4px; margin-top: .3rem; }
+
+  /* ── CODING REQUIRED BOX ── */
+  .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+  .code-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: .85rem 1rem; border-top: 3px solid var(--burg); }
+  .code-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--burg-dark); margin-bottom: .5rem; }
+  .code-card ul { list-style: none; }
+  .code-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .2rem 0; padding-left: 1.1rem; position: relative; line-height: 1.4; border-bottom: 1px solid var(--border); }
+  .code-card ul li:last-child { border-bottom: none; }
+  .code-card ul li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .24rem; color: var(--burg); }
+  .code-card ul li .snomed { display: inline-block; background: var(--burg-pale); color: var(--burg-dark); font-size: .67rem; font-weight: 600; padding: .08rem .35rem; border-radius: 3px; margin-left: .25rem; }
+  .code-card ul li .note { display: block; font-size: .72rem; color: var(--slate-light); margin-top: .1rem; }
+
+  /* ── TREATMENT PATHWAY ── */
+  .tx-flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 1rem; position: relative; }
+  .tx-flow::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 24px; bottom: 24px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--burg), var(--burg-light));
+    border-radius: 2px;
+  }
+  .tx-step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: .6rem; }
+  .tx-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .85rem;
+    flex-shrink: 0;
+    position: relative; z-index: 1;
+    border: 2px solid;
+  }
+  .tx-num.s1 { background: var(--burg);      color: white;            border-color: var(--burg-dark); }
+  .tx-num.s2 { background: var(--burg-pale); color: var(--burg-dark); border-color: var(--burg-light); }
+  .tx-num.s3 { background: var(--amber-light); color: var(--amber-dark); border-color: #fcd34d; }
+  .tx-num.s4 { background: var(--blue-pale); color: var(--blue);      border-color: var(--blue-border); }
+  .tx-body { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: .75rem 1rem; flex: 1; }
+  .tx-step:hover .tx-body { box-shadow: 0 4px 16px rgba(159,18,57,.1); }
+  .tx-title { font-family: Georgia, 'Times New Roman', serif; font-size: .92rem; color: var(--slate); margin-bottom: .25rem; }
+  .tx-drugs { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
+  .drug-pill { font-size: .71rem; font-weight: 600; padding: .15rem .5rem; border-radius: 4px; }
+  .dp-burg   { background: var(--burg-light);   color: var(--burg-dark); }
+  .dp-amber  { background: var(--amber-light);  color: var(--amber-dark); }
+  .dp-blue   { background: var(--blue-pale);    color: var(--blue); }
+  .tx-note { font-size: .78rem; color: var(--slate-mid); line-height: 1.45; }
+  .tx-note strong { color: var(--slate); }
+  .tx-arrow { text-align: center; font-size: 1rem; color: var(--burg-light); margin: -.15rem 0 -.15rem 20px; line-height: 1; }
+
+  /* ── SNOMED REFERENCE TABLE ── */
+  .snomed-table { width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 1rem; }
+  .snomed-table thead tr { background: var(--slate); }
+  .snomed-table thead th { color: white; font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .55rem .8rem; text-align: left; }
+  .snomed-table tbody tr:nth-child(even) { background: var(--burg-pale); }
+  .snomed-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .snomed-table td { padding: .5rem .8rem; font-size: .8rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
+  .snomed-table tr:last-child td { border-bottom: none; }
+  .snomed-tag { display: inline-block; background: var(--burg-light); color: var(--burg-dark); font-weight: 700; font-size: .7rem; padding: .1rem .4rem; border-radius: 3px; }
+  .must-tag   { display: inline-block; background: #fef2f2; color: #b91c1c; font-weight: 700; font-size: .67rem; padding: .1rem .35rem; border-radius: 3px; margin-left: .2rem; }
+  .hbpm-tag   { display: inline-block; background: var(--blue-pale); color: var(--blue); font-weight: 700; font-size: .67rem; padding: .1rem .35rem; border-radius: 3px; }
+
+  /* ── ALERT / INFO ── */
+  .info-box { border-radius: 10px; padding: .75rem 1rem; font-size: .8rem; color: var(--slate-mid); margin-bottom: .75rem; display: flex; gap: .6rem; align-items: flex-start; }
+  .info-box.amber { background: var(--amber-light); border: 1px solid #fcd34d; }
+  .info-box.amber strong { color: var(--amber-dark); }
+  .info-box.green { background: var(--green-pale); border: 1px solid var(--green-border); }
+  .info-box.green strong { color: var(--green-dark); }
+  .info-box.burg  { background: var(--burg-pale); border: 1px solid var(--burg-light); }
+  .info-box.burg  strong { color: var(--burg-dark); }
+  .info-box.blue  { background: var(--blue-pale); border: 1px solid var(--blue-border); }
+  .info-box.blue  strong { color: var(--blue); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem 2.5rem;
+    color: var(--slate-light);
+    font-size: .72rem;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; gap: .5rem; }
+    .nav-tag { display: none; }
+    main { padding: 58px 1rem 2.5rem; }
+    .page-header { padding: 1.4rem 1.25rem; border-radius: 12px; }
+    .page-header h1 { font-size: 1.5rem; }
+    .bp-grid   { grid-template-columns: 1fr; }
+    .code-grid { grid-template-columns: 1fr; }
+    .tx-flow::before { left: 20px; }
+  }
+  @media (max-width: 400px) {
+    .nav-brand { font-size: .78rem; }
+    main { padding: 56px .75rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-brand">Strouts Place &nbsp;·&nbsp; HYP QOF</span>
+    <span class="nav-tag">Quick Reference</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#indicators">Indicators</a></li>
+    <li><a href="#coding">Coding</a></li>
+    <li><a href="#treatment">Treatment</a></li>
+    <li><a href="#refer">Referral</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <h1>Hypertension <em>QOF Management</em><br>Clinician Quick Reference</h1>
+        <p>HYP008 · HYP009 &nbsp;·&nbsp; Strouts Place Medical Centre &nbsp;·&nbsp; 2025/26</p>
+      </div>
+      <div class="header-badges">
+        <span class="header-badge">Version 1.0</span>
+        <span class="header-badge">April 2025</span>
+        <span class="header-badge">Owner: GP Lead</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="sec-label">
+      <div class="sec-num">1</div>
+      <h2 class="sec-title">QOF Indicators</h2>
+    </div>
+    <div class="ind-wrap">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>What must be recorded</th>
+            <th>Age group</th>
+            <th>Pts</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">HYP008</span></td>
+            <td>Last BP <strong>≤140/90 mmHg</strong> (clinic) or <strong>≤135/85 mmHg</strong> (HBPM)</td>
+            <td>≤79 years</td>
+            <td><span class="points-badge">38</span></td>
+            <td><span class="target-pill">40–85%</span></td>
+            <td>12 months</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">HYP009</span></td>
+            <td>Last BP <strong>≤150/90 mmHg</strong> (clinic) or <strong>≤145/85 mmHg</strong> (HBPM)</td>
+            <td>≥80 years</td>
+            <td><span class="points-badge">14</span></td>
+            <td><span class="target-pill">40–85%</span></td>
+            <td>12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bp-grid">
+      <div class="bp-card under80">
+        <div>
+          <div class="bp-label">HYP008 — Aged ≤79</div>
+          <div class="bp-num">140/90</div>
+          <div class="bp-unit">mmHg — clinic</div>
+          <div class="bp-hbpm">HBPM: ≤135/85 mmHg</div>
+        </div>
+        <div style="font-size:2rem; opacity:.15;">🩺</div>
+      </div>
+      <div class="bp-card over80">
+        <div>
+          <div class="bp-label">HYP009 — Aged ≥80</div>
+          <div class="bp-num">150/90</div>
+          <div class="bp-unit">mmHg — clinic</div>
+          <div class="bp-hbpm">HBPM: ≤145/85 mmHg</div>
+        </div>
+        <div style="font-size:2rem; opacity:.15;">🩺</div>
+      </div>
+    </div>
+
+    <div class="info-box amber">
+      <span>⚡</span>
+      <div>QOF uses the <strong>most recent</strong> BP result in the 12-month window. A repeat reading after a medication change can recover attainment for near-miss patients before year-end.</div>
+    </div>
+  </section>
+
+  <!-- CODING REQUIRED -->
+  <section id="coding">
+    <div class="sec-label">
+      <div class="sec-num">2</div>
+      <h2 class="sec-title">What Must Be Coded — BP Review</h2>
+    </div>
+    <p style="font-size:.8rem; color:var(--slate-mid); margin-bottom:.75rem;">Use the <strong>(RP) LTC Review Template CEG v1.4</strong> in EMIS. All items must be coded on the day of the appointment.</p>
+
+    <div class="code-grid">
+      <div class="code-card">
+        <div class="code-head">🩺 &nbsp;Clinical Measurements</div>
+        <ul>
+          <li>
+            Blood pressure (clinic)<span class="snomed">SNOMED BP</span>
+            <span class="note">Enter systolic and diastolic values separately</span>
+          </li>
+          <li>
+            OR Home blood pressure monitoring average<span class="snomed hbpm-tag" style="background:var(--blue-pale);color:var(--blue);">HBPM code</span>
+            <span class="note">Must use HBPM-specific SNOMED code — generic BP code will not satisfy QOF</span>
+          </li>
+          <li>Weight &amp; BMI</li>
+          <li>QRISK3 calculated &amp; coded</li>
+        </ul>
+      </div>
+      <div class="code-card">
+        <div class="code-head">📋 &nbsp;Lifestyle &amp; Review Items</div>
+        <ul>
+          <li>Smoking status</li>
+          <li>Alcohol status <span class="note">AUDIT-C if not recorded in past 12 months</span></li>
+          <li>Lifestyle advice — diet, salt reduction, exercise</li>
+          <li>Medication review — adherence, side-effects <span class="note">Pharmacist only</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box burg">
+      <span>⚠️</span>
+      <div><strong>HBPM coding is critical.</strong> An HBPM reading coded with a standard clinic BP SNOMED code will <em>not</em> be recognised as satisfying the QOF indicator. Always use the HBPM-specific code.</div>
+    </div>
+
+    <div style="background:#fef2f2; border:1px solid #fca5a5; border-radius:10px; padding:.75rem 1rem; font-size:.8rem; color:var(--slate-mid); margin-bottom:.75rem; display:flex; gap:.6rem; align-items:flex-start;">
+      <span>🚨</span>
+      <div><strong style="color:#b91c1c;">BP ≥180/120 mmHg — inform the GP same day.</strong> Do not discharge the patient until the GP has been made aware. The GP will assess for emergency features and determine whether same-day referral is required.</div>
+    </div>
+
+    <div class="info-box blue">
+      <span>🔄</span>
+      <div><strong>After any medication change</strong> — arrange a repeat BP check within <strong>4–8 weeks</strong> and re-code the result. The most recent reading in the window counts.</div>
+    </div>
+  </section>
+
+  <!-- TREATMENT PATHWAY -->
+  <section id="treatment">
+    <div class="sec-label">
+      <div class="sec-num">3</div>
+      <h2 class="sec-title">Treatment Pathway — NICE NG136</h2>
+    </div>
+    <p style="font-size:.8rem; color:var(--slate-mid); margin-bottom:.9rem;">Check adherence before stepping up. Non-adherence is the most common cause of apparent treatment resistance.</p>
+
+    <div class="tx-flow">
+
+      <div class="tx-step">
+        <div class="tx-num s1">1</div>
+        <div class="tx-body">
+          <div class="tx-title">Step 1 — Monotherapy</div>
+          <p class="tx-note">
+            <strong>Aged &lt;55 &amp; non-Black African/Caribbean:</strong> ACEi or ARB<br>
+            <strong>Aged ≥55 or Black African/Caribbean:</strong> CCB
+          </p>
+          <div class="tx-drugs">
+            <span class="drug-pill dp-burg">Amlodipine</span>
+            <span class="drug-pill dp-burg">Ramipril</span>
+            <span class="drug-pill dp-burg">Losartan</span>
+            <span class="drug-pill dp-burg">Perindopril</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tx-arrow">↓</div>
+
+      <div class="tx-step">
+        <div class="tx-num s2">2</div>
+        <div class="tx-body">
+          <div class="tx-title">Step 2 — Dual therapy</div>
+          <p class="tx-note">ACEi or ARB <strong>+</strong> CCB</p>
+          <div class="tx-drugs">
+            <span class="drug-pill dp-burg">ACEi / ARB + CCB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tx-arrow">↓</div>
+
+      <div class="tx-step">
+        <div class="tx-num s3">3</div>
+        <div class="tx-body">
+          <div class="tx-title">Step 3 — Triple therapy</div>
+          <p class="tx-note">ACEi or ARB <strong>+</strong> CCB <strong>+</strong> thiazide-like diuretic</p>
+          <div class="tx-drugs">
+            <span class="drug-pill dp-amber">Indapamide</span>
+            <span class="drug-pill dp-amber">Chlortalidone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tx-arrow">↓</div>
+
+      <div class="tx-step">
+        <div class="tx-num s4">4</div>
+        <div class="tx-body">
+          <div class="tx-title">Step 4 — Resistant hypertension</div>
+          <p class="tx-note">
+            <strong>K⁺ &lt;4.5 mmol/L:</strong> Add spironolactone 25 mg<br>
+            <strong>K⁺ ≥4.5 mmol/L:</strong> Add alpha-blocker or beta-blocker<br>
+            <strong>Consider specialist referral</strong> if still uncontrolled
+          </p>
+          <div class="tx-drugs">
+            <span class="drug-pill dp-blue">Spironolactone 25 mg</span>
+            <span class="drug-pill dp-blue">Doxazosin</span>
+            <span class="drug-pill dp-blue">Bisoprolol</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-box green">
+      <span>🧪</span>
+      <div><strong>Before step 4</strong> — check U&amp;Es and renal function. Monitor K⁺ within 1 month of starting spironolactone.</div>
+    </div>
+
+    <div class="info-box amber">
+      <span>🧓</span>
+      <div><strong>Frailty / aged ≥80</strong> — target is ≤150/90 mmHg (clinic). Use clinical judgement; consider reducing antihypertensives if symptomatic hypotension or falls risk.</div>
+    </div>
+  </section>
+
+  <!-- WHEN TO REFER -->
+  <section id="refer">
+    <div class="sec-label">
+      <div class="sec-num">4</div>
+      <h2 class="sec-title">When to Refer — NICE NG136</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:.75rem;">
+
+      <div style="background:#fef2f2; border:1px solid #fca5a5; border-top:3px solid #dc2626; border-radius:10px; padding:.85rem 1rem;">
+        <div style="font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#b91c1c; margin-bottom:.5rem;">🚨 &nbsp;Same-Day Emergency Referral</div>
+        <p style="font-size:.78rem; color:var(--slate-mid); margin-bottom:.4rem;">BP ≥180/120 mmHg <strong>with any of the following:</strong></p>
+        <ul style="list-style:none;">
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative; border-bottom:1px solid #fee2e2;"><span style="position:absolute;left:0;color:#dc2626;font-weight:700;">→</span>Signs of retinal haemorrhage or papilloedema <span style="font-size:.7rem;color:#b91c1c;">(accelerated hypertension)</span></li>
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative; border-bottom:1px solid #fee2e2;"><span style="position:absolute;left:0;color:#dc2626;font-weight:700;">→</span>Life-threatening symptoms — new confusion, chest pain, signs of heart failure or acute kidney injury</li>
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:#dc2626;font-weight:700;">→</span>Suspected phaeochromocytoma — labile/postural hypotension, headache, palpitations, pallor, diaphoresis</li>
+        </ul>
+      </div>
+
+      <div style="background:var(--amber-light); border:1px solid #fcd34d; border-top:3px solid var(--amber); border-radius:10px; padding:.85rem 1rem;">
+        <div style="font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--amber-dark); margin-bottom:.5rem;">📋 &nbsp;Routine / Urgent Specialist Referral</div>
+        <ul style="list-style:none;">
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative; border-bottom:1px solid #fde68a;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>BP uncontrolled on optimal tolerated doses of <strong>4 drugs</strong> (resistant hypertension)</li>
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative; border-bottom:1px solid #fde68a;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Age <strong>&lt;40</strong> with hypertension — specialist evaluation for secondary causes</li>
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative; border-bottom:1px solid #fde68a;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Signs or symptoms suggesting a <strong>secondary cause</strong> — renal bruits, hypokalaemia, Cushingoid features</li>
+          <li style="font-size:.79rem; color:var(--slate-mid); padding:.2rem 0; padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--amber);font-weight:700;">→</span>Postural hypotension persisting despite addressing likely causes</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="info-box burg">
+      <span>⚠️</span>
+      <div><strong>BP ≥180/120 mmHg without emergency features</strong> — do not refer immediately. Investigate for target organ damage (fundoscopy, urinalysis, renal function, ECG) as soon as possible. If target organ damage found: start treatment immediately. If not: repeat clinic BP within 7 days.</div>
+    </div>
+
+  </section>
+
+
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Hypertension QOF Clinician Quick Reference 2025/26 &nbsp;·&nbsp; For internal clinical use only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('section').forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.style.opacity = 0;
+      s.style.transform = 'translateY(20px)';
+      s.style.transition = 'opacity .5s ease, transform .5s ease';
+      obs.observe(s);
+    }
+  });
+</script>
+</body>
+</html>

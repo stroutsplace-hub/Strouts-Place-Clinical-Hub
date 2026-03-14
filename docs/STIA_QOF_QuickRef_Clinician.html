@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stroke &amp; TIA QOF — Clinician Quick Reference 2025/26</title>
+<style>
+  :root {
+    --orange:        #ea580c;
+    --orange-dark:   #c2410c;
+    --orange-light:  #fed7aa;
+    --orange-pale:   #fff7ed;
+    --slate:         #082032;
+    --slate-mid:     #334155;
+    --slate-light:   #94a3b8;
+    --amber:         #f59e0b;
+    --amber-light:   #fef3c7;
+    --amber-dark:    #92400e;
+    --red:           #b91c1c;
+    --red-dark:      #991b1b;
+    --red-light:     #fecaca;
+    --red-pale:      #fff1f2;
+    --info-light:    #eff6ff;
+    --info-border:   #93c5fd;
+    --green-pale:    #f0fdf4;
+    --green:         #16a34a;
+    --green-border:  #86efac;
+    --blue-pale:     #eff6ff;
+    --blue-border:   #93c5fd;
+    --blue-dark:     #1d4ed8;
+    --white:         #ffffff;
+    --surface:       #f8fafc;
+    --border:        #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--surface);
+    color: var(--slate);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(234,88,12,.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(234,88,12,.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER BANNER ── */
+  .header {
+    background: linear-gradient(135deg, #1c0a00 0%, #7c2d12 60%, #431407 100%);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 85% 10%, rgba(253,186,116,.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-tag {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #fdba74;
+    margin-bottom: .3rem;
+  }
+  .header-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: white;
+    line-height: 1.1;
+  }
+  .header-title em { font-style: italic; color: #fdba74; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; }
+  .hbadge {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    color: #cbd5e1;
+    font-size: .68rem;
+    padding: .2rem .6rem;
+    border-radius: 5px;
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.2rem 1.25rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; margin-top: 1.5rem; }
+  .sec-num {
+    width: 26px; height: 26px;
+    background: var(--orange);
+    color: white;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .75rem;
+    flex-shrink: 0;
+  }
+  .sec-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; color: var(--slate); }
+
+  /* ── INDICATOR TABLE ── */
+  .ind-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 1rem; }
+  .ind-table { width: 100%; border-collapse: collapse; }
+  .ind-table thead tr { background: var(--orange-dark); }
+  .ind-table thead th { color: white; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: .6rem .9rem; text-align: left; }
+  .ind-table tbody tr:nth-child(even) { background: var(--orange-pale); }
+  .ind-table tbody tr:nth-child(odd)  { background: var(--white); }
+  .ind-table tbody tr:hover           { background: var(--orange-light); }
+  .ind-table td { padding: .6rem .9rem; font-size: .83rem; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+  .ind-table tr:last-child td { border-bottom: none; }
+  .code-badge   { font-weight: 700; color: var(--orange-dark); font-size: .78rem; background: var(--orange-light); padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; display: inline-block; }
+  .points-badge { display: inline-block; background: var(--amber); color: white; font-weight: 700; font-size: .78rem; padding: .15rem .45rem; border-radius: 4px; text-align: center; min-width: 24px; }
+  .target-pill  { display: inline-block; background: var(--orange-pale); color: var(--orange-dark); font-weight: 600; font-size: .74rem; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; border: 1px solid var(--orange-light); }
+
+  /* ── BP TARGET CARDS ── */
+  .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+  .bp-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+  .bp-card.under80 { border-left: 4px solid var(--orange); }
+  .bp-card.over80  { border-left: 4px solid var(--orange-dark); }
+  .bp-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--slate-light); margin-bottom: .2rem; }
+  .bp-num   { font-family: Georgia, 'Times New Roman', serif; font-size: 1.8rem; color: var(--orange-dark); line-height: 1; }
+  .bp-unit  { font-size: .72rem; color: var(--slate-mid); }
+  .bp-hbpm  { display: inline-block; background: var(--orange-pale); color: var(--orange-dark); font-size: .68rem; font-weight: 600; padding: .15rem .45rem; border-radius: 4px; margin-top: .3rem; }
+
+  /* ── ANTIPLATELET GRID ── */
+  .ap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+  .ap-card { border-radius: 10px; padding: .8rem 1rem; border: 1px solid; }
+  .ap-card.firstline { background: var(--orange-pale);  border-color: var(--orange-light); }
+  .ap-card.stepdown  { background: var(--amber-light);  border-color: #fcd34d; }
+  .ap-card.af        { background: var(--blue-pale);    border-color: var(--blue-border); }
+  .ap-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .35rem; }
+  .ap-card.firstline .ap-head { color: var(--orange-dark); }
+  .ap-card.stepdown  .ap-head { color: var(--amber-dark); }
+  .ap-card.af        .ap-head { color: var(--blue-dark); }
+  .ap-card p  { font-size: .8rem; color: var(--slate-mid); line-height: 1.45; }
+  .ap-card ul { list-style: none; margin-top: .3rem; }
+  .ap-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .15rem 0 .15rem .9rem; position: relative; line-height: 1.4; }
+  .ap-card.firstline ul li::before { content: '›'; position: absolute; left: 0; font-weight: 700; color: var(--orange); }
+  .ap-card.stepdown  ul li::before { content: '›'; position: absolute; left: 0; font-weight: 700; color: var(--amber-dark); }
+  .ap-card.af        ul li::before { content: '›'; position: absolute; left: 0; font-weight: 700; color: var(--blue-dark); }
+
+  /* ── BP PATHWAY ── */
+  .bp-pathway { display: grid; grid-template-columns: 1fr 4px 1fr 4px 1fr; gap: .6rem; align-items: stretch; margin-bottom: 1rem; }
+  .bp-path-card { border-radius: 10px; padding: .8rem 1rem; border: 1px solid; }
+  .bp-path-card.normal { background: var(--green-pale);  border-color: var(--green-border); border-top: 3px solid var(--green); }
+  .bp-path-card.raised { background: var(--orange-pale); border-color: var(--orange-light); border-top: 3px solid var(--orange); }
+  .bp-path-card.urgent { background: var(--red-pale);    border-color: var(--red-light);    border-top: 3px solid var(--red); }
+  .bp-path-div { background: var(--border); border-radius: 2px; align-self: stretch; }
+  .bp-path-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .35rem; }
+  .bp-path-card.normal .bp-path-head { color: var(--green); }
+  .bp-path-card.raised .bp-path-head { color: var(--orange); }
+  .bp-path-card.urgent .bp-path-head { color: var(--red-dark); }
+  .bp-path-card ul { list-style: none; }
+  .bp-path-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .18rem 0; padding-left: .9rem; position: relative; line-height: 1.4; }
+  .bp-path-card ul li::before { content: '→'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .22rem; }
+  .bp-path-card.normal ul li::before { color: var(--green); }
+  .bp-path-card.raised ul li::before { color: var(--orange); }
+  .bp-path-card.urgent ul li::before { color: var(--red); }
+
+  /* ── MED REVIEW GRID ── */
+  .med-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+  .med-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: .85rem 1rem; }
+  .med-card.stia007 { border-top: 3px solid var(--orange); }
+  .med-card.statin  { border-top: 3px solid var(--blue-dark); }
+  .med-head { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .4rem; }
+  .med-card.stia007 .med-head { color: var(--orange-dark); }
+  .med-card.statin  .med-head { color: var(--blue-dark); }
+  .med-card ul { list-style: none; }
+  .med-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .18rem 0; padding-left: .9rem; position: relative; line-height: 1.4; }
+  .med-card ul li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; font-size: .72rem; top: .22rem; }
+  .med-card.stia007 ul li::before { color: var(--orange); }
+  .med-card.statin  ul li::before { color: var(--blue-dark); }
+  .statin-pills { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .5rem; }
+  .statin-pill  { background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 600; padding: .15rem .5rem; border-radius: 4px; }
+
+  /* ── EXCEPTION GRID ── */
+  .exception-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
+  .ex-card { background: var(--amber-light); border: 1px solid #fcd34d; border-radius: 10px; padding: .7rem .9rem; }
+  .ex-card .ex-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--amber-dark); margin-bottom: .3rem; }
+  .ex-card p { font-size: .79rem; color: var(--slate-mid); line-height: 1.4; }
+
+  /* ── CODING REMINDER ── */
+  .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .code-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 10px; padding: .75rem .9rem; }
+  .code-card-head { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--orange-dark); margin-bottom: .35rem; }
+  .code-card ul { list-style: none; }
+  .code-card ul li { font-size: .8rem; color: var(--slate-mid); padding: .15rem 0 .15rem .9rem; position: relative; line-height: 1.4; }
+  .code-card ul li::before { content: '›'; position: absolute; left: 0; font-weight: 700; color: var(--orange); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1.5rem 2.5rem;
+    color: var(--slate-light);
+    font-size: .75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    main { padding: 60px 1rem 2.5rem; }
+    .page-header { padding: 1.4rem 1.25rem; }
+    .ap-grid    { grid-template-columns: 1fr; }
+    .bp-pathway { grid-template-columns: 1fr; }
+    .bp-path-div { display: none; }
+    .med-grid   { grid-template-columns: 1fr; }
+    .code-grid  { grid-template-columns: 1fr; }
+    .exception-grid { grid-template-columns: 1fr; }
+    .bp-grid    { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 400px) {
+    .nav-brand { font-size: .78rem; }
+    main { padding: 56px .75rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="header-tag">Strouts Place Medical Centre · QOF 2025/26</div>
+      <div class="header-title">Stroke &amp; TIA<br><em>Clinician Quick Reference</em></div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge">Antiplatelet · BP Targets · Medication Review</span>
+      <span class="hbadge">Version 1.0 · Effective: April 2025</span>
+      <span class="hbadge">Owner: GP Lead</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <div class="sec-label">
+      <div class="sec-num">1</div>
+      <h2 class="sec-title">QOF Indicators</h2>
+    </div>
+    <div class="ind-wrap">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>What must be confirmed / recorded</th>
+            <th>Pts</th>
+            <th>Target</th>
+            <th>Window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code-badge">STIA007</span></td>
+            <td>Anti-platelet agent or anti-coagulant confirmed as <strong>taken</strong> — non-haemorrhagic stroke or TIA patients only</td>
+            <td><span class="points-badge">4</span></td>
+            <td><span class="target-pill">57–97%</span></td>
+            <td>12 months</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">STIA014</span></td>
+            <td>Last BP ≤140/90 mmHg (clinic) or ≤135/85 mmHg (HBPM) — patients aged <strong>≤79 years</strong></td>
+            <td><span class="points-badge">8</span></td>
+            <td><span class="target-pill">40–90%</span></td>
+            <td>12 months</td>
+          </tr>
+          <tr>
+            <td><span class="code-badge">STIA015</span></td>
+            <td>Last BP ≤150/90 mmHg (clinic) or ≤145/85 mmHg (HBPM) — patients aged <strong>≥80 years</strong></td>
+            <td><span class="points-badge">6</span></td>
+            <td><span class="target-pill">46–90%</span></td>
+            <td>12 months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BP TARGETS -->
+  <section id="bp">
+    <div class="sec-label">
+      <div class="sec-num">2</div>
+      <h2 class="sec-title">BP Targets at a Glance</h2>
+    </div>
+    <div class="bp-grid">
+      <div class="bp-card under80">
+        <div>
+          <div class="bp-label">STIA014 — Aged ≤79</div>
+          <div class="bp-num">140/90</div>
+          <div class="bp-unit">Clinic (mmHg)</div>
+          <div class="bp-hbpm">HBPM equivalent: 135/85</div>
+        </div>
+        <div style="font-size:2rem; opacity:.25;">🧠</div>
+      </div>
+      <div class="bp-card over80">
+        <div>
+          <div class="bp-label">STIA015 — Aged ≥80</div>
+          <div class="bp-num">150/90</div>
+          <div class="bp-unit">Clinic (mmHg)</div>
+          <div class="bp-hbpm">HBPM equivalent: 145/85</div>
+        </div>
+        <div style="font-size:2rem; opacity:.25;">🧠</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BP PATHWAY -->
+  <section id="pathway">
+    <div class="sec-label">
+      <div class="sec-num">3</div>
+      <h2 class="sec-title">BP Result Pathway</h2>
+    </div>
+    <div class="bp-pathway">
+      <div class="bp-path-card normal">
+        <div class="bp-path-head">✅ &nbsp;At target</div>
+        <ul>
+          <li>Code BP in EMIS same day</li>
+          <li>Proceed to Pharmacist medication review</li>
+          <li>QOF indicator met</li>
+        </ul>
+      </div>
+      <div class="bp-path-div"></div>
+      <div class="bp-path-card raised">
+        <div class="bp-path-head">⚠️ &nbsp;Above target — &lt;180/120</div>
+        <ul>
+          <li>Code BP same day</li>
+          <li>Flag to Pharmacist on the day</li>
+          <li>Admin books TC or F2F with Pharmacist</li>
+          <li>Pharmacist reviews regimen; up-titrates or adds agent</li>
+          <li>Arrange monitoring (U&amp;E, LFTs) as appropriate</li>
+          <li>Pharmacist BP clinic follow-up after medication change</li>
+        </ul>
+      </div>
+      <div class="bp-path-div"></div>
+      <div class="bp-path-card urgent">
+        <div class="bp-path-head">🚨 &nbsp;BP ≥180/120</div>
+        <ul>
+          <li>Do <strong>not</strong> book routine Pharmacist follow-up</li>
+          <li>Inform <strong>GP same day</strong></li>
+          <li>GP assesses for hypertensive urgency / emergency</li>
+          <li>GP determines management and follow-up plan</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANTIPLATELET GUIDANCE -->
+  <section id="antiplatelet">
+    <div class="sec-label">
+      <div class="sec-num">4</div>
+      <h2 class="sec-title">Antiplatelet &amp; Anticoagulant Guidance (STIA007)</h2>
+    </div>
+    <div class="ap-grid">
+      <div class="ap-card firstline">
+        <div class="ap-head">🟠 &nbsp;Non-AF — First line</div>
+        <p><strong>Clopidogrel 75 mg</strong> daily is the preferred long-term agent (note: unlicensed for TIA but recommended by NICE NG128 / BNF).</p>
+        <ul>
+          <li>Reduces risk of further vascular events by ~25%</li>
+          <li>Use for non-haemorrhagic stroke and TIA</li>
+        </ul>
+      </div>
+      <div class="ap-card stepdown">
+        <div class="ap-head">⚠️ &nbsp;Non-AF — If clopidogrel contra-indicated / not tolerated</div>
+        <ul>
+          <li><strong>MR dipyridamole + aspirin</strong></li>
+          <li>If both aspirin &amp; clopidogrel contra-indicated: <strong>MR dipyridamole alone</strong></li>
+          <li>If MR dipyridamole &amp; clopidogrel both contra-indicated: <strong>aspirin alone</strong></li>
+        </ul>
+      </div>
+      <div class="ap-card af">
+        <div class="ap-head">💙 &nbsp;Stroke associated with AF</div>
+        <p>Review for long-term <strong>anticoagulation</strong> — warfarin or a DOAC (apixaban, rivaroxaban, edoxaban, dabigatran).</p>
+        <ul>
+          <li>Confirm anticoagulant is actively being taken</li>
+          <li>Check INR is in range where warfarin is used</li>
+          <li>If anticoagulation not yet initiated — <strong>refer to local anticoagulation service</strong> for initiation</li>
+          <li>Refer to AF SOP if anticoagulation is suboptimal</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:var(--red-pale); border:1px solid var(--red-light); border-radius:10px; padding:.75rem 1rem; font-size:.8rem; color:var(--slate-mid); margin-bottom:1rem;">
+      <strong style="color:var(--red-dark);">⚠️ STIA007 register scope:</strong> This indicator applies only to patients coded as <strong>non-haemorrhagic (ischaemic) stroke</strong> or <strong>TIA</strong>. Haemorrhagic stroke patients are excluded from the denominator — verify coding rather than exception-reporting.
+    </div>
+  </section>
+
+  <!-- MEDICATION REVIEW -->
+  <section id="meds">
+    <div class="sec-label">
+      <div class="sec-num">5</div>
+      <h2 class="sec-title">Medication Review — Pharmacist</h2>
+    </div>
+    <div class="med-grid">
+      <div class="med-card stia007">
+        <div class="med-head">💊 &nbsp;STIA007 — Antiplatelet / Anticoagulant</div>
+        <ul>
+          <li>Confirm medication is actively <strong>taken</strong> — ask the patient directly</li>
+          <li>If not on therapy and no contraindication — review reasoning and escalate to GP</li>
+          <li>Confirm the correct agent is prescribed per NICE NG128 / BNF guidance</li>
+          <li>For AF patients: confirm DOAC or warfarin prescribed and being taken; check INR if on warfarin; if not yet initiated refer to <strong>local anticoagulation service</strong></li>
+          <li>Code STIA007 once confirmed as taken at this appointment</li>
+        </ul>
+      </div>
+      <div class="med-card statin">
+        <div class="med-head">📋 &nbsp;Statin Therapy (CHOL003 / CHOL004)</div>
+        <ul>
+          <li>Stroke/TIA patients are in scope for <strong>CHOL003</strong> (statin prescribing) and <strong>CHOL004</strong> (LDL ≤2.0 or non-HDL ≤2.6 mmol/L)</li>
+          <li>Confirm a statin is prescribed — high-intensity preferred per LES</li>
+          <li>Up-titrate or switch if not on a qualifying statin</li>
+          <li>Document reason if high-intensity statin not prescribed</li>
+          <li>Consider alternative lipid-lowering agent if statin not tolerated</li>
+        </ul>
+        <div class="statin-pills">
+          <span class="statin-pill">Atorvastatin 40 mg ✓</span>
+          <span class="statin-pill">Atorvastatin 80 mg ✓</span>
+          <span class="statin-pill">Rosuvastatin 20 mg ✓</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--info-light); border:1px solid var(--info-border); border-radius:10px; padding:.8rem 1rem; font-size:.8rem; color:var(--slate-mid); margin-bottom:1rem;">
+      <strong style="color:#1d4ed8;">🧪 Monitoring investigations</strong> — arrange as appropriate following medication initiation or dose change: <strong>renal function (U&amp;E), liver function (LFTs)</strong>. Particularly important after starting or up-titrating antihypertensives, anticoagulants, or statins.
+    </div>
+  </section>
+
+  <!-- CODING REMINDERS -->
+  <section id="coding">
+    <div class="sec-label">
+      <div class="sec-num">6</div>
+      <h2 class="sec-title">Coding Reminders</h2>
+    </div>
+    <div class="code-grid">
+      <div class="code-card">
+        <div class="code-card-head">🩺 &nbsp;BP Readings</div>
+        <ul>
+          <li>Code all BP readings in EMIS on the day of the appointment</li>
+          <li>Distinguish clinic readings from HBPM readings using correct SNOMED codes</li>
+          <li>Verify age band at each review — apply STIA014 (≤79) or STIA015 (≥80) correctly</li>
+        </ul>
+      </div>
+      <div class="code-card">
+        <div class="code-card-head">💊 &nbsp;STIA007 — Medication Coding</div>
+        <ul>
+          <li>Code medication as being <strong>taken</strong> — not merely prescribed</li>
+          <li>Confirmation should follow direct discussion with patient at medication review</li>
+          <li>Verify stroke type is coded as non-haemorrhagic — determines STIA007 eligibility</li>
+          <li>Secondary care correspondence: admin to scan and code medication changes on receipt</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  Strouts Place Medical Centre &nbsp;·&nbsp; Stroke &amp; TIA QOF Clinician Quick Reference 2025/26 &nbsp;·&nbsp; For internal clinical use only &nbsp;·&nbsp; Review: March 2026
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('section').forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      s.style.opacity = 0;
+      s.style.transform = 'translateY(20px)';
+      s.style.transition = 'opacity .5s ease, transform .5s ease';
+      obs.observe(s);
+    }
+  });
+</script>
+</body>
+</html>
