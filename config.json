@@ -40,6 +40,104 @@
       "icon": "📑",
       "color": "amber",
       "description": "Local and regional clinical guidelines and commissioning policies."
+    },
+    {
+      "id": "cardiology",
+      "title": "Cardiology",
+      "icon": "🫀",
+      "color": "red",
+      "description": "Cardiology referral pathways, guidelines and clinical resources."
+    },
+    {
+      "id": "respiratory",
+      "title": "Respiratory",
+      "icon": "🫁",
+      "color": "cyan",
+      "description": "Respiratory pathways and guidelines beyond QOF."
+    },
+    {
+      "id": "gastro",
+      "title": "Gastroenterology",
+      "icon": "🫃",
+      "color": "orange",
+      "description": "Gastroenterology referral pathways and clinical resources."
+    },
+    {
+      "id": "endocrine",
+      "title": "Endocrinology",
+      "icon": "💊",
+      "color": "indigo",
+      "description": "Endocrinology and diabetes guidelines and resources."
+    },
+    {
+      "id": "msk",
+      "title": "Musculoskeletal",
+      "icon": "🦴",
+      "color": "lime",
+      "description": "MSK pathways, physio referrals and joint guidelines."
+    },
+    {
+      "id": "mentalhealth",
+      "title": "Mental Health",
+      "icon": "🧠",
+      "color": "purple",
+      "description": "Mental health pathways, resources and referral guidance."
+    },
+    {
+      "id": "urology",
+      "title": "Urology",
+      "icon": "🔵",
+      "color": "blue",
+      "description": "Urology referral pathways and clinical guidelines."
+    },
+    {
+      "id": "sexualhealth",
+      "title": "Sexual Health",
+      "icon": "❤️",
+      "color": "pink",
+      "description": "Sexual health resources, referral pathways and guidelines."
+    },
+    {
+      "id": "safeguarding",
+      "title": "Safeguarding",
+      "icon": "🛡️",
+      "color": "red",
+      "description": "Safeguarding policies, referral pathways and resources."
+    },
+    {
+      "id": "paediatrics",
+      "title": "Paediatrics",
+      "icon": "👶",
+      "color": "green",
+      "description": "Paediatric guidelines, pathways and referral resources."
+    },
+    {
+      "id": "cancer",
+      "title": "Cancer & Screening",
+      "icon": "🧬",
+      "color": "orange",
+      "description": "2WW criteria, cancer pathways and screening programmes."
+    },
+    {
+      "id": "ophthalmology",
+      "title": "Ophthalmology",
+      "icon": "👁️",
+      "color": "cyan",
+      "description": "Eye conditions, referral thresholds and ophthalmology guidelines."
+    },
+    {
+      "id": "frailty",
+      "title": "Frailty & Older Adults",
+      "icon": "🧓",
+      "color": "amber",
+      "description": "Falls, care homes, advance care planning and frailty resources."
+    },
+    {
+      "id": "prescribing",
+      "title": "Prescribing & Medicines",
+      "icon": "💊",
+      "color": "green",
+      "description": "Polypharmacy, drug safety updates and prescribing guidance."
     }
   ],
   "documents": [
@@ -136,35 +234,40 @@
       "title": "Duty Doctor SOP",
       "icon": "👨‍⚕️",
       "meta": "SPMC · 2025/26",
-      "file": "docs/SPMC_Duty_Doctor_SOP.html"
+      "file": "docs/SPMC_Duty_Doctor_SOP.html",
+      "addedDate": "2026-03-15"
     },
     {
       "section": "community",
       "title": "Community Services",
       "icon": "🏘️",
       "meta": "Community Services · 2025/26",
-      "file": "docs/community_services.html"
+      "file": "docs/community_services.html",
+      "addedDate": "2026-03-15"
     },
     {
       "section": "guidelines",
       "title": "Weight Management Policy — NEL",
       "icon": "⚖️",
       "meta": "NHS North East London · Sep 2025",
-      "file": "docs/Weight-management-clinical-policy-NEL-V1_09_2025.pdf"
+      "file": "docs/Weight-management-clinical-policy-NEL-V1_09_2025.pdf",
+      "addedDate": "2026-03-15"
     },
     {
       "section": "guidelines",
       "title": "Laboratory Allergy Testing in Primary Care",
       "icon": "🧪",
       "meta": "Royal College of Pathologists · Jan 2025",
-      "file": "docs/Lab_Allergy_Testing-Guideline_Jan-2025.pdf"
+      "file": "docs/Lab_Allergy_Testing-Guideline_Jan-2025.pdf",
+      "addedDate": "2026-03-15"
     },
     {
       "section": "guidelines",
       "title": "Headache in Adults — Primary Care Pathway",
       "icon": "🧠",
       "meta": "NHS North Central London · Oct 2024",
-      "file": "docs/NEL_Headache_In_Adults_Pathway.pdf"
+      "file": "docs/NEL_Headache_In_Adults_Pathway.pdf",
+      "addedDate": "2026-03-15"
     }
   ]
 }
