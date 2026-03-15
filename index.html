@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strouts Place Clinical Hub</title>
+<style>
+  :root {
+    --navy: #0f2942;
+    --navy-mid: #1a3d5c;
+    --navy-light: #2a5a82;
+    --teal: #0ea472;
+    --teal-dark: #0b7a56;
+    --teal-light: #d4f5e9;
+    --purple: #6d28d9;
+    --purple-light: #ede9fe;
+    --purple-text: #4c1d95;
+    --rose: #be185d;
+    --rose-light: #fce7f3;
+    --rose-text: #831843;
+    --blue: #1d4ed8;
+    --blue-light: #dbeafe;
+    --blue-text: #1e3a8a;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --amber-text: #78350f;
+    --green: #15803d;
+    --green-light: #dcfce7;
+    --green-text: #14532d;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --red-text: #7f1d1d;
+    --orange: #ea580c;
+    --orange-light: #ffedd5;
+    --orange-text: #7c2d12;
+    --pink: #db2777;
+    --pink-light: #fce7f3;
+    --pink-text: #831843;
+    --indigo: #4338ca;
+    --indigo-light: #e0e7ff;
+    --indigo-text: #312e81;
+    --cyan: #0891b2;
+    --cyan-light: #cffafe;
+    --cyan-text: #164e63;
+    --lime: #65a30d;
+    --lime-light: #ecfccb;
+    --lime-text: #365314;
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --border: #dde3ea;
+    --text: #1a2733;
+    --muted: #5a6a78;
+    --pill-quick-bg: #e0f2fe;
+    --pill-quick-text: #0369a1;
+    --pill-deep-bg: #fef3c7;
+    --pill-deep-text: #92400e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* PIN */
+  #pin-screen { position: fixed; inset: 0; background: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+  .pin-box { background: #fff; border-radius: 18px; padding: 2.5rem 2rem; width: 320px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .pin-logo { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .pin-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .pin-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 1.5rem; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); background: transparent; transition: background .15s, border-color .15s; }
+  .pin-dot.filled { background: var(--navy); border-color: var(--navy); }
+  .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
+  .pin-key { padding: 0.9rem; border-radius: 10px; border: 1.5px solid var(--border); font-size: 1.2rem; font-weight: 600; color: var(--navy); background: var(--bg); cursor: pointer; transition: background .1s; -webkit-tap-highlight-color: transparent; }
+  .pin-key:active { background: var(--border); }
+  .pin-key.clear { font-size: 0.85rem; color: var(--muted); }
+  .pin-error { font-size: 0.8rem; color: var(--red); min-height: 1.2rem; margin-top: -0.5rem; }
+
+  /* HEADER */
+  .header {
+    background: #0f2942;
+    color: #fff;
+    padding: 1rem 2rem;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(14,164,114,0.4);
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo { width: 44px; height: 44px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(14,164,114,0.4); }
+  .header-text { display: flex; flex-direction: column; }
+  .header-title { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: #fff; }
+  .header-sub { font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-top: 1px; }
+  .header-badge { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 5px 14px; font-size: 0.72rem; color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
+
+  /* BREADCRUMB */
+  .breadcrumb { display: flex; align-items: center; gap: 6px; padding: 0.9rem 2rem; font-size: 0.82rem; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--surface); flex-wrap: wrap; position: sticky; top: 78px; z-index: 90; }
+  .breadcrumb .crumb { cursor: pointer; color: var(--navy-light); font-weight: 600; }
+  .breadcrumb .crumb:hover { text-decoration: underline; }
+  .breadcrumb .sep { color: var(--border); }
+  .breadcrumb .current { color: var(--muted); font-weight: 400; cursor: default; }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+  #doc-view { display: none; flex-direction: column; height: calc(100vh - 78px); }
+  #doc-view.active { display: flex; }
+
+  /* HOME */
+  #home-view .inner { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+
+  /* WELCOME BANNER */
+  .welcome-banner {
+    background: #1a56a0;
+    border-radius: 0;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.75rem;
+    color: #fff;
+    border-left: 4px solid #0ea472;
+  }
+  .welcome-banner h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .welcome-banner p { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 600px; }
+  .welcome-meta { margin-top: 1rem; display: flex; gap: 10px; flex-wrap: wrap; }
+  .welcome-pill { font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
+
+  /* GLOBAL SEARCH */
+  .global-search { margin-bottom: 1.75rem; position: relative; }
+  .global-search input {
+    width: 100%; padding: 0.85rem 1rem 0.85rem 3rem;
+    border: 2px solid var(--border); border-radius: 12px;
+    font-size: 0.95rem; background: var(--surface);
+    outline: none; transition: border-color .2s, box-shadow .2s;
+    color: var(--text);
+  }
+  .global-search input:focus { border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(42,90,130,0.1); }
+  .global-search .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.1rem; pointer-events: none; }
+  .search-results { margin-top: 0.75rem; display: none; }
+  .search-results.visible { display: block; }
+  .search-result-item { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 6px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: border-color .15s, box-shadow .15s; }
+  .search-result-item:hover { border-color: var(--navy-light); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .search-result-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .search-result-title { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+  .search-result-section { font-size: 0.75rem; color: var(--muted); }
+  .search-no-results { text-align: center; padding: 1.5rem; color: var(--muted); font-size: 0.9rem; background: var(--surface); border-radius: 10px; border: 1.5px solid var(--border); }
+
+  /* RECENTLY ADDED */
+  .home-block { margin-bottom: 1.75rem; }
+  .home-block-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+  .home-block-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .recent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+  .recent-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; display: flex; align-items: center; gap: 12px; }
+  .recent-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.09); border-color: var(--navy-light); }
+  .recent-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .recent-body { flex: 1; min-width: 0; }
+  .recent-title { font-size: 0.88rem; font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .recent-meta { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .new-badge { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: var(--teal-light); color: var(--teal-dark); border: 1px solid rgba(14,164,114,0.3); white-space: nowrap; flex-shrink: 0; }
+
+  /* SECTION TILES */
+  .sections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .section-tile { background: var(--surface); border-radius: 14px; border: 1.5px solid var(--border); padding: 1.25rem; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; display: flex; align-items: center; gap: 12px; }
+  .section-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.09); }
+  .tile-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .tile-body { flex: 1; min-width: 0; }
+  .tile-title { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .tile-count { font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; display: inline-block; }
+  .tile-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
+  .tile-empty { opacity: 0.55; }
+
+  /* SECTION VIEW */
+  .section-view .inner { padding: 1.5rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-header { margin-bottom: 1.25rem; }
+  .section-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .section-header p { color: var(--muted); font-size: 0.85rem; }
+  .search-wrap { margin-bottom: 1.25rem; position: relative; }
+  .search-wrap input { width: 100%; padding: 0.7rem 1rem 0.7rem 2.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.95rem; background: var(--surface); outline: none; transition: border-color .2s; }
+  .search-wrap input:focus { border-color: var(--navy-light); }
+  .search-wrap .search-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+
+  /* QOF CARDS */
+  .qof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1rem; }
+  .qof-card { background: var(--surface); border-radius: 14px; border: 1.5px solid var(--border); overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  .qof-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: var(--navy-light); }
+  .qof-card-top { padding: 1rem 1.25rem 0.75rem; display: flex; align-items: flex-start; gap: 12px; }
+  .qof-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .qof-info .code { font-size: 0.65rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .qof-info .name { font-size: 0.98rem; font-weight: 600; color: var(--navy); }
+  .qof-card-footer { padding: 0.5rem 1.25rem 0.85rem; display: flex; gap: 8px; }
+  .pill { font-size: 0.72rem; font-weight: 600; padding: 4px 11px; border-radius: 20px; cursor: pointer; border: none; outline: none; transition: opacity .15s; }
+  .pill:hover { opacity: 0.8; }
+  .pill-quick { background: #e0f2fe; color: #0369a1; }
+  .pill-sop { background: #fef3c7; color: #92400e; }
+
+  /* DOC CARDS */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .doc-card { background: var(--surface); border-radius: 14px; border: 1.5px solid var(--border); padding: 1.25rem; cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s; display: flex; align-items: center; gap: 14px; }
+  .doc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .doc-card-icon { width: 46px; height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .doc-card-body { flex: 1; min-width: 0; }
+  .doc-card-title { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .doc-card-meta { font-size: 0.75rem; color: var(--muted); }
+  .doc-card-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
+
+  .empty-section { text-align: center; padding: 3rem 2rem; color: var(--muted); background: var(--surface); border-radius: 14px; border: 1.5px dashed var(--border); }
+  .empty-section p { font-size: 0.9rem; }
+  .empty { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.9rem; }
+
+  /* DOC VIEW */
+  #doc-view { display: none; flex-direction: column; height: calc(100vh - 78px); }
+  #doc-view.active { display: flex; }
+  .doc-topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 52px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .back-btn { background: var(--navy); color: #fff; border: none; padding: 6px 14px; border-radius: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background .15s; white-space: nowrap; }
+  .back-btn:hover { background: var(--navy-mid); }
+  .doc-label { font-size: 0.95rem; font-weight: 600; color: var(--navy); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .toggle-wrap { display: flex; background: var(--bg); border-radius: 8px; padding: 3px; gap: 2px; flex-shrink: 0; }
+  .toggle-btn { padding: 5px 14px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background .15s, color .15s; background: transparent; color: var(--muted); white-space: nowrap; }
+  .toggle-btn.active { background: var(--surface); color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+  .doc-frame { flex: 1; border: none; width: 100%; display: block; }
+
+  /* COLOR THEMES */
+  .color-teal .tile-icon { background: var(--teal-light); }
+  .color-teal .tile-count { background: var(--teal-light); color: var(--teal-dark); }
+  .color-teal .section-tile:hover { border-color: var(--teal); }
+  .color-teal .doc-card-icon { background: var(--teal-light); }
+  .color-teal .doc-card:hover { border-color: var(--teal); }
+  .color-purple .tile-icon { background: var(--purple-light); }
+  .color-purple .tile-count { background: var(--purple-light); color: var(--purple-text); }
+  .color-purple .section-tile:hover { border-color: var(--purple); }
+  .color-purple .doc-card-icon { background: var(--purple-light); }
+  .color-purple .doc-card:hover { border-color: var(--purple); }
+  .color-rose .tile-icon { background: var(--rose-light); }
+  .color-rose .tile-count { background: var(--rose-light); color: var(--rose-text); }
+  .color-rose .section-tile:hover { border-color: var(--rose); }
+  .color-rose .doc-card-icon { background: var(--rose-light); }
+  .color-rose .doc-card:hover { border-color: var(--rose); }
+  .color-blue .tile-icon { background: var(--blue-light); }
+  .color-blue .tile-count { background: var(--blue-light); color: var(--blue-text); }
+  .color-blue .section-tile:hover { border-color: var(--blue); }
+  .color-blue .doc-card-icon { background: var(--blue-light); }
+  .color-blue .doc-card:hover { border-color: var(--blue); }
+  .color-amber .tile-icon { background: var(--amber-light); }
+  .color-amber .tile-count { background: var(--amber-light); color: var(--amber-text); }
+  .color-amber .section-tile:hover { border-color: var(--amber); }
+  .color-amber .doc-card-icon { background: var(--amber-light); }
+  .color-amber .doc-card:hover { border-color: var(--amber); }
+  .color-green .tile-icon { background: var(--green-light); }
+  .color-green .tile-count { background: var(--green-light); color: var(--green-text); }
+  .color-green .section-tile:hover { border-color: var(--green); }
+  .color-green .doc-card-icon { background: var(--green-light); }
+  .color-green .doc-card:hover { border-color: var(--green); }
+  .color-red .tile-icon { background: var(--red-light); }
+  .color-red .tile-count { background: var(--red-light); color: var(--red-text); }
+  .color-red .section-tile:hover { border-color: var(--red); }
+  .color-red .doc-card-icon { background: var(--red-light); }
+  .color-red .doc-card:hover { border-color: var(--red); }
+  .color-orange .tile-icon { background: var(--orange-light); }
+  .color-orange .tile-count { background: var(--orange-light); color: var(--orange-text); }
+  .color-orange .section-tile:hover { border-color: var(--orange); }
+  .color-orange .doc-card-icon { background: var(--orange-light); }
+  .color-orange .doc-card:hover { border-color: var(--orange); }
+  .color-indigo .tile-icon { background: var(--indigo-light); }
+  .color-indigo .tile-count { background: var(--indigo-light); color: var(--indigo-text); }
+  .color-indigo .section-tile:hover { border-color: var(--indigo); }
+  .color-indigo .doc-card-icon { background: var(--indigo-light); }
+  .color-indigo .doc-card:hover { border-color: var(--indigo); }
+  .color-cyan .tile-icon { background: var(--cyan-light); }
+  .color-cyan .tile-count { background: var(--cyan-light); color: var(--cyan-text); }
+  .color-cyan .section-tile:hover { border-color: var(--cyan); }
+  .color-cyan .doc-card-icon { background: var(--cyan-light); }
+  .color-cyan .doc-card:hover { border-color: var(--cyan); }
+  .color-lime .tile-icon { background: var(--lime-light); }
+  .color-lime .tile-count { background: var(--lime-light); color: var(--lime-text); }
+  .color-lime .section-tile:hover { border-color: var(--lime); }
+  .color-lime .doc-card-icon { background: var(--lime-light); }
+  .color-lime .doc-card:hover { border-color: var(--lime); }
+  .color-pink .tile-icon { background: var(--pink-light); }
+  .color-pink .tile-count { background: var(--pink-light); color: var(--pink-text); }
+  .color-pink .section-tile:hover { border-color: var(--pink); }
+  .color-pink .doc-card-icon { background: var(--pink-light); }
+  .color-pink .doc-card:hover { border-color: var(--pink); }
+
+  /* LOADING */
+  #loading { position: fixed; inset: 0; background: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 2000; flex-direction: column; gap: 1rem; color: #fff; }
+  #loading .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--teal); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading p { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spinner"></div><p>Loading Clinical Hub…</p></div>
+
+<div id="pin-screen" style="display:none;">
+  <div class="pin-box">
+    <div class="pin-logo">🏥</div>
+    <div class="pin-title" id="pin-title">Strouts Place Clinical Hub</div>
+    <div class="pin-sub">Enter PIN to continue</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-keypad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key clear" onclick="pinClear()">Clear</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key clear" onclick="pinBack()">&#9003;</button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<header class="header" id="app-header" style="display:none;">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">🏥</div>
+      <div class="header-text">
+        <div class="header-title" id="header-title">Strouts Place Clinical Hub</div>
+        <div class="header-sub" id="header-sub">Strouts Place Medical Centre</div>
+      </div>
+    </div>
+    <div class="header-badge">Internal Use Only</div>
+  </div>
+</header>
+
+<div id="home-view" class="view">
+  <div class="inner">
+    <div class="welcome-banner">
+      <h1>Welcome to the Clinical Hub</h1>
+      <p id="welcome-msg">Supporting our team to learn, grow and deliver excellent care. Explore our shared clinical resources, guidelines and practice tools — built by us, for us.</p>
+      <div class="welcome-meta">
+        <span class="welcome-pill" id="doc-count-pill">Loading…</span>
+        <span class="welcome-pill" id="section-count-pill"></span>
+      </div>
+    </div>
+
+    <div class="global-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="global-search-input" placeholder="Search all documents across every section…" oninput="globalSearch(this.value)">
+      <div class="search-results" id="search-results"></div>
+    </div>
+
+    <div class="home-block" id="recent-block" style="display:none;">
+      <div class="home-block-title">Recently Added</div>
+      <div class="recent-grid" id="recent-grid"></div>
+    </div>
+
+    <div class="home-block">
+      <div class="home-block-title">All Sections</div>
+      <div class="sections-grid" id="home-sections"></div>
+    </div>
+  </div>
+</div>
+
+<div id="section-view" class="view section-view">
+  <div class="breadcrumb">
+    <span class="crumb" onclick="showHome()">Home</span>
+    <span class="sep">›</span>
+    <span class="current" id="section-breadcrumb"></span>
+  </div>
+  <div class="inner">
+    <div class="section-header">
+      <h2 id="section-title"></h2>
+      <p id="section-desc"></p>
+    </div>
+    <div class="search-wrap" id="search-wrap" style="display:none;">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search…" oninput="filterDocs(this.value)">
+    </div>
+    <div id="section-content"></div>
+    <div class="empty" id="no-results" style="display:none;">No documents match your search.</div>
+  </div>
+</div>
+
+<div id="doc-view">
+  <div class="doc-topbar">
+    <button class="back-btn" onclick="closeDoc()">&#8592; Back</button>
+    <span class="doc-label" id="doc-label"></span>
+    <div class="toggle-wrap" id="toggle-wrap" style="display:none;">
+      <button class="toggle-btn active" id="btn-quick" onclick="switchMode('quick')">Quick Ref</button>
+      <button class="toggle-btn" id="btn-sop" onclick="switchMode('sop')">Full SOP</button>
+    </div>
+  </div>
+  <iframe class="doc-frame" id="doc-frame"></iframe>
+</div>
+
+<script>
+let CONFIG = null;
+let currentSection = null;
+let currentDoc = null;
+let currentMode = 'quick';
+let returnSection = null;
+
+const FOUR_WEEKS_MS = 28 * 24 * 60 * 60 * 1000;
+
+async function init() {
+  try {
+    const res = await fetch('config.json');
+    CONFIG = await res.json();
+    document.getElementById('pin-title').textContent = CONFIG.app.name;
+    document.getElementById('header-title').textContent = CONFIG.app.name;
+    document.getElementById('header-sub').textContent = CONFIG.app.subtitle;
+    document.getElementById('loading').style.display = 'none';
+    if (localStorage.getItem('spmc_auth') === CONFIG.app.pin) {
+      launchApp();
+    } else {
+      document.getElementById('pin-screen').style.display = 'flex';
+    }
+  } catch(e) {
+    document.getElementById('loading').innerHTML = '<p style="color:#fff;padding:2rem;text-align:center;">Could not load config.json.<br>Make sure it is in the same folder as index.html.</p>';
+  }
+}
+
+function launchApp() {
+  document.getElementById('pin-screen').style.display = 'none';
+  document.getElementById('app-header').style.display = 'flex';
+  buildHome();
+  showHome();
+}
+
+let pinEntry = '';
+function pinPress(d) { if(pinEntry.length>=4) return; pinEntry+=d; updateDots(); if(pinEntry.length===4) setTimeout(checkPin,150); }
+function pinBack() { pinEntry=pinEntry.slice(0,-1); updateDots(); document.getElementById('pin-error').textContent=''; }
+function pinClear() { pinEntry=''; updateDots(); document.getElementById('pin-error').textContent=''; }
+function updateDots() { for(let i=0;i<4;i++) document.getElementById('d'+i).classList.toggle('filled',i<pinEntry.length); }
+function checkPin() {
+  if(pinEntry===CONFIG.app.pin) { localStorage.setItem('spmc_auth',CONFIG.app.pin); launchApp(); }
+  else { document.getElementById('pin-error').textContent='Incorrect PIN — please try again'; pinEntry=''; updateDots(); }
+}
+
+function buildHome() {
+  const totalDocs = CONFIG.documents.length;
+  const totalSections = CONFIG.sections.length;
+  document.getElementById('doc-count-pill').textContent = totalDocs + ' document' + (totalDocs!==1?'s':'');
+  document.getElementById('section-count-pill').textContent = totalSections + ' section' + (totalSections!==1?'s':'');
+
+  buildRecentlyAdded();
+  buildSectionTiles();
+}
+
+function buildRecentlyAdded() {
+  const now = Date.now();
+  const recent = CONFIG.documents.filter(d => {
+    if (!d.addedDate) return false;
+    const added = new Date(d.addedDate).getTime();
+    return (now - added) <= FOUR_WEEKS_MS;
+  });
+
+  if (recent.length === 0) return;
+  document.getElementById('recent-block').style.display = 'block';
+  const grid = document.getElementById('recent-grid');
+  recent.forEach(doc => {
+    const card = document.createElement('div');
+    card.className = 'recent-card';
+    const sec = CONFIG.sections.find(s => s.id === doc.section);
+    card.innerHTML = `
+      <div class="recent-icon">${doc.icon}</div>
+      <div class="recent-body">
+        <div class="recent-title">${doc.title}</div>
+        <div class="recent-meta">${sec ? sec.title : ''}</div>
+      </div>
+      <span class="new-badge">New</span>`;
+    card.addEventListener('click', () => openDocFromAnywhere(doc));
+    grid.appendChild(card);
+  });
+}
+
+function buildSectionTiles() {
+  const container = document.getElementById('home-sections');
+  CONFIG.sections.forEach(sec => {
+    const docs = CONFIG.documents.filter(d => d.section === sec.id);
+    const count = docs.length;
+    const isEmpty = count === 0;
+    const countLabel = sec.id === 'qof'
+      ? count + ' condition' + (count!==1?'s':'')
+      : count + ' document' + (count!==1?'s':'');
+    const tile = document.createElement('div');
+    tile.className = `section-tile color-${sec.color}${isEmpty?' tile-empty':''}`;
+    tile.innerHTML = `
+      <div class="tile-icon">${sec.icon}</div>
+      <div class="tile-body">
+        <div class="tile-title">${sec.title}</div>
+        <span class="tile-count">${isEmpty ? 'Coming soon' : countLabel}</span>
+      </div>
+      <div class="tile-arrow">›</div>`;
+    tile.addEventListener('click', () => showSection(sec.id));
+    container.appendChild(tile);
+  });
+}
+
+function showHome() {
+  setView('home-view');
+  currentSection = null;
+  document.getElementById('global-search-input').value = '';
+  document.getElementById('search-results').classList.remove('visible');
+  document.getElementById('search-results').innerHTML = '';
+}
+
+function globalSearch(val) {
+  const q = val.toLowerCase().trim();
+  const resultsEl = document.getElementById('search-results');
+  if (!q) { resultsEl.classList.remove('visible'); resultsEl.innerHTML = ''; return; }
+  const matches = CONFIG.documents.filter(d =>
+    d.title.toLowerCase().includes(q) ||
+    (d.code||'').toLowerCase().includes(q) ||
+    (d.meta||'').toLowerCase().includes(q)
+  );
+  resultsEl.classList.add('visible');
+  if (matches.length === 0) {
+    resultsEl.innerHTML = '<div class="search-no-results">No documents found matching "' + val + '"</div>';
+    return;
+  }
+  resultsEl.innerHTML = '';
+  matches.forEach(doc => {
+    const sec = CONFIG.sections.find(s => s.id === doc.section);
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `
+      <div class="search-result-icon">${doc.icon}</div>
+      <div>
+        <div class="search-result-title">${doc.title}</div>
+        <div class="search-result-section">${sec ? sec.title : ''}</div>
+      </div>`;
+    item.addEventListener('click', () => {
+      document.getElementById('global-search-input').value = '';
+      resultsEl.classList.remove('visible');
+      openDocFromAnywhere(doc);
+    });
+    resultsEl.appendChild(item);
+  });
+}
+
+function openDocFromAnywhere(doc) {
+  if (doc.quickref) {
+    currentSection = doc.section;
+    openQof({}, encodeURIComponent(JSON.stringify(doc)), 'quick');
+  } else {
+    currentSection = doc.section;
+    openSingleDoc(doc);
+  }
+}
+
+function showSection(sectionId) {
+  const sec = CONFIG.sections.find(s => s.id === sectionId);
+  const docs = CONFIG.documents.filter(d => d.section === sectionId);
+  currentSection = sectionId;
+  document.getElementById('section-breadcrumb').textContent = sec.title;
+  document.getElementById('section-title').textContent = sec.icon + '  ' + sec.title;
+  document.getElementById('section-desc').textContent = sec.description;
+  const isQof = sectionId === 'qof';
+  const searchWrap = document.getElementById('search-wrap');
+  searchWrap.style.display = isQof && docs.length > 0 ? 'block' : 'none';
+  document.getElementById('search-input').value = '';
+  const content = document.getElementById('section-content');
+  content.innerHTML = '';
+  if (docs.length === 0) {
+    content.innerHTML = '<div class="empty-section"><p>No documents have been added to this section yet.</p></div>';
+    setView('section-view'); return;
+  }
+  if (isQof) {
+    const grid = document.createElement('div');
+    grid.className = 'qof-grid';
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'qof-card';
+      card.dataset.title = doc.title.toLowerCase();
+      card.dataset.code = (doc.code||'').toLowerCase();
+      card.innerHTML = `
+        <div class="qof-card-top">
+          <div class="qof-icon">${doc.icon}</div>
+          <div class="qof-info"><div class="code">${doc.code||''}</div><div class="name">${doc.title}</div></div>
+        </div>
+        <div class="qof-card-footer">
+          <button class="pill pill-quick" onclick="openQof(event,'${encodeURIComponent(JSON.stringify(doc))}','quick')">Quick Ref</button>
+          <button class="pill pill-sop" onclick="openQof(event,'${encodeURIComponent(JSON.stringify(doc))}','sop')">Full SOP</button>
+        </div>`;
+      card.addEventListener('click', e => { if(!e.target.classList.contains('pill')) openQof(e, encodeURIComponent(JSON.stringify(doc)), 'quick'); });
+      grid.appendChild(card);
+    });
+    content.appendChild(grid);
+  } else {
+    const grid = document.createElement('div');
+    grid.className = `doc-grid color-${sec.color}`;
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'doc-card';
+      const ext = (doc.file||'').split('.').pop().toLowerCase();
+      const badge = ext==='pdf' ? '📄 PDF' : (ext==='docx'||ext==='doc') ? '📥 Word' : '';
+      const badgeHtml = badge ? '<span style="font-size:0.65rem;font-weight:600;padding:2px 7px;border-radius:8px;background:var(--bg);color:var(--muted);border:1px solid var(--border);margin-left:6px;">'+badge+'</span>' : '';
+      const arrow = ext==='pdf' ? '↗' : (ext==='docx'||ext==='doc') ? '↓' : '›';
+      card.innerHTML = `
+        <div class="doc-card-icon">${doc.icon}</div>
+        <div class="doc-card-body">
+          <div class="doc-card-title">${doc.title}${badgeHtml}</div>
+          <div class="doc-card-meta">${doc.meta||''}</div>
+        </div>
+        <div class="doc-card-arrow">${arrow}</div>`;
+      card.addEventListener('click', () => openSingleDoc(doc));
+      grid.appendChild(card);
+    });
+    content.appendChild(grid);
+  }
+  setView('section-view');
+}
+
+function openQof(e, encoded, mode) {
+  if(e && e.stopPropagation) e.stopPropagation();
+  const doc = JSON.parse(decodeURIComponent(encoded));
+  currentDoc = doc; currentMode = mode;
+  returnSection = currentSection || 'qof';
+  document.getElementById('toggle-wrap').style.display = 'flex';
+  document.getElementById('doc-label').textContent = doc.icon + '  ' + doc.title;
+  loadFrame(mode==='quick' ? doc.quickref : doc.fullsop);
+  updateToggle(mode);
+  setView('doc-view');
+}
+
+function switchMode(mode) {
+  if(mode===currentMode) return;
+  currentMode = mode;
+  loadFrame(mode==='quick' ? currentDoc.quickref : currentDoc.fullsop);
+  updateToggle(mode);
+}
+
+function updateToggle(mode) {
+  document.getElementById('btn-quick').className = 'toggle-btn'+(mode==='quick'?' active':'');
+  document.getElementById('btn-sop').className = 'toggle-btn'+(mode==='sop'?' active':'');
+}
+
+function openSingleDoc(doc) {
+  const ext = (doc.file||'').split('.').pop().toLowerCase();
+  if (ext==='docx'||ext==='doc') {
+    const a = document.createElement('a'); a.href=doc.file; a.download=doc.file.split('/').pop(); a.click(); return;
+  }
+  if (ext==='pdf') { window.open(doc.file,'_blank'); return; }
+  currentDoc = doc; returnSection = currentSection;
+  document.getElementById('toggle-wrap').style.display = 'none';
+  document.getElementById('doc-label').textContent = doc.icon + '  ' + doc.title;
+  loadFrame(doc.file);
+  setView('doc-view');
+}
+
+function loadFrame(url) { document.getElementById('doc-frame').src = url; }
+
+function closeDoc() {
+  document.getElementById('doc-frame').src = '';
+  if(returnSection) showSection(returnSection);
+  else showHome();
+}
+
+function filterDocs(val) {
+  const q = val.toLowerCase().trim(); let visible=0;
+  document.querySelectorAll('.qof-card').forEach(card => {
+    const match = !q||card.dataset.title.includes(q)||card.dataset.code.includes(q);
+    card.style.display = match?'':'none'; if(match) visible++;
+  });
+  document.getElementById('no-results').style.display = visible===0?'block':'none';
+}
+
+function setView(id) {
+  document.getElementById('home-view').classList.toggle('active', id==='home-view');
+  document.getElementById('section-view').classList.toggle('active', id==='section-view');
+  document.getElementById('doc-view').classList.toggle('active', id==='doc-view');
+}
+
+init();
+</script>
+</body>
+</html>
