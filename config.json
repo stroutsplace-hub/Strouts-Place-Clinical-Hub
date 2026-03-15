@@ -33,6 +33,13 @@
       "icon": "🏘️",
       "color": "blue",
       "description": "Community service referral pathways and resources."
+    },
+    {
+      "id": "guidelines",
+      "title": "Local Guidelines & Policies",
+      "icon": "📑",
+      "color": "amber",
+      "description": "Local and regional clinical guidelines and commissioning policies."
     }
   ],
   "documents": [
@@ -137,6 +144,27 @@
       "icon": "🏘️",
       "meta": "Community Services · 2025/26",
       "file": "docs/community_services.html"
+    },
+    {
+      "section": "guidelines",
+      "title": "Weight Management Policy — NEL",
+      "icon": "⚖️",
+      "meta": "NHS North East London · Sep 2025",
+      "file": "docs/Weight-management-clinical-policy-NEL-V1_09_2025.pdf"
+    },
+    {
+      "section": "guidelines",
+      "title": "Laboratory Allergy Testing in Primary Care",
+      "icon": "🧪",
+      "meta": "Royal College of Pathologists · Jan 2025",
+      "file": "docs/Lab_Allergy_Testing-Guideline_Jan-2025.pdf"
+    },
+    {
+      "section": "guidelines",
+      "title": "Headache in Adults — Primary Care Pathway",
+      "icon": "🧠",
+      "meta": "NHS North Central London · Oct 2024",
+      "file": "docs/NEL_Headache_In_Adults_Pathway.pdf"
     }
   ]
 }
