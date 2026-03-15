@@ -58,14 +58,14 @@
     {
       "id": "gastro",
       "title": "Gastroenterology",
-      "icon": "🫃",
+      "icon": "🩺",
       "color": "orange",
       "description": "Gastroenterology referral pathways and clinical resources."
     },
     {
       "id": "endocrine",
       "title": "Endocrinology",
-      "icon": "💊",
+      "icon": "🩸",
       "color": "indigo",
       "description": "Endocrinology and diabetes guidelines and resources."
     },
